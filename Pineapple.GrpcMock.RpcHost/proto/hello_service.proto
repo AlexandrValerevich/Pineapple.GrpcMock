@@ -1,0 +1,15 @@
+syntax = "proto3";
+
+package tradinghouse.common;
+
+import "google/protobuf/empty.proto";
+
+option csharp_namespace = "TradingHouse.Common.CustomerSettings.Protos";
+
+service HelloService{
+  rpc List (google.protobuf.Empty) returns (HelloResponse);
+}
+
+message HelloResponse {
+  string message = 1;
+}

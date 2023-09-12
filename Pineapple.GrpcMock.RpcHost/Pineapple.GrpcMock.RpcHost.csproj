@@ -1,0 +1,27 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+    <PropertyGroup>
+        <TargetFramework>net7.0</TargetFramework>
+        <Nullable>enable</Nullable>
+        <ImplicitUsings>enable</ImplicitUsings>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <PackageReference Include="Grpc.AspNetCore" Version="2.57.0" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <Protobuf Include="./proto/*.proto" GrpcServices="Both" CompileOutputs="true" />
+        <Content Include="./proto/*.proto">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </Content>
+    </ItemGroup>
+
+    <ItemGroup>
+        <Protobuf Include="$(Proto__Folder)/*.proto" GrpcServices="Both" CompileOutputs="true" />
+        <Content Include="$(Proto__Folder)/*.proto">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </Content>
+    </ItemGroup>
+
+</Project>
