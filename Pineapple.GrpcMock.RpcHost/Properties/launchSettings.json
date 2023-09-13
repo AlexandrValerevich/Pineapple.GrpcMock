@@ -1,12 +1,12 @@
 ﻿{
   "profiles": {
-    "http": {
+    "Pineapple.GrpcMock.RpcHost": {
       "commandName": "Project",
       "dotnetRunMessages": true,
-      "launchBrowser": true,
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development",
-        "Proto__Folder": "./proto"
+        "Proto__Folder": "./proto",
+        "Stub__Folder": "./stub"
       }
     }
   }

@@ -1,0 +1,10 @@
+{
+  "serviceName": "HelloService",
+  "serviceMethod": "List",
+  "request": {
+    "body": ""
+  },
+  "response": {
+    "body": "{}"
+  }
+}
