@@ -2,6 +2,7 @@ using Pineapple.GrpcMock.Application;
 using Pineapple.GrpcMock.Infrastructure;
 using Pineapple.GrpcMock.RpcHost;
 using Pineapple.GrpcMock.RpcHost.Extensions;
+using Pineapple.GrpcMock.RpcHost.Host.Extensions;
 using Pineapple.GrpcMock.RpcHost.Logging.Extensions;
 
 #pragma warning disable
@@ -9,6 +10,7 @@ using Pineapple.GrpcMock.RpcHost.Logging.Extensions;
 var builder = WebApplication.CreateBuilder(args);
 {
     builder.Host.UseConfigurableSerilog();
+    builder.WebHost.ConfigureKestrel();
 
     builder.Services.AddPresentation(
         builder.Configuration.GetSection("Stub").Bind
@@ -20,7 +22,6 @@ var builder = WebApplication.CreateBuilder(args);
 var app = builder.Build();
 {
     app.SetUpStubs();
-
     app.UseMinimalHttpServerLogger();
     app.MapControllers();
     app.Run();
