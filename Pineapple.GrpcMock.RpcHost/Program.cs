@@ -4,6 +4,7 @@ using Pineapple.GrpcMock.RpcHost;
 using Pineapple.GrpcMock.RpcHost.Extensions;
 using Pineapple.GrpcMock.RpcHost.Host.Extensions;
 using Pineapple.GrpcMock.RpcHost.Logging.Extensions;
+using Pineapple.GrpcMock.RpcHost.Middlewares.Extensions;
 
 #pragma warning disable
 
@@ -23,6 +24,8 @@ var app = builder.Build();
 {
     app.SetUpStubs();
     app.UseMinimalHttpServerLogger();
+    app.UseTraceIdHeaderMiddleware();
+
     app.MapControllers();
     app.Run();
 }
