@@ -22,18 +22,20 @@ internal static class ApplicationBuildExtensions
 
         foreach (StubApiRequest stub in stubs)
         {
+            Type service = grpcServiceTypes.Single(t => t.Name.ToLower() == $"{stub.ShortServiceName}Base".ToLower());
+            MethodInfo serviceMethod = service.GetMethod(stub.ServiceMethod).ThrowIfNull();
+
+            Type requestType = serviceMethod.GetParameters().First(x => x.Position == 0).ParameterType;
+            var request = JsonSerializer.Deserialize(stub.Request.Body, requestType) as IMessage;
             var key = new StubRegistryKeyDto(
                 ShortServiceName: stub.ShortServiceName,
                 ServiceMethod: stub.ServiceMethod,
-                RequestBody: stub.Request.Body
-            );
+                RequestBody: request.ToByteArray());
 
-            Type service = grpcServiceTypes.Single(t => t.Name.ToLower() == $"{stub.ShortServiceName}Base".ToLower());
-            MethodInfo serviceMethod = service.GetMethod(stub.ServiceMethod).ThrowIfNull();
             Type responseType = serviceMethod.ReturnType.GenericTypeArguments.First();
-
             var response = JsonSerializer.Deserialize(stub.Response.Body, responseType) as IMessage;
-            var value = new StubRegistryValueDto(response.ToByteArray());
+            var value = new StubRegistryValueDto(
+                Response: response.ToByteArray());
 
             stubRegistry.Registry.Add(key, value);
         }

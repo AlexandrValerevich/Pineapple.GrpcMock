@@ -4,5 +4,5 @@ public record StubRegistryKeyDto
 (
     string ShortServiceName,
     string ServiceMethod,
-    string RequestBody
+    byte[] RequestBody
 );
