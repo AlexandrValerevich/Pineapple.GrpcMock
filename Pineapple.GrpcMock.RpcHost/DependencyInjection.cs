@@ -1,3 +1,4 @@
+using LigaStavok.Feed.BaseLine.Api.Middleware.Extensions;
 using Pineapple.GrpcMock.RpcHost.Configurations;
 
 namespace Pineapple.GrpcMock.RpcHost;
@@ -11,6 +12,9 @@ internal static class DependencyInjection
             .Configure(stubOptions)
             .ValidateDataAnnotations()
             .ValidateOnStart();
+
+        services.AddMinimalHttpServerLogger();
+        services.AddControllers();
         return services;
     }
 }

@@ -1,14 +1,15 @@
-using System.Reflection;
 using Pineapple.GrpcMock.Application;
 using Pineapple.GrpcMock.Infrastructure;
 using Pineapple.GrpcMock.RpcHost;
-using Pineapple.GrpcMock.RpcHost.Configurations;
 using Pineapple.GrpcMock.RpcHost.Extensions;
+using Pineapple.GrpcMock.RpcHost.Logging.Extensions;
 
 #pragma warning disable
 
 var builder = WebApplication.CreateBuilder(args);
 {
+    builder.Host.UseConfigurableSerilog();
+
     builder.Services.AddPresentation(
         builder.Configuration.GetSection("Stub").Bind
     );
@@ -19,6 +20,8 @@ var builder = WebApplication.CreateBuilder(args);
 var app = builder.Build();
 {
     app.SetUpStubs();
-    app.MapGet("/", () => "Hello World!");
+
+    app.UseMinimalHttpServerLogger();
+    app.MapControllers();
     app.Run();
 }
