@@ -23,12 +23,12 @@ internal static class ApplicationBuildExtensions
         foreach (StubApiRequest stub in stubs)
         {
             var key = new StubRegistryKeyDto(
-                ServiceName: stub.ServiceName,
+                ShortServiceName: stub.ShortServiceName,
                 ServiceMethod: stub.ServiceMethod,
                 RequestBody: stub.Request.Body
             );
 
-            Type service = grpcServiceTypes.Single(t => t.Name.ToLower() == $"{stub.ServiceName}Base".ToLower());
+            Type service = grpcServiceTypes.Single(t => t.Name.ToLower() == $"{stub.ShortServiceName}Base".ToLower());
             MethodInfo serviceMethod = service.GetMethod(stub.ServiceMethod).ThrowIfNull();
             Type responseType = serviceMethod.ReturnType.GenericTypeArguments.First();
 
