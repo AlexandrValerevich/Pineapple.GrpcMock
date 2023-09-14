@@ -1,5 +1,4 @@
 using System.Text.Json;
-using Google.Protobuf;
 using Mediator;
 using Pineapple.GrpcMock.Application.GrpcServices.Registry;
 using Pineapple.GrpcMock.Application.GrpcServices.Registry.Dto;
@@ -32,12 +31,12 @@ internal sealed class AddStubCommandHandler : ICommandHandler<AddStubCommand>
         var request = JsonSerializer.Deserialize(command.RequestBody, method.InputType) as Google.Protobuf.IMessage;
         var key = new StubRegistryKeyDto(
             ServiceShortName: command.ServiceShortName,
-            Method: command.ServiceMethod,
-            RequestBody: request.ToByteArray());
+            Method: command.ServiceMethod);
 
         var response = JsonSerializer.Deserialize(command.ResponseBody, method.OutputType) as Google.Protobuf.IMessage;
         var value = new StubRegistryValueDto(
-            Response: response.ToByteArray());
+            Request: request ?? throw new NullReferenceException(),
+            Response: response ?? throw new NullReferenceException());
 
         _stubs.Add(key, value);
 

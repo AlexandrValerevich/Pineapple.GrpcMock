@@ -1,7 +1,5 @@
 using Mediator;
 using Pineapple.GrpcMock.Application.Stubs.Registry;
-using Pineapple.GrpcMock.Application.Stubs.Registry.Dto;
-using Throw;
 
 namespace Pineapple.GrpcMock.Application.Stubs.Queries;
 
@@ -18,14 +16,10 @@ public class ReadStubResponseQueryHandler : IQueryHandler<ReadStubResponseQuery,
     {
         var shortName = query.ServiceFullName.Split(".").Last();
 
-        StubRegistryValueDto value = _stubs.Get(new(
+        var values = _stubs.Get(new(
             ServiceShortName: shortName,
-            Method: query.Method,
-            RequestBody: query.RequestBody.All(x => x != 0) ? query.RequestBody : Array.Empty<byte>()
-        )).ThrowIfNull();
+            Method: query.Method));
 
-        return ValueTask.FromResult(new ReadStubResponseQueryResult(
-            Response: value.Response
-        ));
+        return ValueTask.FromResult(new ReadStubResponseQueryResult(Response: values[0].Response));
     }
 }

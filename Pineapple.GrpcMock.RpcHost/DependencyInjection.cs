@@ -13,6 +13,7 @@ internal static class DependencyInjection
             .ValidateDataAnnotations()
             .ValidateOnStart();
 
+        services.AddGrpc();
         services.AddMinimalHttpServerLogger();
         services.AddControllers();
         return services;

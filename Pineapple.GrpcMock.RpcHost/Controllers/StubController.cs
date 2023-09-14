@@ -6,6 +6,7 @@ namespace Pineapple.GrpcMock.RpcHost.Controllers;
 
 [ApiController]
 [Consumes("application/grpc+proto", "application/grpc")]
+[Produces("application/grpc+proto", "application/grpc")]
 public sealed class StubController : ControllerBase
 {
     private readonly IMediator _mediator;
@@ -16,7 +17,7 @@ public sealed class StubController : ControllerBase
     }
 
     [HttpPost("/{serviceFullName}/{method}")]
-    public async Task<byte[]> Stub([FromRoute] string serviceFullName, [FromRoute] string method)
+    public async Task<Google.Protobuf.IMessage> Stub([FromRoute] string serviceFullName, [FromRoute] string method)
     {
         using var memoryStream = new MemoryStream();
         Request.BodyReader.AsStream().CopyTo(memoryStream);

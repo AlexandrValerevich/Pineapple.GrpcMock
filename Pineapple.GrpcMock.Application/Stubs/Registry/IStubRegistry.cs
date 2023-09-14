@@ -5,5 +5,5 @@ namespace Pineapple.GrpcMock.Application.Stubs.Registry;
 public interface IStubRegistry
 {
     void Add(StubRegistryKeyDto key, StubRegistryValueDto value);
-    StubRegistryValueDto? Get(StubRegistryKeyDto key);
+    IReadOnlyList<StubRegistryValueDto> Get(StubRegistryKeyDto key);
 }
