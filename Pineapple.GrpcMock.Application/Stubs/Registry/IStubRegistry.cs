@@ -1,6 +1,6 @@
-using Pineapple.GrpcMock.Application.Common.Stub.Registry.Dto;
+using Pineapple.GrpcMock.Application.Stubs.Registry.Dto;
 
-namespace Pineapple.GrpcMock.Application.Common.Stub.Registry;
+namespace Pineapple.GrpcMock.Application.Stubs.Registry;
 
 public interface IStubRegistry
 {

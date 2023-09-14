@@ -1,6 +1,6 @@
 using Mediator;
-using Pineapple.GrpcMock.Application.Common.Stub.Registry;
-using Pineapple.GrpcMock.Application.Common.Stub.Registry.Dto;
+using Pineapple.GrpcMock.Application.Stubs.Registry;
+using Pineapple.GrpcMock.Application.Stubs.Registry.Dto;
 using Throw;
 
 namespace Pineapple.GrpcMock.Application.Stubs.Queries;

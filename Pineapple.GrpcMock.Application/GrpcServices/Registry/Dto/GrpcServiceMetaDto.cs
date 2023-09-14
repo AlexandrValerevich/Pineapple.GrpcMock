@@ -1,4 +1,4 @@
-namespace Pineapple.GrpcMock.Application.Common.GrpcServices.Registry.Dto;
+namespace Pineapple.GrpcMock.Application.GrpcServices.Registry.Dto;
 
 public class GrpcServiceMetaDto
 {

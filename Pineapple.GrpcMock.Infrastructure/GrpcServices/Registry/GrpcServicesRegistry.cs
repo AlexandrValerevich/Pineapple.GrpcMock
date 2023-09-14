@@ -1,8 +1,8 @@
 using System.Collections.Immutable;
 using System.Reflection;
 using Grpc.Core;
-using Pineapple.GrpcMock.Application.Common.GrpcServices.Registry;
-using Pineapple.GrpcMock.Application.Common.GrpcServices.Registry.Dto;
+using Pineapple.GrpcMock.Application.GrpcServices.Registry;
+using Pineapple.GrpcMock.Application.GrpcServices.Registry.Dto;
 using Pineapple.GrpcMock.Infrastructure.GrpcServices.Registry.Extensions;
 using Pineapple.GrpcMock.Protos;
 

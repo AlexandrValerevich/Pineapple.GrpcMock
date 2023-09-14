@@ -1,10 +1,10 @@
 using System.Text.Json;
 using Google.Protobuf;
 using Mediator;
-using Pineapple.GrpcMock.Application.Common.GrpcServices.Registry;
-using Pineapple.GrpcMock.Application.Common.GrpcServices.Registry.Dto;
-using Pineapple.GrpcMock.Application.Common.Stub.Registry;
-using Pineapple.GrpcMock.Application.Common.Stub.Registry.Dto;
+using Pineapple.GrpcMock.Application.GrpcServices.Registry;
+using Pineapple.GrpcMock.Application.GrpcServices.Registry.Dto;
+using Pineapple.GrpcMock.Application.Stubs.Registry;
+using Pineapple.GrpcMock.Application.Stubs.Registry.Dto;
 
 namespace Pineapple.GrpcMock.Application.Stubs.Commands;
 
