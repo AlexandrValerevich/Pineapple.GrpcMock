@@ -18,7 +18,7 @@ public class GrpcServicesRegistry : IGrpcServicesRegistry
             ShortName = s.Name[..^4],
             Methods = s.GetMethods()
                 .Where(x => x.GetParameters().Any(
-                    x => x.Position == 2 && x.ParameterType.Equals(typeof(ServerCallContext))))
+                    x => x.Position == 1 && x.ParameterType.Equals(typeof(ServerCallContext))))
                 .Select(m =>
                 {
                     ParameterInfo[] parameters = m.GetParameters();
