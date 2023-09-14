@@ -1,9 +1,7 @@
-using System.Reflection;
 using System.Text.Json;
-using Google.Protobuf;
+using Mediator;
 using Microsoft.Extensions.Options;
-using Pineapple.GrpcMock.Application.Common.Stub.Registry;
-using Pineapple.GrpcMock.Application.Common.Stub.Registry.Dto;
+using Pineapple.GrpcMock.Application.Stubs.Commands;
 using Pineapple.GrpcMock.Contracts.Stubs.V1;
 using Pineapple.GrpcMock.RpcHost.Configurations;
 using Throw;
@@ -16,28 +14,18 @@ internal static class ApplicationBuildExtensions
     {
         StubOptions stubOptions = app.ApplicationServices.GetRequiredService<IOptions<StubOptions>>().Value;
         IEnumerable<StubApiRequest> stubs = ReadStubs(stubOptions.Folder);
-
-        var stubRegistry = app.ApplicationServices.GetRequiredService<IStubRegistry>();
-        IEnumerable<Type> grpcServiceTypes = Assembly.GetExecutingAssembly().GetGrpcServices();
+        var mediator = app.ApplicationServices.GetRequiredService<IMediator>();
 
         foreach (StubApiRequest stub in stubs)
         {
-            Type service = grpcServiceTypes.Single(t => t.Name.ToLower() == $"{stub.ServiceShortName}Base".ToLower());
-            MethodInfo serviceMethod = service.GetMethod(stub.ServiceMethod).ThrowIfNull();
-
-            Type requestType = serviceMethod.GetParameters().First(x => x.Position == 0).ParameterType;
-            var request = JsonSerializer.Deserialize(stub.Request.Body, requestType) as IMessage;
-            var key = new StubRegistryKeyDto(
-                ShortServiceName: stub.ServiceShortName,
+            var result = mediator.Send(new AddStubCommand(
+                ServiceShortName: stub.ServiceShortName,
                 ServiceMethod: stub.ServiceMethod,
-                RequestBody: request.ToByteArray());
+                RequestBody: stub.Request.Body,
+                ResponseBody: stub.Response.Body
+            ));
 
-            Type responseType = serviceMethod.ReturnType.GenericTypeArguments.First();
-            var response = JsonSerializer.Deserialize(stub.Response.Body, responseType) as IMessage;
-            var value = new StubRegistryValueDto(
-                Response: response.ToByteArray());
-
-            stubRegistry.Add(key, value);
+            result.AsTask().Wait();
         }
 
         return app;

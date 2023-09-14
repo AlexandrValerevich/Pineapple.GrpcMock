@@ -1,8 +1,10 @@
 using System.Collections.Immutable;
 using System.Reflection;
+using Grpc.Core;
 using Pineapple.GrpcMock.Application.Common.GrpcServices.Registry;
 using Pineapple.GrpcMock.Application.Common.GrpcServices.Registry.Dto;
 using Pineapple.GrpcMock.Infrastructure.GrpcServices.Registry.Extensions;
+using Pineapple.GrpcMock.Protos;
 
 namespace Pineapple.GrpcMock.Infrastructure.GrpcServices.Registry;
 
@@ -10,17 +12,24 @@ public class GrpcServicesRegistry : IGrpcServicesRegistry
 {
     private static readonly Lazy<IList<GrpcServiceMetaDto>> _services = new(() =>
     {
-        return Assembly.GetExecutingAssembly().GetGrpcServices()
-            .Select(g => new GrpcServiceMetaDto
-            {
-                ShortName = g.Name[..^4],
-                Methods = g.GetMethods().Select(m => new GrpcServiceMethodMetaDto
+        var services = Assembly.GetAssembly(typeof(IAssemblyMarker))!.GetGrpcServices();
+        return services.Select(s => new GrpcServiceMetaDto
+        {
+            ShortName = s.Name[..^4],
+            Methods = s.GetMethods()
+                .Where(x => x.GetParameters().Any(
+                    x => x.Position == 2 && x.ParameterType.Equals(typeof(ServerCallContext))))
+                .Select(m =>
                 {
-                    Name = m.Name,
-                    InputType = m.GetParameters().First(x => x.Position == 0).ParameterType,
-                    OutputType = m.ReturnType.GenericTypeArguments.First()
+                    ParameterInfo[] parameters = m.GetParameters();
+                    return new GrpcServiceMethodMetaDto
+                    {
+                        Name = m.Name,
+                        InputType = parameters.First().ParameterType,
+                        OutputType = m.ReturnType.GenericTypeArguments.First()
+                    };
                 }).ToImmutableList()
-            }).ToImmutableList();
+        }).ToImmutableList();
     });
 
     public GrpcServiceMetaDto? Get(string shortName)
