@@ -1,5 +1,5 @@
-using Pineapple.GrpcMock.Application.Stubs.Registry;
-using Pineapple.GrpcMock.Application.Stubs.Registry.Dto;
+using Pineapple.GrpcMock.Application.Common.Stub.Registry;
+using Pineapple.GrpcMock.Application.Common.Stub.Registry.Dto;
 
 namespace Pineapple.GrpcMock.Infrastructure.Stubs.Registry;
 

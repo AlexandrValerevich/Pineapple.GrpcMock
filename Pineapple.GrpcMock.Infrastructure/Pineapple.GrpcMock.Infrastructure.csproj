@@ -7,6 +7,11 @@
     </PropertyGroup>
 
     <ItemGroup>
+        <PackageReference Include="Grpc.Core" Version="2.46.6" />
+    </ItemGroup>
+
+    <ItemGroup>
         <ProjectReference Include="..\Pineapple.GrpcMock.Application\Pineapple.GrpcMock.Application.csproj" />
+        <ProjectReference Include="..\Pineapple.GrpcMock.Protos\Pineapple.GrpcMock.Protos.csproj" />
     </ItemGroup>
 </Project>

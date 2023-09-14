@@ -10,4 +10,12 @@
         <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="7.0.0" />
     </ItemGroup>
 
+    <ItemGroup>
+        <PackageReference Include="Mediator.Abstractions" Version="3.0.0-preview.8" />
+        <PackageReference Include="Mediator.SourceGenerator" Version="3.0.0-preview.8">
+            <PrivateAssets>all</PrivateAssets>
+            <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
+        </PackageReference>
+    </ItemGroup>
+
 </Project>
