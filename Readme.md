@@ -17,7 +17,7 @@ During development this rules can be changed.
 - **CQRS** contract should:
   - Entry command/query model end with *Command/Query*
   - Common model end with *Dto*
-  - Result model end with *Result*
+  - Result model end with *CommandResult/QueryResult*
 
 - **Between Layer** contracts should:
   - Common model end with *Dto*
@@ -44,6 +44,7 @@ During development this rules can be changed.
 - Write endpoint for substitution
 - Add possibility to mock trailer and status codes
 - Add OneOf library instead of Exceptions
+- How to return response?
 
 ## Environment Variable
 

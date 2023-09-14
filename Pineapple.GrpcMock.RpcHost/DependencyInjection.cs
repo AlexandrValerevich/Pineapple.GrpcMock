@@ -1,5 +1,5 @@
-using LigaStavok.Feed.BaseLine.Api.Middleware.Extensions;
 using Pineapple.GrpcMock.RpcHost.Configurations;
+using Pineapple.GrpcMock.RpcHost.Middlewares.ServerLogging.Extensions;
 
 namespace Pineapple.GrpcMock.RpcHost;
 

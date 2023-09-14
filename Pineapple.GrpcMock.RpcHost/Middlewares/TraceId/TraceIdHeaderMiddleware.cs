@@ -1,7 +1,7 @@
 using System.Diagnostics;
 using Serilog.Enrichers.Span;
 
-namespace Pineapple.GrpcMock.RpcHost.Middlewares;
+namespace Pineapple.GrpcMock.RpcHost.Middlewares.TraceId;
 
 internal sealed class TraceIdHeaderMiddleware
 {

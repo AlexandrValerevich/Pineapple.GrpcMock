@@ -1,4 +1,6 @@
+using Mediator;
 using Microsoft.AspNetCore.Mvc;
+using Pineapple.GrpcMock.Application.Stubs.Queries;
 
 namespace Pineapple.GrpcMock.RpcHost.Controllers;
 
@@ -6,15 +8,27 @@ namespace Pineapple.GrpcMock.RpcHost.Controllers;
 [Consumes("application/grpc+proto", "application/grpc")]
 public sealed class StubController : ControllerBase
 {
+    private readonly IMediator _mediator;
 
-    [HttpPost("/{serviceName}/{serviceMethod}")]
-    public Task<string> Stub([FromRoute] string serviceName, [FromRoute] string serviceMethod)
+    public StubController(IMediator mediator)
     {
-        using var streamReader = new StreamReader(Request.BodyReader.AsStream());
-        var requestBody = streamReader.ReadToEnd();
-        var shortServiceName = serviceName.Split(".").Last();
+        _mediator = mediator;
+    }
 
-        return Task.FromResult($"{shortServiceName}/{serviceMethod}/{requestBody}");
+    [HttpPost("/{serviceFullName}/{method}")]
+    public async Task<byte[]> Stub([FromRoute] string serviceFullName, [FromRoute] string method)
+    {
+        using var memoryStream = new MemoryStream();
+        Request.BodyReader.AsStream().CopyTo(memoryStream);
+        var requestBody = memoryStream.ToArray();
+
+        var result = await _mediator.Send(new ReadStubResponseQuery(
+            ServiceFullName: serviceFullName,
+            Method: method,
+            RequestBody: requestBody
+        ));
+
+        return result.Response;
     }
 
 }

@@ -3,8 +3,8 @@ using Pineapple.GrpcMock.Infrastructure;
 using Pineapple.GrpcMock.RpcHost;
 using Pineapple.GrpcMock.RpcHost.Extensions;
 using Pineapple.GrpcMock.RpcHost.Host.Extensions;
-using Pineapple.GrpcMock.RpcHost.Logging.Extensions;
-using Pineapple.GrpcMock.RpcHost.Middlewares.Extensions;
+using Pineapple.GrpcMock.RpcHost.Middlewares.ServerLogging.Extensions;
+using Pineapple.GrpcMock.RpcHost.Middlewares.TraceId.Extensions;
 
 #pragma warning disable
 

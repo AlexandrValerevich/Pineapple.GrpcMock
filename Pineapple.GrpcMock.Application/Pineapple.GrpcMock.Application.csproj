@@ -11,6 +11,10 @@
     </ItemGroup>
 
     <ItemGroup>
+        <PackageReference Include="Throw" Version="1.4.0" />
+    </ItemGroup>
+
+    <ItemGroup>
         <PackageReference Include="Mediator.Abstractions" Version="3.0.0-preview.8" />
         <PackageReference Include="Mediator.SourceGenerator" Version="3.0.0-preview.8">
             <PrivateAssets>all</PrivateAssets>
@@ -19,7 +23,7 @@
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\Pineapple.GrpcMock.Protos\Pineapple.GrpcMock.Protos.csproj" />
+        <ProjectReference Include="..\Pineapple.GrpcMock.Protos\Pineapple.GrpcMock.Protos.csproj" />
     </ItemGroup>
 
 </Project>

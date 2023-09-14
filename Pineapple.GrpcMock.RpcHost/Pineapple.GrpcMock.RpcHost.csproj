@@ -17,10 +17,6 @@
     </ItemGroup>
 
     <ItemGroup>
-        <PackageReference Include="Throw" Version="1.4.0" />
-    </ItemGroup>
-
-    <ItemGroup>
         <Content Include="$(StubFolder)">
             <CopyToOutputDirectory>Always</CopyToOutputDirectory>
         </Content>

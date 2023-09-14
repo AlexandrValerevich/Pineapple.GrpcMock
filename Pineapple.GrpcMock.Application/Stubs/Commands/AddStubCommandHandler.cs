@@ -31,8 +31,8 @@ internal sealed class AddStubCommandHandler : ICommandHandler<AddStubCommand>
 
         var request = JsonSerializer.Deserialize(command.RequestBody, method.InputType) as Google.Protobuf.IMessage;
         var key = new StubRegistryKeyDto(
-            ShortServiceName: command.ServiceShortName,
-            ServiceMethod: command.ServiceMethod,
+            ServiceShortName: command.ServiceShortName,
+            Method: command.ServiceMethod,
             RequestBody: request.ToByteArray());
 
         var response = JsonSerializer.Deserialize(command.ResponseBody, method.OutputType) as Google.Protobuf.IMessage;

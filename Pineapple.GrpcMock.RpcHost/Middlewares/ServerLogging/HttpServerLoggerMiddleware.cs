@@ -2,12 +2,12 @@
 using System.Text;
 using Microsoft.Extensions.Options;
 using Microsoft.Extensions.Primitives;
-using Pineapple.GrpcMock.RpcHost.Logging.Configurations;
-using Pineapple.GrpcMock.RpcHost.Logging.Helpers;
+using Pineapple.GrpcMock.RpcHost.Middlewares.ServerLogging.Configurations;
+using Pineapple.GrpcMock.RpcHost.Middlewares.ServerLogging.Helpers;
 using Serilog;
 using Serilog.Events;
 
-namespace Pineapple.GrpcMock.RpcHost.Logging;
+namespace Pineapple.GrpcMock.RpcHost.Middlewares.ServerLogging;
 
 internal sealed class HttpServerLoggerMiddleware
 {
@@ -49,26 +49,42 @@ internal sealed class HttpServerLoggerMiddleware
             context.Request.QueryString);
 
         var stopwatch = ValueStopwatch.StartNew();
-        if (logger.IsEnabled(LogEventLevel.Debug))
+        try
         {
-            var responseBody = await GetResponseBody(context);
-            var responseHeaders = GetHeaders(context.Response.Headers);
-            logger = logger.ForContext("ResponseBody", responseBody)
-                .ForContext("ResponseHeaders", responseHeaders);
-        }
-        else
-        {
-            await _next(context);
-        }
+            if (logger.IsEnabled(LogEventLevel.Debug))
+            {
+                var responseBody = await GetResponseBody(context);
+                var responseHeaders = GetHeaders(context.Response.Headers);
+                logger = logger.ForContext("ResponseBody", responseBody)
+                    .ForContext("ResponseHeaders", responseHeaders);
+            }
+            else
+            {
+                await _next(context);
+            }
 
-        logger.Information("End processing {Protocol} {Method} {Path}{QueryString} - {StatusCode} {StatusCodeLiteral} in {Elapsed:0.0000} ms",
-            context.Request.Protocol,
-            context.Request.Method,
-            context.Request.Path,
-            context.Request.QueryString,
-            context.Response.StatusCode,
-            (HttpStatusCode) context.Response.StatusCode,
-            stopwatch.GetElapsedTime().TotalMilliseconds);
+            logger.Information("End processing {Protocol} {Method} {Path}{QueryString} - {StatusCode} {StatusCodeLiteral} in {Elapsed:0.0000} ms",
+                context.Request.Protocol,
+                context.Request.Method,
+                context.Request.Path,
+                context.Request.QueryString,
+                context.Response.StatusCode,
+                (HttpStatusCode) context.Response.StatusCode,
+                stopwatch.GetElapsedTime().TotalMilliseconds);
+        }
+        catch (Exception ex)
+        {
+            logger.Error(ex, "End processing {Protocol} {Method} {Path}{QueryString} - {StatusCode} {StatusCodeLiteral} in {Elapsed:0.0000} ms",
+                context.Request.Protocol,
+                context.Request.Method,
+                context.Request.Path,
+                context.Request.QueryString,
+                context.Response.StatusCode,
+                (HttpStatusCode) context.Response.StatusCode,
+                stopwatch.GetElapsedTime().TotalMilliseconds);
+
+            throw;
+        }
     }
 
     private async Task<string> GetRequestBody(HttpRequest request)
@@ -117,12 +133,12 @@ internal sealed class HttpServerLoggerMiddleware
     private Dictionary<string, string> GetHeaders(IHeaderDictionary headersDictionary)
     {
         var loggedHeaders = new Dictionary<string, string>();
-        foreach ((string key, StringValues value) in headersDictionary)
+        foreach ((var key, var value) in headersDictionary)
         {
             loggedHeaders[key] = _settings.ResponseHeaders.Contains(key) ? value.ToString() : "[Redacted]";
         }
 
-        string headers = string.Join(",", loggedHeaders.Select(x => $"\"{x.Key}\":\"{x.Value}\""));
+        var headers = string.Join(",", loggedHeaders.Select(x => $"\"{x.Key}\":\"{x.Value}\""));
         return loggedHeaders;
     }
 }

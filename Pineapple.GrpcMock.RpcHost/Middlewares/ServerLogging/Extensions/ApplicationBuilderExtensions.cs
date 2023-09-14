@@ -1,4 +1,4 @@
-namespace Pineapple.GrpcMock.RpcHost.Logging.Extensions;
+namespace Pineapple.GrpcMock.RpcHost.Middlewares.ServerLogging.Extensions;
 
 public static class ApplicationBuilderExtensions
 {

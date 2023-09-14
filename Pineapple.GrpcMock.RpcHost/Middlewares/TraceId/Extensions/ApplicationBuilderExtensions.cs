@@ -1,4 +1,4 @@
-namespace Pineapple.GrpcMock.RpcHost.Middlewares.Extensions;
+namespace Pineapple.GrpcMock.RpcHost.Middlewares.TraceId.Extensions;
 
 internal static class ApplicationBuilderExtensions
 {

@@ -1,7 +1,7 @@
 using Microsoft.Extensions.Options;
-using Pineapple.GrpcMock.RpcHost.Logging.Configurations;
+using Pineapple.GrpcMock.RpcHost.Middlewares.ServerLogging.Configurations;
 
-namespace LigaStavok.Feed.BaseLine.Api.Middleware.Extensions;
+namespace Pineapple.GrpcMock.RpcHost.Middlewares.ServerLogging.Extensions;
 
 public static class ServiceCollectionExtensions
 {

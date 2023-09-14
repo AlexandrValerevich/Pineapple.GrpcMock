@@ -1,6 +1,6 @@
 ﻿using Microsoft.Net.Http.Headers;
 
-namespace Pineapple.GrpcMock.RpcHost.Logging.Configurations;
+namespace Pineapple.GrpcMock.RpcHost.Middlewares.ServerLogging.Configurations;
 
 public class ServerHttpLoggerOptions
 {
