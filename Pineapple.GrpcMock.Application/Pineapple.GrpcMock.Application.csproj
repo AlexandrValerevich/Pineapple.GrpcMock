@@ -18,4 +18,8 @@
         </PackageReference>
     </ItemGroup>
 
+    <ItemGroup>
+      <ProjectReference Include="..\Pineapple.GrpcMock.Protos\Pineapple.GrpcMock.Protos.csproj" />
+    </ItemGroup>
+
 </Project>

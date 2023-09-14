@@ -6,7 +6,7 @@ public class StubApiRequest
 {
 
     [JsonPropertyName("serviceName")]
-    public string ShortServiceName { get; set; } = string.Empty;
+    public string ServiceShortName { get; set; } = string.Empty;
 
     [JsonPropertyName("serviceMethod")]
     public string ServiceMethod { get; set; } = string.Empty;

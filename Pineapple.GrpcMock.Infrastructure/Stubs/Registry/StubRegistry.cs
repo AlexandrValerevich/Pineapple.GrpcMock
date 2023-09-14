@@ -5,5 +5,15 @@ namespace Pineapple.GrpcMock.Infrastructure.Stubs.Registry;
 
 public class StubRegistry : IStubRegistry
 {
-    public Dictionary<StubRegistryKeyDto, StubRegistryValueDto> Registry => new();
+    private static readonly Dictionary<StubRegistryKeyDto, StubRegistryValueDto> _registry = new();
+
+    public void Add(StubRegistryKeyDto key, StubRegistryValueDto value)
+    {
+        _registry.Add(key, value);
+    }
+
+    public StubRegistryValueDto? Get(StubRegistryKeyDto key)
+    {
+        return _registry.GetValueOrDefault(key);
+    }
 }

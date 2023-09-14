@@ -4,5 +4,7 @@ namespace Pineapple.GrpcMock.Application.Common.Stub.Registry;
 
 public interface IStubRegistry
 {
-    Dictionary<StubRegistryKeyDto, StubRegistryValueDto> Registry { get; }
+    void Add(StubRegistryKeyDto key, StubRegistryValueDto value);
+
+    StubRegistryValueDto? Get(StubRegistryKeyDto key);
 }

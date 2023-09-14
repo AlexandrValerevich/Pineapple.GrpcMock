@@ -43,6 +43,7 @@ During development this rules can be changed.
 - ~~Before start I need to collect all stubs from folder and put to registry~~
 - Write endpoint for substitution
 - Add possibility to mock trailer and status codes
+- Add OneOf library instead of Exceptions
 
 ## Environment Variable
 

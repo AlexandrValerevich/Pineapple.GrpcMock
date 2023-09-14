@@ -3,7 +3,8 @@ using Mediator;
 namespace Pineapple.GrpcMock.Application.Stubs.Commands;
 
 public record AddStubCommand(
-    string ServiceName,
+    string ServiceShortName,
     string ServiceMethod,
-    byte[] RequestBody
+    string RequestBody,
+    string ResponseBody
 ) : ICommand;
