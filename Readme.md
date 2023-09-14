@@ -1,5 +1,17 @@
 # Pineapple.GrpcMock
 
+## Run
+
+```bash
+dotnet run -p:ProtoFiles=./proto/*.proto -p:StubFiles=./stub/*.json
+```
+
+## Build
+
+```bash
+dotnet build -p:ProtoFiles=./proto/*.proto -p:StubFiles=./stub/*.json
+```
+
 ## Codding convention
 
 During development this rules can be changed.
