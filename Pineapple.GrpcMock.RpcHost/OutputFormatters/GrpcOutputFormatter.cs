@@ -1,19 +1,19 @@
-// using Microsoft.AspNetCore.Mvc.Formatters;
-// using Microsoft.Net.Http.Headers;
+using Microsoft.AspNetCore.Mvc.Formatters;
+using Microsoft.Net.Http.Headers;
 
-// namespace Pineapple.GrpcMock.RpcHost.OutputFormatters;
+namespace Pineapple.GrpcMock.RpcHost.OutputFormatters;
 
-// internal sealed class GrpcOutputFormatter : OutputFormatter
-// {
-//     public GrpcOutputFormatter()
-//     {
-//         SupportedMediaTypes.Add(MediaTypeHeaderValue.Parse("application/grpc+proto"));
-//         SupportedMediaTypes.Add(MediaTypeHeaderValue.Parse("application/grpc"));
-//     }
+internal sealed class GrpcOutputFormatter : OutputFormatter
+{
+    public GrpcOutputFormatter()
+    {
+        SupportedMediaTypes.Add(MediaTypeHeaderValue.Parse("application/grpc"));
+        SupportedMediaTypes.Add(MediaTypeHeaderValue.Parse("application/grpc+proto"));
+    }
 
-//     public override async Task WriteResponseBodyAsync(OutputFormatterWriteContext context)
-//     {
-//         // var response = context.HttpContext.
-//         // response.BodyWriter.WriteAsync(context.)
-//     }
-// }
+    public override Task WriteResponseBodyAsync(OutputFormatterWriteContext context)
+    {
+        Serilog.Log.Verbose("Use my output formatter");
+        return Task.CompletedTask;
+    }
+}

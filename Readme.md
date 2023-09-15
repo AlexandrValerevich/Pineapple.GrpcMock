@@ -57,6 +57,7 @@ During development this rules can be changed.
 - Add possibility to mock trailer and status codes
 - Add OneOf library instead of Exceptions
 - How to return response?
+- Generate grpc services classes with help of reflection and than use interceptor to substitute response
 
 ## Environment Variable
 

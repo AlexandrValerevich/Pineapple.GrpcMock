@@ -1,5 +1,6 @@
 using Pineapple.GrpcMock.RpcHost.Configurations;
 using Pineapple.GrpcMock.RpcHost.Middlewares.ServerLogging.Extensions;
+using Pineapple.GrpcMock.RpcHost.OutputFormatters;
 
 namespace Pineapple.GrpcMock.RpcHost;
 
@@ -15,7 +16,11 @@ internal static class DependencyInjection
 
         services.AddGrpc();
         services.AddMinimalHttpServerLogger();
-        services.AddControllers();
+        services.AddControllers()
+            .AddMvcOptions(o =>
+            {
+                o.OutputFormatters.Add(new GrpcOutputFormatter());
+            });
         return services;
     }
 }
