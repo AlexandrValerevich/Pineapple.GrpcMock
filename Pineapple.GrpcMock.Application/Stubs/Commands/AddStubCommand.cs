@@ -6,5 +6,4 @@ public record AddStubCommand(
     string ServiceShortName,
     string ServiceMethod,
     string RequestBody,
-    string ResponseBody
-) : ICommand;
+    string ResponseBody) : ICommand;

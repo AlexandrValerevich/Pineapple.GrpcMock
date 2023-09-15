@@ -6,4 +6,3 @@ public record ReadStubResponseQuery(
     string ServiceFullName,
     string Method,
     Google.Protobuf.IMessage Request) : IQuery<ReadStubResponseQueryResult>;
-
