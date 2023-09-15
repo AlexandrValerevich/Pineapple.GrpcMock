@@ -1,4 +1,4 @@
-using Pineapple.GrpcMock.Application.Stubs.Registry.Dto;
+using Pineapple.GrpcMock.Application.Stubs.Dto;
 
 namespace Pineapple.GrpcMock.Application.Stubs.Registry;
 

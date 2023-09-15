@@ -10,7 +10,7 @@ namespace Pineapple.GrpcMock.RpcHost.Extensions;
 
 internal static class ApplicationBuildExtensions
 {
-    public static IApplicationBuilder SetUpStubs(this IApplicationBuilder app)
+    public static IApplicationBuilder InitializeStubs(this IApplicationBuilder app)
     {
         StubOptions stubOptions = app.ApplicationServices.GetRequiredService<IOptions<StubOptions>>().Value;
         IEnumerable<StubApiRequest> stubs = ReadStubs(stubOptions.Folder);
