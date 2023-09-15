@@ -27,7 +27,6 @@ var app = builder.Build();
     app.UseMinimalHttpServerLogger();
     app.UseTraceIdHeaderMiddleware();
 
-    app.MapControllers();
     app.MapGrpcStubServices();
     app.Run();
 }

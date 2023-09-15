@@ -14,6 +14,7 @@ public class GrpcServicesRegistry : IGrpcServiceRegistry
     {
         var services = Assembly.GetAssembly(typeof(IAssemblyMarker))!.GetGrpcServices();
         return services.Select(s => new GrpcServiceMetaDto(
+            ServiceType: s,
             ShortName: s.Name[..^4],
             Methods: s.GetMethods()
                 .Where(x => x.GetParameters().Any(
