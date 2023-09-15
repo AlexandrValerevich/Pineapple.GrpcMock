@@ -17,9 +17,15 @@
     </ItemGroup>
 
     <ItemGroup>
-        <Content Include="$(StubFolder)">
-            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-        </Content>
+        <Content Include="$(StubFolder)" CopyToOutputDirectory="Always" />
+    </ItemGroup>
+
+    <Target Name="DisplayMessages" BeforeTargets="PreBuildEvent">
+        <Message Text="Copy all stubs from: $(StubFiles)" Importance="high" />
+    </Target>
+
+    <ItemGroup>
+        <Compile Include="..\Pineapple.GrpcMock.Shared\Helpers\ValueStopwatch.cs" Link="Helpers\ValueStopwatch.cs" />
     </ItemGroup>
 
     <ItemGroup>

@@ -1,11 +1,11 @@
 using System.Diagnostics;
 
-namespace Pineapple.GrpcMock.RpcHost.Helpers;
+namespace Pineapple.GrpcMock.RpcHost.Shared.Helpers;
 
 /// <summary>
 /// Lightweight stopwatch timer.
 /// </summary>
-public readonly struct ValueStopwatch
+internal readonly struct ValueStopwatch
 {
     private static readonly double _timestampToTicks = TimeSpan.TicksPerSecond / (double) Stopwatch.Frequency;
 

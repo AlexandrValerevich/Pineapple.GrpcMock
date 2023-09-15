@@ -21,8 +21,8 @@ internal static class ApplicationBuildExtensions
             var result = mediator.Send(new AddStubCommand(
                 ServiceShortName: stub.ServiceShortName,
                 ServiceMethod: stub.ServiceMethod,
-                RequestBody: stub.Request.Body,
-                ResponseBody: stub.Response.Body
+                RequestBody: stub.Request.Body.ToString(),
+                ResponseBody: stub.Response.Body.ToString()
             ));
 
             result.AsTask().Wait();
@@ -37,7 +37,7 @@ internal static class ApplicationBuildExtensions
         string[] jsonFiles = Directory.GetFiles(path, "*.json");
         foreach (string filePath in jsonFiles)
         {
-            string jsonContent = File.ReadAllText(filePath);
+            ReadOnlySpan<byte> jsonContent = File.ReadAllBytes(filePath).AsSpan();
             stubs.Add(JsonSerializer.Deserialize<StubApiRequest>(jsonContent).ThrowIfNull());
         }
 

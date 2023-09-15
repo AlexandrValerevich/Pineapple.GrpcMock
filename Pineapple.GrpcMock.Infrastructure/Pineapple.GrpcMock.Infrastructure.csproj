@@ -7,6 +7,14 @@
     </PropertyGroup>
 
     <ItemGroup>
+        <PackageReference Include="Scrutor" Version="4.2.2" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <Compile Include="..\Pineapple.GrpcMock.Shared\Helpers\ValueStopwatch.cs" Link="Helpers\ValueStopwatch.cs" />
+    </ItemGroup>
+
+    <ItemGroup>
         <ProjectReference Include="..\Pineapple.GrpcMock.Application\Pineapple.GrpcMock.Application.csproj" />
         <ProjectReference Include="..\Pineapple.GrpcMock.Protos\Pineapple.GrpcMock.Protos.csproj" />
     </ItemGroup>

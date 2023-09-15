@@ -13,6 +13,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Pineapple.GrpcMock.RpcHost"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Pineapple.GrpcMock.Protos", "Pineapple.GrpcMock.Protos\Pineapple.GrpcMock.Protos.csproj", "{880474BC-0B89-4349-A1BB-859C71038A65}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Pineapple.GrpcMock.Shared", "Pineapple.GrpcMock.Shared\Pineapple.GrpcMock.Shared.csproj", "{F487A186-559F-44F4-A64C-5010CC0290E2}"
+EndProject
 Global
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -86,5 +88,17 @@ Global
 		{880474BC-0B89-4349-A1BB-859C71038A65}.Release|x64.Build.0 = Release|Any CPU
 		{880474BC-0B89-4349-A1BB-859C71038A65}.Release|x86.ActiveCfg = Release|Any CPU
 		{880474BC-0B89-4349-A1BB-859C71038A65}.Release|x86.Build.0 = Release|Any CPU
+		{F487A186-559F-44F4-A64C-5010CC0290E2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F487A186-559F-44F4-A64C-5010CC0290E2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F487A186-559F-44F4-A64C-5010CC0290E2}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{F487A186-559F-44F4-A64C-5010CC0290E2}.Debug|x64.Build.0 = Debug|Any CPU
+		{F487A186-559F-44F4-A64C-5010CC0290E2}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{F487A186-559F-44F4-A64C-5010CC0290E2}.Debug|x86.Build.0 = Debug|Any CPU
+		{F487A186-559F-44F4-A64C-5010CC0290E2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F487A186-559F-44F4-A64C-5010CC0290E2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F487A186-559F-44F4-A64C-5010CC0290E2}.Release|x64.ActiveCfg = Release|Any CPU
+		{F487A186-559F-44F4-A64C-5010CC0290E2}.Release|x64.Build.0 = Release|Any CPU
+		{F487A186-559F-44F4-A64C-5010CC0290E2}.Release|x86.ActiveCfg = Release|Any CPU
+		{F487A186-559F-44F4-A64C-5010CC0290E2}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

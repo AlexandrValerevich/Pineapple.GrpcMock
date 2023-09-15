@@ -1,8 +1,8 @@
 using Google.Protobuf;
 using Grpc.Core;
 using Grpc.Core.Interceptors;
-using Pineapple.GrpcMock.RpcHost.Helpers;
 using Pineapple.GrpcMock.RpcHost.Services.Interceptors.Extensions;
+using Pineapple.GrpcMock.RpcHost.Shared.Helpers;
 using Serilog.Context;
 
 namespace Pineapple.GrpcMock.RpcHost.Services.Interceptors;

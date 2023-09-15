@@ -2,9 +2,11 @@
   "serviceName": "HelloService",
   "serviceMethod": "List",
   "request": {
-    "body": "{}"
+    "body": {}
   },
   "response": {
-    "body": "{}"
+    "body": {
+      "message": "Hello World"
+    }
   }
 }

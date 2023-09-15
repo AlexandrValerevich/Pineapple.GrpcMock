@@ -15,8 +15,9 @@ internal static class EndpointRouteBuilderExtensions
         metaTask.Wait();
 
         ReadGrpcServiceListQueryResult meta = metaTask.Result;
-        MethodInfo extensionsMethod = typeof(GrpcEndpointRouteBuilderExtensions).GetMethod(
-            nameof(GrpcEndpointRouteBuilderExtensions.MapGrpcService)).ThrowIfNull();
+        MethodInfo extensionsMethod = typeof(GrpcEndpointRouteBuilderExtensions)
+            .GetMethod(nameof(GrpcEndpointRouteBuilderExtensions.MapGrpcService))
+            .ThrowIfNull();
 
         foreach (GrpcServiceMetaDto service in meta.ServicesMeta)
             extensionsMethod.MakeGenericMethod(service.ServiceType).Invoke(null, new object[] { builder });
