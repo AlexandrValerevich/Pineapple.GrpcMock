@@ -12,7 +12,7 @@ public static class DependencyInjection
     public static IServiceCollection AddInfrastructure(this IServiceCollection services)
     {
         services.TryAddSingleton<IStubRegistry, StubRegistry>();
-        services.TryAddSingleton<IGrpcServicesRegistry, GrpcServicesRegistry>();
+        services.TryAddSingleton<IGrpcServiceRegistry, GrpcServicesRegistry>();
         return services;
     }
 }

@@ -1,6 +1,6 @@
 using System.Diagnostics;
 
-namespace Pineapple.GrpcMock.RpcHost.Middlewares.ServerLogging.Helpers;
+namespace Pineapple.GrpcMock.RpcHost.Helpers;
 
 /// <summary>
 /// Lightweight stopwatch timer.

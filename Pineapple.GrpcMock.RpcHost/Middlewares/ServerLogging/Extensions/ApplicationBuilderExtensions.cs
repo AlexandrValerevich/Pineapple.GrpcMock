@@ -1,6 +1,6 @@
 namespace Pineapple.GrpcMock.RpcHost.Middlewares.ServerLogging.Extensions;
 
-public static class ApplicationBuilderExtensions
+internal static class ApplicationBuilderExtensions
 {
     public static IApplicationBuilder UseMinimalHttpServerLogger(this IApplicationBuilder app)
     {

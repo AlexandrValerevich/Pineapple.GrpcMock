@@ -3,7 +3,7 @@ using Pineapple.GrpcMock.RpcHost.Middlewares.ServerLogging.Configurations;
 
 namespace Pineapple.GrpcMock.RpcHost.Middlewares.ServerLogging.Extensions;
 
-public static class ServiceCollectionExtensions
+internal static class ServiceCollectionExtensions
 {
     public static IServiceCollection AddMinimalHttpServerLogger(this IServiceCollection services)
     {

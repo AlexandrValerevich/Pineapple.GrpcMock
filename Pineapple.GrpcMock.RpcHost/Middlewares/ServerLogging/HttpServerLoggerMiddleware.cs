@@ -1,9 +1,8 @@
-﻿using System.Net;
+using System.Net;
 using System.Text;
 using Microsoft.Extensions.Options;
-using Microsoft.Extensions.Primitives;
+using Pineapple.GrpcMock.RpcHost.Helpers;
 using Pineapple.GrpcMock.RpcHost.Middlewares.ServerLogging.Configurations;
-using Pineapple.GrpcMock.RpcHost.Middlewares.ServerLogging.Helpers;
 using Serilog;
 using Serilog.Events;
 

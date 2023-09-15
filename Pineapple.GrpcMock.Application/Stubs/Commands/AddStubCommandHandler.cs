@@ -1,18 +1,18 @@
 using System.Text.Json;
 using Mediator;
+using Pineapple.GrpcMock.Application.GrpcServices.Dto;
 using Pineapple.GrpcMock.Application.GrpcServices.Registry;
-using Pineapple.GrpcMock.Application.GrpcServices.Registry.Dto;
+using Pineapple.GrpcMock.Application.Stubs.Dto;
 using Pineapple.GrpcMock.Application.Stubs.Registry;
-using Pineapple.GrpcMock.Application.Stubs.Registry.Dto;
 
 namespace Pineapple.GrpcMock.Application.Stubs.Commands;
 
 internal sealed class AddStubCommandHandler : ICommandHandler<AddStubCommand>
 {
     private readonly IStubRegistry _stubs;
-    private readonly IGrpcServicesRegistry _grpcServices;
+    private readonly IGrpcServiceRegistry _grpcServices;
 
-    public AddStubCommandHandler(IStubRegistry stubs, IGrpcServicesRegistry grpcServices)
+    public AddStubCommandHandler(IStubRegistry stubs, IGrpcServiceRegistry grpcServices)
     {
         _stubs = stubs;
         _grpcServices = grpcServices;
