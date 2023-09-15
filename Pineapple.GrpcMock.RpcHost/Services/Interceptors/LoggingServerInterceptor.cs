@@ -7,7 +7,7 @@ using Serilog.Context;
 
 namespace Pineapple.GrpcMock.RpcHost.Services.Interceptors;
 
-public sealed class LoggingServerInterceptor : Interceptor
+internal sealed class LoggingServerInterceptor : Interceptor
 {
     private readonly ILogger _logger;
 
@@ -16,7 +16,8 @@ public sealed class LoggingServerInterceptor : Interceptor
         _logger = logger;
     }
 
-    public override async Task<TResponse> UnaryServerHandler<TRequest, TResponse>(TRequest request, ServerCallContext context, UnaryServerMethod<TRequest, TResponse> continuation)
+    public override async Task<TResponse> UnaryServerHandler<TRequest, TResponse>(
+        TRequest request, ServerCallContext context, UnaryServerMethod<TRequest, TResponse> continuation)
     {
         var timer = ValueStopwatch.StartNew();
 
@@ -30,7 +31,7 @@ public sealed class LoggingServerInterceptor : Interceptor
         TResponse response;
         try
         {
-            response = await base.UnaryServerHandler(request, context, continuation);
+            response = await continuation(request, context);
         }
         catch (Exception ex)
         {
