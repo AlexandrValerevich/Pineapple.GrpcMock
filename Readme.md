@@ -56,6 +56,7 @@ During development this rules can be changed.
   - Add possibility to mock trailer and status codes
   - Add REST endpoints about current stabs and services
   - Add Swagger
+  - Add priority to stubs
 
 - Code
   - ~~How to return response?~~
@@ -66,7 +67,7 @@ During development this rules can be changed.
   - ~~Add IProtoConverter to serialize and deserialize protobuf models~~
   - ~~Add Logging Behavior~~ Formulated process of adding business logs
   - ~~Add OneOf library instead of Exceptions~~ Add ErrorOr instead
-  - Add Validation Behavior
+  - ~~Add Validation Behavior~~
   - Add Docker file
   - Add docker-compose.yaml
   - Add manual for application
