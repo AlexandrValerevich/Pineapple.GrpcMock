@@ -27,6 +27,7 @@ var app = builder.Build();
     app.UseTraceIdHeaderMiddleware();
 
     app.MapGrpcStubServices();
+    app.MapGrpcReflectionService();
 
     app.Map("/api", b =>
     {

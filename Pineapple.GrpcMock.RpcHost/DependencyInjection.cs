@@ -19,6 +19,8 @@ internal static class DependencyInjection
             o.Interceptors.Add<LoggingServerInterceptor>();
             o.Interceptors.Add<StubInterceptor>();
         });
+        services.AddGrpcReflection();
+
         services.AddControllers();
         services.AddMinimalHttpServerLogger();
         return services;

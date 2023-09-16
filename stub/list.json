@@ -6,7 +6,8 @@
   },
   "response": {
     "body": {
-      "message": "Hello World"
+      "message": "Hello World",
+      "number": 1
     }
   }
 }

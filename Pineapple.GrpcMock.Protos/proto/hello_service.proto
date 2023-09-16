@@ -1,6 +1,6 @@
 syntax = "proto3";
 
-package tradinghouse.common;
+package grpc.mock;
 
 import "google/protobuf/empty.proto";
 
@@ -13,4 +13,5 @@ service HelloService{
 
 message HelloResponse {
   string message = 1;
+  int32 number = 2;
 }

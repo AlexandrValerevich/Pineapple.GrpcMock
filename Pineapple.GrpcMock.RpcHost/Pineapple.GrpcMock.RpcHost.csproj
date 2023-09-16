@@ -16,6 +16,9 @@
         <PackageReference Include="Serilog.Formatting.Compact" Version="1.1.0" />
     </ItemGroup>
 
+    <ItemGroup>
+        <PackageReference Include="Grpc.AspNetCore.Server.Reflection" Version="2.57.0" />
+    </ItemGroup>
 
     <Target Name="DisplayMessages" BeforeTargets="PreBuildEvent">
         <Message Text="Copy all stubs from: $(StubFiles)" Importance="high" />
