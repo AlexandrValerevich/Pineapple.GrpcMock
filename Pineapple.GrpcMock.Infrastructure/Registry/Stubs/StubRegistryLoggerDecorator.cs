@@ -22,7 +22,7 @@ internal sealed class StubRegistryLoggerDecorator : IStubRegistry
         try
         {
             _registry.Add(key, value);
-            _logger.LogInformation("Add stub with key {@Key} and value {@Value} is completed in {Elapsed:0.0000}ms.", key, value, timer.GetElapsedTime().TotalMilliseconds);
+            _logger.LogTrace("Add stub with key {@Key} and value {@Value} is completed in {Elapsed:0.0000}ms.", key, value, timer.GetElapsedTime().TotalMilliseconds);
         }
         catch
         {
@@ -37,7 +37,7 @@ internal sealed class StubRegistryLoggerDecorator : IStubRegistry
         try
         {
             var value = _registry.Get(key);
-            _logger.LogInformation("Get stub by key {@Key} is completed in {Elapsed:0.0000}ms.", key, timer.GetElapsedTime().TotalMilliseconds);
+            _logger.LogTrace("Get stub by key {@Key} is completed in {Elapsed:0.0000}ms.", key, timer.GetElapsedTime().TotalMilliseconds);
             return value;
         }
         catch

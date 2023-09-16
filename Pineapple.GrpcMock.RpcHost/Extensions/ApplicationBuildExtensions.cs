@@ -20,7 +20,7 @@ internal static class ApplicationBuildExtensions
         {
             var result = mediator.Send(new AddStubCommand(
                 ServiceShortName: stub.ServiceShortName,
-                ServiceMethod: stub.ServiceMethod,
+                Method: stub.ServiceMethod,
                 RequestBody: stub.Request.Body.ToString(),
                 ResponseBody: stub.Response.Body.ToString()
             ));

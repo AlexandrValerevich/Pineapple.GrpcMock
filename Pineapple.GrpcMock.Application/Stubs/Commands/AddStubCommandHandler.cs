@@ -26,13 +26,13 @@ internal sealed class AddStubCommandHandler : ICommandHandler<AddStubCommand>
         if (service is null)
             return ValueTask.FromResult(Unit.Value);
 
-        GrpcServiceMethodMetaDto? method = service.Methods.SingleOrDefault(x => x.Name == command.ServiceMethod);
+        GrpcServiceMethodMetaDto? method = service.Methods.SingleOrDefault(x => x.Name == command.Method);
         if (method is null)
             return ValueTask.FromResult(Unit.Value);
 
         var key = new StubRegistryKeyDto(
             ServiceShortName: command.ServiceShortName,
-            Method: command.ServiceMethod);
+            Method: command.Method);
 
         var value = new StubRegistryValueDto(
             Request: _converter.FromJson(method.InputType, command.RequestBody),

@@ -48,22 +48,28 @@ During development this rules can be changed.
   - Entry model end with *Message*
   - Common model end with *Model*
 
-## Steps for implementing service
+## Backlog
 
-- ~~Collect all grpc service from assembly~~
-- ~~I need some registry for my stubs~~
-- ~~Before start I need to collect all stubs from folder and put to registry~~
-- ~~How to return response?~~
-- ~~Generate grpc services classes with help of reflection and than use interceptor to substitute response~~
-- Write endpoint for substitution
-- Add possibility to mock trailer and status codes
-- Add OneOf library instead of Exceptions
-- Add Swagger
-- Add REST endpoints about current stabs and services
-- Add possibility to set up Delay
-- Add Logging Behavior
-- Add Validation Behavior
-- Add IProtoConverter to serialize and deserialize protobuf models
+- Features
+  - Write endpoint for substitution
+  - Add possibility to set up Delay
+  - Add possibility to mock trailer and status codes
+  - Add REST endpoints about current stabs and services
+  - Add Swagger
+
+- Code
+  - ~~How to return response?~~
+  - ~~Before start I need to collect all stubs from folder and put to registry~~
+  - ~~I need some registry for my stubs~~
+  - ~~Collect all grpc service from assembly~~
+  - ~~Generate grpc services classes with help of reflection and than use interceptor to substitute response~~
+  - ~~Add IProtoConverter to serialize and deserialize protobuf models~~
+  - ~~Add Logging Behavior~~ Formulated process of adding business logs
+  - Add OneOf library instead of Exceptions
+  - Add Validation Behavior
+  - Add Docker file
+  - Add docker-compose.yaml
+  - Add manual for application
 
 ## Environment Variable
 
