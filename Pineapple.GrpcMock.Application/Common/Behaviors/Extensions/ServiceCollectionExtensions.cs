@@ -13,4 +13,10 @@ internal static class ServiceCollectionExtensions
         services.TryAddSingleton<IPipelineBehavior<TRequest, TResponse>, TBehavior>();
         return services;
     }
+
+    public static IServiceCollection TryAddValidationBehavior(this IServiceCollection services)
+    {
+        services.TryAddSingleton(typeof(IPipelineBehavior<,>), typeof(ValidationBehavior<,>));
+        return services;
+    }
 }

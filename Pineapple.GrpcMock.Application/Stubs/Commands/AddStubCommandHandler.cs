@@ -1,4 +1,4 @@
-using System.Text.Json;
+using ErrorOr;
 using Mediator;
 using Pineapple.GrpcMock.Application.Common.Converter;
 using Pineapple.GrpcMock.Application.Common.Registry;
@@ -7,7 +7,7 @@ using Pineapple.GrpcMock.Application.Stubs.Dto;
 
 namespace Pineapple.GrpcMock.Application.Stubs.Commands;
 
-internal sealed class AddStubCommandHandler : ICommandHandler<AddStubCommand>
+internal sealed class AddStubCommandHandler : ICommandHandler<AddStubCommand, ErrorOr<Unit>>
 {
     private readonly IStubRegistry _stubs;
     private readonly IGrpcServiceRegistry _grpcServices;
@@ -20,15 +20,15 @@ internal sealed class AddStubCommandHandler : ICommandHandler<AddStubCommand>
         _converter = converter;
     }
 
-    public ValueTask<Unit> Handle(AddStubCommand command, CancellationToken cancellationToken)
+    public ValueTask<ErrorOr<Unit>> Handle(AddStubCommand command, CancellationToken cancellationToken)
     {
         GrpcServiceMetaDto? service = _grpcServices.Get(command.ServiceShortName);
         if (service is null)
-            return ValueTask.FromResult(Unit.Value);
+            return ValueTask.FromResult(ErrorOrFactory.From(Unit.Value));
 
         GrpcServiceMethodMetaDto? method = service.Methods.SingleOrDefault(x => x.Name == command.Method);
         if (method is null)
-            return ValueTask.FromResult(Unit.Value);
+            return ValueTask.FromResult(ErrorOrFactory.From(Unit.Value));
 
         var key = new StubRegistryKeyDto(
             ServiceShortName: command.ServiceShortName,
@@ -40,6 +40,6 @@ internal sealed class AddStubCommandHandler : ICommandHandler<AddStubCommand>
 
         _stubs.Add(key, value);
 
-        return ValueTask.FromResult(Unit.Value);
+        return ValueTask.FromResult(ErrorOrFactory.From(Unit.Value));
     }
 }

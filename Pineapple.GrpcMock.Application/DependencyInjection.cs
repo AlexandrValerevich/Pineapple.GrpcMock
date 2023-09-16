@@ -1,4 +1,8 @@
+using System.Reflection;
+using System.Security.Cryptography;
 using ErrorOr;
+using FluentValidation;
+using FluentValidation.AspNetCore;
 using Mediator;
 using Microsoft.Extensions.DependencyInjection;
 using Pineapple.GrpcMock.Application.Common.Behaviors.Extensions;
@@ -12,8 +16,11 @@ public static class DependencyInjection
 {
     public static IServiceCollection AddApplication(this IServiceCollection services)
     {
+        services.AddValidatorsFromAssembly(Assembly.GetEntryAssembly(), includeInternalTypes: true);
+
         services.AddMediator();
-        services.TryAddPipelineBehavior<AddStubCommand, Unit, AddStubCommandHandlerLoggingBehavior>();
+        services.TryAddValidationBehavior();
+        services.TryAddPipelineBehavior<AddStubCommand, ErrorOr<Unit>, AddStubCommandHandlerLoggingBehavior>();
         services.TryAddPipelineBehavior<ReadStubResponseQuery, ErrorOr<ReadStubResponseQueryResult>, ReadStubResponseQueryHandlerLoggingBehavior>();
         services.TryAddPipelineBehavior<ReadGrpcServiceListQuery, ReadGrpcServiceListQueryResult, ReadGrpcServiceListQueryHandlerLoggingBehavior>();
         return services;

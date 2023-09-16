@@ -65,7 +65,7 @@ During development this rules can be changed.
   - ~~Generate grpc services classes with help of reflection and than use interceptor to substitute response~~
   - ~~Add IProtoConverter to serialize and deserialize protobuf models~~
   - ~~Add Logging Behavior~~ Formulated process of adding business logs
-  - Add OneOf library instead of Exceptions
+  - ~~Add OneOf library instead of Exceptions~~ Add ErrorOr instead
   - Add Validation Behavior
   - Add Docker file
   - Add docker-compose.yaml

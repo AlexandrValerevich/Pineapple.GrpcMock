@@ -26,7 +26,7 @@ internal sealed class ReadStubResponseQueryHandlerLoggingBehavior : IPipelineBeh
                     message.ServiceFullName,
                     message.Method,
                     timer.GetElapsedTime().TotalMilliseconds),
-                errors => _logger.LogError("Read stub response query for [{ServiceName}/{Method}] is failed in {Elapsed:0.0000}ms. Errors: {@Errors}",
+                errors => _logger.LogError("Read stub response query for [{ServiceName}/{Method}] is failed in {Elapsed:0.0000}ms. {@Errors}",
                     message.ServiceFullName,
                     message.Method,
                     timer.GetElapsedTime().TotalMilliseconds,
