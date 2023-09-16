@@ -1,9 +1,9 @@
 using Microsoft.Extensions.Logging;
+using Pineapple.GrpcMock.Application.Common.Registry;
 using Pineapple.GrpcMock.Application.Stubs.Dto;
-using Pineapple.GrpcMock.Application.Stubs.Registry;
 using Pineapple.GrpcMock.RpcHost.Shared.Helpers;
 
-namespace Pineapple.GrpcMock.Infrastructure.Stubs.Registry;
+namespace Pineapple.GrpcMock.Infrastructure.Registry.Stubs;
 
 internal sealed class StubRegistryLoggerDecorator : IStubRegistry
 {

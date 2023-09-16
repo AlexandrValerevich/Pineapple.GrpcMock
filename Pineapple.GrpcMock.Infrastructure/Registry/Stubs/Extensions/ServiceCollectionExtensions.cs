@@ -1,7 +1,7 @@
 using Microsoft.Extensions.DependencyInjection;
-using Pineapple.GrpcMock.Application.Stubs.Registry;
+using Pineapple.GrpcMock.Application.Common.Registry;
 
-namespace Pineapple.GrpcMock.Infrastructure.Stubs.Registry.Extensions;
+namespace Pineapple.GrpcMock.Infrastructure.Registry.Stubs.Extensions;
 
 internal static class ServiceCollectionExtensions
 {

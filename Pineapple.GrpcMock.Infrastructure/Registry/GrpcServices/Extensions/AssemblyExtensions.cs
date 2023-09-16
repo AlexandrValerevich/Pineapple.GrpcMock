@@ -1,7 +1,7 @@
 using System.Reflection;
 using Grpc.Core;
 
-namespace Pineapple.GrpcMock.Infrastructure.GrpcServices.Registry.Extensions;
+namespace Pineapple.GrpcMock.Infrastructure.Registry.GrpcServices.Extensions;
 
 internal static class AssemblyExtensions
 {

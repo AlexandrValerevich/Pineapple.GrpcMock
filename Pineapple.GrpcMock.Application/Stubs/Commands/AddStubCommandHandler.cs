@@ -1,9 +1,9 @@
 using System.Text.Json;
 using Mediator;
+using Pineapple.GrpcMock.Application.Common.Converter;
+using Pineapple.GrpcMock.Application.Common.Registry;
 using Pineapple.GrpcMock.Application.GrpcServices.Dto;
-using Pineapple.GrpcMock.Application.GrpcServices.Registry;
 using Pineapple.GrpcMock.Application.Stubs.Dto;
-using Pineapple.GrpcMock.Application.Stubs.Registry;
 
 namespace Pineapple.GrpcMock.Application.Stubs.Commands;
 
@@ -11,15 +11,13 @@ internal sealed class AddStubCommandHandler : ICommandHandler<AddStubCommand>
 {
     private readonly IStubRegistry _stubs;
     private readonly IGrpcServiceRegistry _grpcServices;
-    private static readonly JsonSerializerOptions _jsonOptions = new()
-    {
-        PropertyNameCaseInsensitive = true
-    };
+    private readonly IProtobufConverter _converter;
 
-    public AddStubCommandHandler(IStubRegistry stubs, IGrpcServiceRegistry grpcServices)
+    public AddStubCommandHandler(IStubRegistry stubs, IGrpcServiceRegistry grpcServices, IProtobufConverter converter)
     {
         _stubs = stubs;
         _grpcServices = grpcServices;
+        _converter = converter;
     }
 
     public ValueTask<Unit> Handle(AddStubCommand command, CancellationToken cancellationToken)
@@ -32,15 +30,13 @@ internal sealed class AddStubCommandHandler : ICommandHandler<AddStubCommand>
         if (method is null)
             return ValueTask.FromResult(Unit.Value);
 
-        var request = JsonSerializer.Deserialize(command.RequestBody, method.InputType, _jsonOptions) as Google.Protobuf.IMessage;
         var key = new StubRegistryKeyDto(
             ServiceShortName: command.ServiceShortName,
             Method: command.ServiceMethod);
 
-        var response = JsonSerializer.Deserialize(command.ResponseBody, method.OutputType, _jsonOptions) as Google.Protobuf.IMessage;
         var value = new StubRegistryValueDto(
-            Request: request ?? throw new NullReferenceException(),
-            Response: response ?? throw new NullReferenceException());
+            Request: _converter.FromJson(method.InputType, command.RequestBody),
+            Response: _converter.FromJson(method.OutputType, command.ResponseBody));
 
         _stubs.Add(key, value);
 

@@ -1,6 +1,6 @@
 using Pineapple.GrpcMock.Application.GrpcServices.Dto;
 
-namespace Pineapple.GrpcMock.Application.GrpcServices.Registry;
+namespace Pineapple.GrpcMock.Application.Common.Registry;
 
 public interface IGrpcServiceRegistry
 {

@@ -1,14 +1,14 @@
 using System.Collections.Immutable;
 using System.Reflection;
 using Grpc.Core;
+using Pineapple.GrpcMock.Application.Common.Registry;
 using Pineapple.GrpcMock.Application.GrpcServices.Dto;
-using Pineapple.GrpcMock.Application.GrpcServices.Registry;
-using Pineapple.GrpcMock.Infrastructure.GrpcServices.Registry.Extensions;
+using Pineapple.GrpcMock.Infrastructure.Registry.GrpcServices.Extensions;
 using Pineapple.GrpcMock.Protos;
 
-namespace Pineapple.GrpcMock.Infrastructure.GrpcServices.Registry;
+namespace Pineapple.GrpcMock.Infrastructure.Registry.GrpcServices;
 
-public class GrpcServicesRegistry : IGrpcServiceRegistry
+public class GrpcServiceRegistry : IGrpcServiceRegistry
 {
     private static readonly Lazy<IList<GrpcServiceMetaDto>> _services = new(() =>
     {
@@ -21,7 +21,7 @@ public class GrpcServicesRegistry : IGrpcServiceRegistry
                     x => x.Position == 1 && x.ParameterType.Equals(typeof(ServerCallContext))))
                 .Select(m =>
                 {
-                    ParameterInfo[] parameters = m.GetParameters();
+                    var parameters = m.GetParameters();
                     return new GrpcServiceMethodMetaDto(
                         Name: m.Name,
                         InputType: parameters.First().ParameterType,

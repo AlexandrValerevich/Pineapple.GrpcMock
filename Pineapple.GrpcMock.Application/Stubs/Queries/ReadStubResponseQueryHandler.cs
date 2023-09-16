@@ -1,6 +1,6 @@
 using Mediator;
 using Microsoft.Extensions.Logging;
-using Pineapple.GrpcMock.Application.Stubs.Registry;
+using Pineapple.GrpcMock.Application.Common.Registry;
 
 namespace Pineapple.GrpcMock.Application.Stubs.Queries;
 

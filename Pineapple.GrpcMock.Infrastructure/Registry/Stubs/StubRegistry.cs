@@ -1,8 +1,8 @@
 using System.Collections.Immutable;
+using Pineapple.GrpcMock.Application.Common.Registry;
 using Pineapple.GrpcMock.Application.Stubs.Dto;
-using Pineapple.GrpcMock.Application.Stubs.Registry;
 
-namespace Pineapple.GrpcMock.Infrastructure.Stubs.Registry;
+namespace Pineapple.GrpcMock.Infrastructure.Registry.Stubs;
 
 public class StubRegistry : IStubRegistry
 {

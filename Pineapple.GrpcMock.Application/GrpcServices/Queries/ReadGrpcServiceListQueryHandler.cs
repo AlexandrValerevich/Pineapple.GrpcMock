@@ -1,5 +1,5 @@
 using Mediator;
-using Pineapple.GrpcMock.Application.GrpcServices.Registry;
+using Pineapple.GrpcMock.Application.Common.Registry;
 
 namespace Pineapple.GrpcMock.Application.GrpcServices.Queries;
 

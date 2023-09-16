@@ -53,11 +53,17 @@ During development this rules can be changed.
 - ~~Collect all grpc service from assembly~~
 - ~~I need some registry for my stubs~~
 - ~~Before start I need to collect all stubs from folder and put to registry~~
+- ~~How to return response?~~
+- ~~Generate grpc services classes with help of reflection and than use interceptor to substitute response~~
 - Write endpoint for substitution
 - Add possibility to mock trailer and status codes
 - Add OneOf library instead of Exceptions
-- How to return response?
-- Generate grpc services classes with help of reflection and than use interceptor to substitute response
+- Add Swagger
+- Add REST endpoints about current stabs and services
+- Add possibility to set up Delay
+- Add Logging Behavior
+- Add Validation Behavior
+- Add IProtoConverter to serialize and deserialize protobuf models
 
 ## Environment Variable
 
