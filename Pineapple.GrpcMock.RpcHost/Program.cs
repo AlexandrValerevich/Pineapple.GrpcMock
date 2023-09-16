@@ -24,10 +24,14 @@ var builder = WebApplication.CreateBuilder(args);
 var app = builder.Build();
 {
     app.InitializeStubs();
-
-    app.UseMinimalHttpServerLogger();
     app.UseTraceIdHeaderMiddleware();
 
     app.MapGrpcStubServices();
+
+    app.Map("/api", b =>
+    {
+        b.UseMinimalHttpServerLogger();
+    });
+
     app.Run();
 }

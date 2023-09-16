@@ -109,7 +109,7 @@ internal sealed class HttpServerLoggerMiddleware
         if (context.Response.Body == null)
             return responseBody;
 
-        var originalBody = context.Response.Body;
+        Stream originalBody = context.Response.Body;
         using var memoryStream = new MemoryStream();
         context.Response.Body = memoryStream;
 
