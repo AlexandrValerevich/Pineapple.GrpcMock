@@ -68,6 +68,8 @@ During development this rules can be changed.
   - ~~Add Logging Behavior~~ Formulated process of adding business logs
   - ~~Add OneOf library instead of Exceptions~~ Add ErrorOr instead
   - ~~Add Validation Behavior~~
+  - Add global Exception Handler for Grpc
+  - Add global Exception Handler for Http
   - Add Docker file
   - Add docker-compose.yaml
   - Add manual for application
