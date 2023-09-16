@@ -2,7 +2,7 @@ using Mediator;
 using Microsoft.Extensions.Logging;
 using Pineapple.GrpcMock.RpcHost.Shared.Helpers;
 
-namespace Pineapple.GrpcMock.Application.GrpcServices.Queries;
+namespace Pineapple.GrpcMock.Application.GrpcServices.Queries.ReadGrpcServiceList;
 
 internal sealed class ReadGrpcServiceListQueryHandlerLoggingBehavior : IPipelineBehavior<ReadGrpcServiceListQuery, ReadGrpcServiceListQueryResult>
 {

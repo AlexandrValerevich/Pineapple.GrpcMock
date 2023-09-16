@@ -1,6 +1,6 @@
 using FluentValidation;
 
-namespace Pineapple.GrpcMock.Application.Stubs.Queries;
+namespace Pineapple.GrpcMock.Application.Stubs.Queries.ReadStubResponse;
 
 internal sealed class ReadStubResponseQueryValidator : AbstractValidator<ReadStubResponseQuery>
 {

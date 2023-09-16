@@ -1,7 +1,7 @@
 using System.Text.Json;
 using FluentValidation;
 
-namespace Pineapple.GrpcMock.Application.Stubs.Commands;
+namespace Pineapple.GrpcMock.Application.Stubs.Commands.AddStub;
 
 internal sealed class AddStubCommandValidator : AbstractValidator<AddStubCommand>
 {

@@ -1,7 +1,7 @@
 using System.Text.Json;
 using Mediator;
 using Microsoft.Extensions.Options;
-using Pineapple.GrpcMock.Application.Stubs.Commands;
+using Pineapple.GrpcMock.Application.Stubs.Commands.AddStub;
 using Pineapple.GrpcMock.Contracts.Stubs.V1;
 using Pineapple.GrpcMock.RpcHost.Configurations;
 using Throw;

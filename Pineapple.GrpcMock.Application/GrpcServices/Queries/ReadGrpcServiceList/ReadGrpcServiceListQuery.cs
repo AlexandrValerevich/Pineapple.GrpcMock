@@ -1,6 +1,6 @@
 using Mediator;
 
-namespace Pineapple.GrpcMock.Application.GrpcServices.Queries;
+namespace Pineapple.GrpcMock.Application.GrpcServices.Queries.ReadGrpcServiceList;
 
 public record ReadGrpcServiceListQuery : IQuery<ReadGrpcServiceListQueryResult>
 {

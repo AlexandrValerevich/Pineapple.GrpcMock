@@ -3,7 +3,7 @@ using Mediator;
 using Microsoft.Extensions.Logging;
 using Pineapple.GrpcMock.RpcHost.Shared.Helpers;
 
-namespace Pineapple.GrpcMock.Application.Stubs.Commands;
+namespace Pineapple.GrpcMock.Application.Stubs.Commands.AddStub;
 
 internal sealed class AddStubCommandHandlerLoggingBehavior : IPipelineBehavior<AddStubCommand, ErrorOr<Unit>>
 {

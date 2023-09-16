@@ -2,10 +2,9 @@ using ErrorOr;
 using Mediator;
 using Pineapple.GrpcMock.Application.Common.Converter;
 using Pineapple.GrpcMock.Application.Common.Registry;
-using Pineapple.GrpcMock.Application.GrpcServices.Dto;
 using Pineapple.GrpcMock.Application.Stubs.Dto;
 
-namespace Pineapple.GrpcMock.Application.Stubs.Commands;
+namespace Pineapple.GrpcMock.Application.Stubs.Commands.AddStub;
 
 internal sealed class AddStubCommandHandler : ICommandHandler<AddStubCommand, ErrorOr<Unit>>
 {
@@ -22,11 +21,11 @@ internal sealed class AddStubCommandHandler : ICommandHandler<AddStubCommand, Er
 
     public ValueTask<ErrorOr<Unit>> Handle(AddStubCommand command, CancellationToken cancellationToken)
     {
-        GrpcServiceMetaDto? service = _grpcServices.Get(command.ServiceShortName);
+        var service = _grpcServices.Get(command.ServiceShortName);
         if (service is null)
             return ValueTask.FromResult(ErrorOrFactory.From(Unit.Value));
 
-        GrpcServiceMethodMetaDto? method = service.Methods.SingleOrDefault(x => x.Name == command.Method);
+        var method = service.Methods.SingleOrDefault(x => x.Name == command.Method);
         if (method is null)
             return ValueTask.FromResult(ErrorOrFactory.From(Unit.Value));
 

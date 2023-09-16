@@ -7,7 +7,7 @@ using Mediator;
 namespace Pineapple.GrpcMock.Application.Common.Behaviors;
 
 public class ValidationBehavior<TRequest, TResponse> : IPipelineBehavior<TRequest, TResponse>
-    where TRequest : IRequest<TResponse>
+    where TRequest : IMessage
     where TResponse : IErrorOr
 {
     private readonly IValidator<TRequest>? _validator;
@@ -34,7 +34,7 @@ public class ValidationBehavior<TRequest, TResponse> : IPipelineBehavior<TReques
 
         return TryCreateResponseFromErrors(validationResult.Errors, out var response)
             ? response
-            : throw new ValidationException(validationResult.Errors);   
+            : throw new ValidationException(validationResult.Errors);
     }
 
     private static bool TryCreateResponseFromErrors(List<ValidationFailure> validationFailures, out TResponse response)

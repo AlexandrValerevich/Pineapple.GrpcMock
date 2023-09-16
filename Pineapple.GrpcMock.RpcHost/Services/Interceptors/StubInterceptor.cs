@@ -2,7 +2,7 @@ using ErrorOr;
 using Grpc.Core;
 using Grpc.Core.Interceptors;
 using Mediator;
-using Pineapple.GrpcMock.Application.Stubs.Queries;
+using Pineapple.GrpcMock.Application.Stubs.Queries.ReadStubResponse;
 using Pineapple.GrpcMock.RpcHost.Services.Interceptors.Extensions;
 
 namespace Pineapple.GrpcMock.RpcHost.Services.Interceptors;

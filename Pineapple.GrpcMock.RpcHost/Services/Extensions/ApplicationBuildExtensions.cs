@@ -1,7 +1,7 @@
 using System.Reflection;
 using Mediator;
 using Pineapple.GrpcMock.Application.GrpcServices.Dto;
-using Pineapple.GrpcMock.Application.GrpcServices.Queries;
+using Pineapple.GrpcMock.Application.GrpcServices.Queries.ReadGrpcServiceList;
 using Throw;
 
 namespace Pineapple.GrpcMock.RpcHost.Services.Extensions;

@@ -3,7 +3,7 @@ using Mediator;
 using Microsoft.Extensions.Logging;
 using Pineapple.GrpcMock.RpcHost.Shared.Helpers;
 
-namespace Pineapple.GrpcMock.Application.Stubs.Queries;
+namespace Pineapple.GrpcMock.Application.Stubs.Queries.ReadStubResponse;
 
 internal sealed class ReadStubResponseQueryHandlerLoggingBehavior : IPipelineBehavior<ReadStubResponseQuery, ErrorOr<ReadStubResponseQueryResult>>
 {
