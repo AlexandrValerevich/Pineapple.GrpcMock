@@ -11,6 +11,10 @@ internal sealed class AddStubCommandHandler : ICommandHandler<AddStubCommand>
 {
     private readonly IStubRegistry _stubs;
     private readonly IGrpcServiceRegistry _grpcServices;
+    private static readonly JsonSerializerOptions _jsonOptions = new()
+    {
+        PropertyNameCaseInsensitive = true
+    };
 
     public AddStubCommandHandler(IStubRegistry stubs, IGrpcServiceRegistry grpcServices)
     {
@@ -28,12 +32,12 @@ internal sealed class AddStubCommandHandler : ICommandHandler<AddStubCommand>
         if (method is null)
             return ValueTask.FromResult(Unit.Value);
 
-        var request = JsonSerializer.Deserialize(command.RequestBody, method.InputType) as Google.Protobuf.IMessage;
+        var request = JsonSerializer.Deserialize(command.RequestBody, method.InputType, _jsonOptions) as Google.Protobuf.IMessage;
         var key = new StubRegistryKeyDto(
             ServiceShortName: command.ServiceShortName,
             Method: command.ServiceMethod);
 
-        var response = JsonSerializer.Deserialize(command.ResponseBody, method.OutputType) as Google.Protobuf.IMessage;
+        var response = JsonSerializer.Deserialize(command.ResponseBody, method.OutputType, _jsonOptions) as Google.Protobuf.IMessage;
         var value = new StubRegistryValueDto(
             Request: request ?? throw new NullReferenceException(),
             Response: response ?? throw new NullReferenceException());
