@@ -1,3 +1,4 @@
+using ErrorOr;
 using Mediator;
 using Microsoft.Extensions.DependencyInjection;
 using Pineapple.GrpcMock.Application.Common.Behaviors.Extensions;
@@ -13,7 +14,7 @@ public static class DependencyInjection
     {
         services.AddMediator();
         services.TryAddPipelineBehavior<AddStubCommand, Unit, AddStubCommandHandlerLoggingBehavior>();
-        services.TryAddPipelineBehavior<ReadStubResponseQuery, ReadStubResponseQueryResult, ReadStubResponseQueryHandlerLoggingBehavior>();
+        services.TryAddPipelineBehavior<ReadStubResponseQuery, ErrorOr<ReadStubResponseQueryResult>, ReadStubResponseQueryHandlerLoggingBehavior>();
         services.TryAddPipelineBehavior<ReadGrpcServiceListQuery, ReadGrpcServiceListQueryResult, ReadGrpcServiceListQueryHandlerLoggingBehavior>();
         return services;
     }

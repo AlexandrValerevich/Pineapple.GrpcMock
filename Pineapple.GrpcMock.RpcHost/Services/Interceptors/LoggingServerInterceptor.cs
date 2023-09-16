@@ -42,7 +42,7 @@ internal sealed class LoggingServerInterceptor : Interceptor
             };
 
             _logger.LogError(ex,
-                "End processing handle gRPC request on server. Method: {Method} - {StatusCode} {StatusCodeLiteral} in {Elapsed:0.0000} ms. Process result: Failed.",
+                "End processing handle gRPC request on server. Method: {Method} - {StatusCode} {StatusCodeLiteral} is failed in {Elapsed:0.0000} ms.",
                 context.Method, (int) statusCode, statusCode, timer.GetElapsedTime().TotalMilliseconds);
 
             throw;
@@ -54,7 +54,7 @@ internal sealed class LoggingServerInterceptor : Interceptor
 
         using var responseBodyLogContext = LogContext.PushProperty("ResponseBody", responseBody);
         _logger.LogInformation(
-            "End processing handle gRPC request on server. Method: {Method} - {StatusCode} {StatusCodeLiteral} in {Elapsed:0.0000} ms. Process result: Successful.",
+            "End processing handle gRPC request on server. Method: {Method} - {StatusCode} {StatusCodeLiteral} is complied in {Elapsed:0.0000} ms.",
             context.Method, (int) context.Status.StatusCode, context.Status.StatusCode, timer.GetElapsedTime().TotalMilliseconds);
 
         return response;

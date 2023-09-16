@@ -1,9 +1,11 @@
+using ErrorOr;
 using Mediator;
 using Pineapple.GrpcMock.Application.Common.Registry;
+using Pineapple.GrpcMock.Application.Stubs.Dto;
 
 namespace Pineapple.GrpcMock.Application.Stubs.Queries;
 
-public class ReadStubResponseQueryHandler : IQueryHandler<ReadStubResponseQuery, ReadStubResponseQueryResult>
+public class ReadStubResponseQueryHandler : IQueryHandler<ReadStubResponseQuery, ErrorOr<ReadStubResponseQueryResult>>
 {
     private readonly IStubRegistry _stubs;
 
@@ -12,13 +14,20 @@ public class ReadStubResponseQueryHandler : IQueryHandler<ReadStubResponseQuery,
         _stubs = stubs;
     }
 
-    public ValueTask<ReadStubResponseQueryResult> Handle(ReadStubResponseQuery query, CancellationToken cancellationToken)
+    public ValueTask<ErrorOr<ReadStubResponseQueryResult>> Handle(ReadStubResponseQuery query, CancellationToken cancellationToken)
     {
-        var shortName = query.ServiceFullName.Split(".").Last();
-        var values = _stubs.Get(new(
+        string shortName = query.ServiceFullName.Split(".").Last();
+
+        IReadOnlyList<StubRegistryValueDto> values = _stubs.Get(new(
             ServiceShortName: shortName,
             Method: query.Method));
 
-        return ValueTask.FromResult(new ReadStubResponseQueryResult(Response: values[0].Response));
+        StubRegistryValueDto? value = values.FirstOrDefault(x => x.Request.Equals(query.Request));
+
+        if (value is null)
+            return ValueTask.FromResult<ErrorOr<ReadStubResponseQueryResult>>(Errors.Stubs.NotFound);
+
+        return ValueTask.FromResult<ErrorOr<ReadStubResponseQueryResult>>(
+            new ReadStubResponseQueryResult(Response: value.Response));
     }
 }
