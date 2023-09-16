@@ -12,6 +12,7 @@
 
     <ItemGroup>
         <PackageReference Include="Throw" Version="1.4.0" />
+        <PackageReference Include="OneOf" Version="3.0.263" />
     </ItemGroup>
 
     <ItemGroup>
@@ -23,11 +24,8 @@
     </ItemGroup>
 
     <ItemGroup>
-        <Compile Include="..\Pineapple.GrpcMock.Shared\Helpers\ValueStopwatch.cs" Link="Helpers\ValueStopwatch.cs" />
-    </ItemGroup>
-
-    <ItemGroup>
         <ProjectReference Include="..\Pineapple.GrpcMock.Protos\Pineapple.GrpcMock.Protos.csproj" />
+        <Compile Include="..\Pineapple.GrpcMock.Shared\Helpers\ValueStopwatch.cs" Link="Helpers\ValueStopwatch.cs" />
     </ItemGroup>
 
 </Project>

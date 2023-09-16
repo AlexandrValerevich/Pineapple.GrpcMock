@@ -16,9 +16,6 @@
 
     <ItemGroup>
         <Protobuf Include="./proto/*.proto" GrpcServices="Both" CompileOutputs="true" />
-    </ItemGroup>
-
-    <ItemGroup>
         <Protobuf Include="$(ProtoFiles)" GrpcServices="Both" CompileOutputs="true" />
         <Content Include="$(ProtoFiles)">
             <CopyToOutputDirectory>Always</CopyToOutputDirectory>

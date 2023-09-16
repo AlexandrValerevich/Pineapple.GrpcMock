@@ -16,19 +16,16 @@
         <PackageReference Include="Serilog.Formatting.Compact" Version="1.1.0" />
     </ItemGroup>
 
-    <ItemGroup>
-        <Content Include="$(StubFolder)" CopyToOutputDirectory="Always" />
-    </ItemGroup>
 
     <Target Name="DisplayMessages" BeforeTargets="PreBuildEvent">
         <Message Text="Copy all stubs from: $(StubFiles)" Importance="high" />
+        <ItemGroup>
+            <Content Include="$(StubFolder)" CopyToOutputDirectory="Always" />
+        </ItemGroup>
     </Target>
 
     <ItemGroup>
         <Compile Include="..\Pineapple.GrpcMock.Shared\Helpers\ValueStopwatch.cs" Link="Helpers\ValueStopwatch.cs" />
-    </ItemGroup>
-
-    <ItemGroup>
         <ProjectReference Include="..\Pineapple.GrpcMock.Application\Pineapple.GrpcMock.Application.csproj" />
         <ProjectReference Include="..\Pineapple.GrpcMock.Infrastructure\Pineapple.GrpcMock.Infrastructure.csproj" />
         <ProjectReference Include="..\Pineapple.GrpcMock.Contracts\Pineapple.GrpcMock.Contracts.csproj" />
