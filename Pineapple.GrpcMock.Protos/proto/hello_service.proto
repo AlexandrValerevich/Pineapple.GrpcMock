@@ -7,8 +7,13 @@ import "google/protobuf/empty.proto";
 option csharp_namespace = "TradingHouse.Common.CustomerSettings.Protos";
 
 service HelloService{
-  rpc List (google.protobuf.Empty) returns (HelloResponse);
+  rpc Echo (EchoModel) returns (EchoModel);
   rpc Test (google.protobuf.Empty) returns (HelloResponse);
+}
+
+message EchoModel
+{
+  string message = 1;
 }
 
 message HelloResponse {

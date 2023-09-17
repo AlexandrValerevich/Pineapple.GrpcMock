@@ -1,8 +1,11 @@
 {
   "serviceName": "HelloService",
-  "serviceMethod": "List",
+  "serviceMethod": "Echo",
   "request": {
-    "body": {}
+    "body": {
+      "message": "Hello World",
+      "number": 1
+    }
   },
   "response": {
     "body": {
