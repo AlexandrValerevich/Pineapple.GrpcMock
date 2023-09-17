@@ -7,11 +7,11 @@ using Pineapple.GrpcMock.RpcHost.Services.Interceptors.Extensions;
 
 namespace Pineapple.GrpcMock.RpcHost.Services.Interceptors;
 
-internal sealed class StubInterceptor : Interceptor
+internal sealed class StubServerInterceptor : Interceptor
 {
     private readonly IMediator _mediator;
 
-    public StubInterceptor(IMediator mediator)
+    public StubServerInterceptor(IMediator mediator)
     {
         _mediator = mediator;
     }

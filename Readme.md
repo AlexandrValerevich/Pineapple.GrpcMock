@@ -51,12 +51,15 @@ During development this rules can be changed.
 ## Backlog
 
 - Features
-  - Write endpoint for substitution
-  - Add possibility to set up Delay
-  - Add possibility to mock trailer and status codes
-  - Add REST endpoints about current stabs and services
-  - Add Swagger
-  - Add priority to stubs
+  - ~~Add Swagger~~
+  - I like user want to set up stub status code
+  - I like user want to set up stub trailer and metadata
+  - I like user want to set up delay for stubbed response
+  - I like user want to set up stub for grpc service method therefore REST api
+  - I like user want to set up priority for my stub messages
+  - I like user want to get all services that can be added
+  - I like user want to get all current stubs in my application
+  - I like user want to have docker image to run stub like container
 
 - Code
   - ~~How to return response?~~
@@ -68,8 +71,8 @@ During development this rules can be changed.
   - ~~Add Logging Behavior~~ Formulated process of adding business logs
   - ~~Add OneOf library instead of Exceptions~~ Add ErrorOr instead
   - ~~Add Validation Behavior~~
-  - Add global Exception Handler for Grpc
-  - Add global Exception Handler for Http
+  - ~~Add global Exception Handler for Grpc~~
+  - ~~Add global Exception Handler for Http~~
   - Add Docker file
   - Add docker-compose.yaml
   - Add manual for application

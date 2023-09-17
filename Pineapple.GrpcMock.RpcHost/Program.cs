@@ -1,3 +1,4 @@
+using Hellang.Middleware.ProblemDetails;
 using Pineapple.GrpcMock.Application;
 using Pineapple.GrpcMock.Infrastructure;
 using Pineapple.GrpcMock.RpcHost;
@@ -24,15 +25,21 @@ var builder = WebApplication.CreateBuilder(args);
 var app = builder.Build();
 {
     app.InitializeStubs();
+    app.UseSwagger();
+    app.UseSwaggerUI();
+
     app.UseTraceIdHeaderMiddleware();
 
     app.MapGrpcStubServices();
     app.MapGrpcReflectionService();
 
-    app.Map("/api", b =>
+    app.UseWhen(context => context.Request.Path.StartsWithSegments("/api"), b =>
     {
         b.UseMinimalHttpServerLogger();
+        b.UseProblemDetails();
     });
+
+    app.MapControllers();
 
     app.Run();
 }
