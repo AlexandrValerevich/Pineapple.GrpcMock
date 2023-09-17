@@ -24,9 +24,9 @@ public class ReadStubResponseQueryHandler : IQueryHandler<ReadStubResponseQuery,
         var value = values.FirstOrDefault(x => x.Request.Equals(query.Request));
 
         if (value is null)
-            return ValueTask.FromResult<ErrorOr<ReadStubResponseQueryResult>>(Errors.Stubs.NotFound);
+            return ValueTask.FromResult<ErrorOr<ReadStubResponseQueryResult>>(Errors.Stubs.StubNotFound);
 
         return ValueTask.FromResult<ErrorOr<ReadStubResponseQueryResult>>(
-            new ReadStubResponseQueryResult(Response: value.Response));
+            new ReadStubResponseQueryResult(Body: value.Response, Status: value.Status));
     }
 }

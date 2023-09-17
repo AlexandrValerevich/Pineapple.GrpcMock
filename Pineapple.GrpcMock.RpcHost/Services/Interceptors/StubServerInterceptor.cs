@@ -26,7 +26,11 @@ internal sealed class StubServerInterceptor : Interceptor
             Request: (Google.Protobuf.IMessage) request));
 
         return result.MatchFirst(
-            value => (TResponse) value.Response,
+            value =>
+            {
+                context.Status = value.Status;
+                return (TResponse) value.Body;
+            },
             error => throw new RpcException(new Status(error.ToStatusCode(), error.Description))
         );
     }

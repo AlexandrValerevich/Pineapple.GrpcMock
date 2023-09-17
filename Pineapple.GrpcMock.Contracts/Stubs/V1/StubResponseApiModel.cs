@@ -9,4 +9,7 @@ public class StubResponseApiModel
 
     [JsonPropertyName("body")]
     public JsonElement Body { get; set; }
+
+    [JsonPropertyName("status")]
+    public StubStatusApiModel Status { get; set; } = StubStatusApiModel.Instance;
 }

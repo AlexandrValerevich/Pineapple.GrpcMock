@@ -9,6 +9,9 @@
   "response": {
     "body": {
       "message": "Hello World"
+    },
+    "status": {
+      "code": 15
     }
   }
 }

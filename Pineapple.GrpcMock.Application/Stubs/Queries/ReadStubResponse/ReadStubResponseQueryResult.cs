@@ -1,6 +1,8 @@
 using Google.Protobuf;
+using Grpc.Core;
 
 namespace Pineapple.GrpcMock.Application.Stubs.Queries.ReadStubResponse;
 
 public record ReadStubResponseQueryResult(
-    IMessage Response);
+    IMessage Body,
+    Status Status);

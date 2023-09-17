@@ -51,8 +51,8 @@ During development this rules can be changed.
 ## Backlog
 
 - Features
-  - ~~Add Swagger~~
-  - I like user want to set up stub status code
+  - ~~I like user want to have Swagger~~
+  - ~~I like user want to set up stub status code~~
   - I like user want to set up stub trailer and metadata
   - I like user want to set up delay for stubbed response
   - I like user want to set up stub for grpc service method therefore REST api
@@ -73,6 +73,7 @@ During development this rules can be changed.
   - ~~Add Validation Behavior~~
   - ~~Add global Exception Handler for Grpc~~
   - ~~Add global Exception Handler for Http~~
+  - Add errors for AddStubCommand
   - Add Docker file
   - Add docker-compose.yaml
   - Add manual for application

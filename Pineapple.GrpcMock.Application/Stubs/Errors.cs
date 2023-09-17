@@ -6,6 +6,6 @@ public static partial class Errors
 {
     public static class Stubs
     {
-        public readonly static Error NotFound = Error.NotFound("Stubs.NotFound", "Stubs not found.");
+        public readonly static Error StubNotFound = Error.NotFound("Stubs.StubNotFound", "Stubs not found.");
     }
 }

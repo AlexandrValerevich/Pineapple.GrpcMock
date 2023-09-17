@@ -2,6 +2,7 @@ using System.Text.Json;
 using Mediator;
 using Microsoft.Extensions.Options;
 using Pineapple.GrpcMock.Application.Stubs.Commands.AddStub;
+using Pineapple.GrpcMock.Application.Stubs.Dto;
 using Pineapple.GrpcMock.Contracts.Stubs.V1;
 using Pineapple.GrpcMock.RpcHost.Configurations;
 using Throw;
@@ -22,7 +23,10 @@ internal static class ApplicationBuildExtensions
                 ServiceShortName: stub.ServiceShortName,
                 Method: stub.ServiceMethod,
                 RequestBody: stub.Request.Body.ToString(),
-                ResponseBody: stub.Response.Body.ToString()
+                ResponseBody: stub.Response.Body.ToString(),
+                Status: new StubStatusDto(
+                    Code: stub.Response.Status.Code,
+                    Details: stub.Response.Status.Details)
             ));
 
             result.AsTask().Wait();

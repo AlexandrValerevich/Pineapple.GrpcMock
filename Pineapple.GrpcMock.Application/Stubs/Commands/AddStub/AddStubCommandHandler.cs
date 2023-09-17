@@ -1,4 +1,5 @@
 using ErrorOr;
+using Grpc.Core;
 using Mediator;
 using Pineapple.GrpcMock.Application.Common.Converter;
 using Pineapple.GrpcMock.Application.Common.Registry;
@@ -35,7 +36,8 @@ internal sealed class AddStubCommandHandler : ICommandHandler<AddStubCommand, Er
 
         var value = new StubRegistryValueDto(
             Request: _converter.FromJson(method.InputType, command.RequestBody),
-            Response: _converter.FromJson(method.OutputType, command.ResponseBody));
+            Response: _converter.FromJson(method.OutputType, command.ResponseBody),
+            Status: new Status((StatusCode) command.Status.Code, command.Status.Details));
 
         _stubs.Add(key, value);
 
