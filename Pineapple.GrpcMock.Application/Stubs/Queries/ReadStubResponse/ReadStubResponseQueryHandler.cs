@@ -27,6 +27,9 @@ public class ReadStubResponseQueryHandler : IQueryHandler<ReadStubResponseQuery,
             return ValueTask.FromResult<ErrorOr<ReadStubResponseQueryResult>>(Errors.Stubs.StubNotFound);
 
         return ValueTask.FromResult<ErrorOr<ReadStubResponseQueryResult>>(
-            new ReadStubResponseQueryResult(Body: value.Response, Status: value.Status));
+            new ReadStubResponseQueryResult(
+                Body: value.Response,
+                Status: value.Status,
+                Metadata: value.Metadata));
     }
 }

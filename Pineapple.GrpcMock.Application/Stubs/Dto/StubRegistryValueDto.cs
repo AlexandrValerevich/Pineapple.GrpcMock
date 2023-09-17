@@ -6,4 +6,5 @@ namespace Pineapple.GrpcMock.Application.Stubs.Dto;
 public record StubRegistryValueDto(
     IMessage Response,
     IMessage Request,
-    Status Status);
+    Status Status,
+    Metadata Metadata);

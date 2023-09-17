@@ -3,6 +3,7 @@ using Grpc.Core;
 using Mediator;
 using Pineapple.GrpcMock.Application.Common.Converter;
 using Pineapple.GrpcMock.Application.Common.Registry;
+using Pineapple.GrpcMock.Application.Stubs.Commands.AddStub.Extensions;
 using Pineapple.GrpcMock.Application.Stubs.Dto;
 
 namespace Pineapple.GrpcMock.Application.Stubs.Commands.AddStub;
@@ -37,7 +38,8 @@ internal sealed class AddStubCommandHandler : ICommandHandler<AddStubCommand, Er
         var value = new StubRegistryValueDto(
             Request: _converter.FromJson(method.InputType, command.RequestBody),
             Response: _converter.FromJson(method.OutputType, command.ResponseBody),
-            Status: new Status((StatusCode) command.Status.Code, command.Status.Details));
+            Status: new Status((StatusCode) command.Status.Code, command.Status.Details),
+            Metadata: MetadataExtensions.Create(command.Metadata.Trailer));
 
         _stubs.Add(key, value);
 

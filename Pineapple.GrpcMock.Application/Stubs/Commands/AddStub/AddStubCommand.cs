@@ -7,6 +7,7 @@ namespace Pineapple.GrpcMock.Application.Stubs.Commands.AddStub;
 public record AddStubCommand(
     string ServiceShortName,
     string Method,
-    StubStatusDto Status,
     string RequestBody,
-    string ResponseBody) : ICommand<ErrorOr<Unit>>;
+    string ResponseBody,
+    StubStatusDto Status,
+    StubMetadataDto Metadata) : ICommand<ErrorOr<Unit>>;

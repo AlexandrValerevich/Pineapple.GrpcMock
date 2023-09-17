@@ -28,6 +28,8 @@ internal sealed class StubServerInterceptor : Interceptor
         return result.MatchFirst(
             value =>
             {
+                foreach (Metadata.Entry trailer in value.Metadata)
+                    context.ResponseTrailers.Add(trailer);
                 context.Status = value.Status;
                 return (TResponse) value.Body;
             },

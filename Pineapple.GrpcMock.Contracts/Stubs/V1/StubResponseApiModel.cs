@@ -12,4 +12,7 @@ public class StubResponseApiModel
 
     [JsonPropertyName("status")]
     public StubStatusApiModel Status { get; set; } = StubStatusApiModel.Instance;
+
+    [JsonPropertyName("metadata")]
+    public StubMetadataApiModel Metadata { get; set; } = StubMetadataApiModel.Instance;
 }

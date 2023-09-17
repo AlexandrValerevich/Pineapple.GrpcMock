@@ -11,7 +11,12 @@
       "message": "Hello World"
     },
     "status": {
-      "code": 15
+      "code": 13,
+      "details": "Everything is okay just a test!"
+    },
+    "metadata": {
+      "code": 1009,
+      "string": "text"
     }
   }
 }

@@ -1,3 +1,4 @@
+using System.Collections.Immutable;
 using System.Text.Json;
 using Mediator;
 using Microsoft.Extensions.Options;
@@ -26,7 +27,8 @@ internal static class ApplicationBuildExtensions
                 ResponseBody: stub.Response.Body.ToString(),
                 Status: new StubStatusDto(
                     Code: stub.Response.Status.Code,
-                    Details: stub.Response.Status.Details)
+                    Details: stub.Response.Status.Details),
+                Metadata: new StubMetadataDto(stub.Response.Metadata.Trailer.ToImmutableDictionary())
             ));
 
             result.AsTask().Wait();
