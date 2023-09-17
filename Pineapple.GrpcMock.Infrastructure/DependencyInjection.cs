@@ -1,6 +1,6 @@
 using Microsoft.Extensions.DependencyInjection;
 using Pineapple.GrpcMock.Infrastructure.Converters.Extensions;
-using Pineapple.GrpcMock.Infrastructure.Registry.GrpcServices.Extensions;
+using Pineapple.GrpcMock.Infrastructure.Registry.ProtoMeta.Extensions;
 using Pineapple.GrpcMock.Infrastructure.Registry.Stubs.Extensions;
 
 namespace Pineapple.GrpcMock.Infrastructure;
@@ -11,7 +11,7 @@ public static class DependencyInjection
     {
         services.TryAddProtobufConverter();
         services.TryAddStubRegistry();
-        services.TryAddGrpcServiceRegistry();
+        services.TryAddProtoMetaRegistry();
         return services;
     }
 }

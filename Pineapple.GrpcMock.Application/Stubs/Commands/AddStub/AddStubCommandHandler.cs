@@ -9,19 +9,19 @@ namespace Pineapple.GrpcMock.Application.Stubs.Commands.AddStub;
 internal sealed class AddStubCommandHandler : ICommandHandler<AddStubCommand, ErrorOr<Unit>>
 {
     private readonly IStubRegistry _stubs;
-    private readonly IGrpcServiceRegistry _grpcServices;
+    private readonly IProtoMetaRegistry _protoMeta;
     private readonly IProtobufConverter _converter;
 
-    public AddStubCommandHandler(IStubRegistry stubs, IGrpcServiceRegistry grpcServices, IProtobufConverter converter)
+    public AddStubCommandHandler(IStubRegistry stubs, IProtoMetaRegistry protoMeta, IProtobufConverter converter)
     {
         _stubs = stubs;
-        _grpcServices = grpcServices;
+        _protoMeta = protoMeta;
         _converter = converter;
     }
 
     public ValueTask<ErrorOr<Unit>> Handle(AddStubCommand command, CancellationToken cancellationToken)
     {
-        var service = _grpcServices.Get(command.ServiceShortName);
+        var service = _protoMeta.Get(command.ServiceShortName);
         if (service is null)
             return ValueTask.FromResult(ErrorOrFactory.From(Unit.Value));
 

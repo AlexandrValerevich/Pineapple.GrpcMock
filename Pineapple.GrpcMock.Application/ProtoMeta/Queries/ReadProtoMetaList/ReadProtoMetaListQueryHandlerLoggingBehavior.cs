@@ -2,18 +2,18 @@ using Mediator;
 using Microsoft.Extensions.Logging;
 using Pineapple.GrpcMock.RpcHost.Shared.Helpers;
 
-namespace Pineapple.GrpcMock.Application.GrpcServices.Queries.ReadGrpcServiceList;
+namespace Pineapple.GrpcMock.Application.ProtoMeta.Queries.ReadProtoMetaList;
 
-internal sealed class ReadGrpcServiceListQueryHandlerLoggingBehavior : IPipelineBehavior<ReadGrpcServiceListQuery, ReadGrpcServiceListQueryResult>
+internal sealed class ReadProtoMetaListQueryHandlerLoggingBehavior : IPipelineBehavior<ReadProtoMetaListQuery, ReadProtoMetaListQueryResult>
 {
     private readonly ILogger _logger;
 
-    public ReadGrpcServiceListQueryHandlerLoggingBehavior(ILogger<ReadGrpcServiceListQueryHandlerLoggingBehavior> logger)
+    public ReadProtoMetaListQueryHandlerLoggingBehavior(ILogger<ReadProtoMetaListQueryHandlerLoggingBehavior> logger)
     {
         _logger = logger;
     }
 
-    public async ValueTask<ReadGrpcServiceListQueryResult> Handle(ReadGrpcServiceListQuery message, MessageHandlerDelegate<ReadGrpcServiceListQuery, ReadGrpcServiceListQueryResult> next, CancellationToken cancellationToken)
+    public async ValueTask<ReadProtoMetaListQueryResult> Handle(ReadProtoMetaListQuery message, MessageHandlerDelegate<ReadProtoMetaListQuery, ReadProtoMetaListQueryResult> next, CancellationToken cancellationToken)
     {
         var timer = ValueStopwatch.StartNew();
         try

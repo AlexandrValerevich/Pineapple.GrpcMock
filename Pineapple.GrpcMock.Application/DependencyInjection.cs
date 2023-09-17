@@ -1,7 +1,7 @@
 using System.Reflection;
 using FluentValidation;
 using Microsoft.Extensions.DependencyInjection;
-using Pineapple.GrpcMock.Application.GrpcServices.Queries.ReadGrpcServiceList.Extensions;
+using Pineapple.GrpcMock.Application.ProtoMeta.Queries.ReadProtoMetaList.Extensions;
 using Pineapple.GrpcMock.Application.Stubs.Commands.AddStub.Extensions;
 using Pineapple.GrpcMock.Application.Stubs.Queries.ReadStubResponse.Extensions;
 
@@ -14,7 +14,7 @@ public static class DependencyInjection
         services.AddValidatorsFromAssembly(Assembly.GetExecutingAssembly(), ServiceLifetime.Singleton, includeInternalTypes: true);
         services.AddMediator();
         services.AddReadStubResponseQuery();
-        services.AddReadGrpcServiceListQuery();
+        services.AddReadProtoMetaListQuery();
         services.AddAddStubCommand();
         return services;
     }

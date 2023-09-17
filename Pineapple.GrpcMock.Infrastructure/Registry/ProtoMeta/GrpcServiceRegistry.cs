@@ -2,18 +2,18 @@ using System.Collections.Immutable;
 using System.Reflection;
 using Grpc.Core;
 using Pineapple.GrpcMock.Application.Common.Registry;
-using Pineapple.GrpcMock.Application.GrpcServices.Dto;
-using Pineapple.GrpcMock.Infrastructure.Registry.GrpcServices.Extensions;
+using Pineapple.GrpcMock.Application.ProtoMeta.Dto;
+using Pineapple.GrpcMock.Infrastructure.Registry.ProtoMeta.Extensions;
 using Pineapple.GrpcMock.Protos;
 
-namespace Pineapple.GrpcMock.Infrastructure.Registry.GrpcServices;
+namespace Pineapple.GrpcMock.Infrastructure.Registry.ProtoMeta;
 
-public class GrpcServiceRegistry : IGrpcServiceRegistry
+public class ProtoMetaRegistry : IProtoMetaRegistry
 {
-    private static readonly Lazy<IList<GrpcServiceMetaDto>> _services = new(() =>
+    private static readonly Lazy<IList<ProtoMetaDto>> _services = new(() =>
     {
-        var services = Assembly.GetAssembly(typeof(IAssemblyMarker))!.GetGrpcServices();
-        return services.Select(s => new GrpcServiceMetaDto(
+        var services = Assembly.GetAssembly(typeof(IAssemblyMarker))!.GetProtoMeta();
+        return services.Select(s => new ProtoMetaDto(
             ServiceType: s,
             ShortName: s.Name[..^4],
             Methods: s.GetMethods()
@@ -22,7 +22,7 @@ public class GrpcServiceRegistry : IGrpcServiceRegistry
                 .Select(m =>
                 {
                     var parameters = m.GetParameters();
-                    return new GrpcServiceMethodMetaDto(
+                    return new ProtoMethodMetaDto(
                         Name: m.Name,
                         InputType: parameters.First().ParameterType,
                         OutputType: m.ReturnType.GenericTypeArguments.First());
@@ -30,12 +30,12 @@ public class GrpcServiceRegistry : IGrpcServiceRegistry
             ).ToImmutableList();
     });
 
-    public GrpcServiceMetaDto? Get(string shortName)
+    public ProtoMetaDto? Get(string shortName)
     {
         return _services.Value.SingleOrDefault(x => x.ShortName == shortName);
     }
 
-    public IReadOnlyList<GrpcServiceMetaDto> List()
+    public IReadOnlyList<ProtoMetaDto> List()
     {
         return _services.Value.ToImmutableList();
     }
