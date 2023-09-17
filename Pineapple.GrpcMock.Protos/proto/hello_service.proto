@@ -4,19 +4,12 @@ package grpc.mock;
 
 import "google/protobuf/empty.proto";
 
-option csharp_namespace = "TradingHouse.Common.CustomerSettings.Protos";
+option csharp_namespace = "GrpcMock.Proto";
 
 service HelloService{
-  rpc Echo (EchoModel) returns (EchoModel);
-  rpc Test (google.protobuf.Empty) returns (HelloResponse);
-}
-
-message EchoModel
-{
-  string message = 1;
+  rpc Hello (google.protobuf.Empty) returns (HelloResponse);
 }
 
 message HelloResponse {
   string message = 1;
-  int32 number = 2;
 }

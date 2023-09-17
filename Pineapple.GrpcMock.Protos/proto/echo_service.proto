@@ -1,0 +1,14 @@
+syntax = "proto3";
+
+package grpc.mock;
+
+option csharp_namespace = "GrpcMock.Proto";
+
+service EchoService{
+  rpc Echo (EchoModel) returns (EchoModel);
+}
+
+message EchoModel
+{
+  string message = 1;
+}

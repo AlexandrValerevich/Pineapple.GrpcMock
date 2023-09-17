@@ -1,0 +1,12 @@
+{
+  "serviceName": "HelloService",
+  "serviceMethod": "Hello",
+  "request": {
+    "body": {}
+  },
+  "response": {
+    "body": {
+      "message": "Hello World"
+    }
+  }
+}

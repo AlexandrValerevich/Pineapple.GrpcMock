@@ -4,6 +4,6 @@ namespace Pineapple.GrpcMock.Application.Common.Registry;
 
 public interface IProtoMetaRegistry
 {
-    IReadOnlyList<ProtoMetaDto> List();
-    ProtoMetaDto? Get(string shortName);
+    IReadOnlyList<ProtoServiceMetaDto> List();
+    ProtoServiceMetaDto? Get(string shortName);
 }

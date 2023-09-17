@@ -2,7 +2,7 @@ using System.Text.Json.Serialization;
 
 namespace Pineapple.GrpcMock.Contracts.Stubs.V1;
 
-public class StubApiRequest
+public class AddStubApiRequest
 {
 
     [JsonPropertyName("serviceName")]

@@ -1,0 +1,14 @@
+{
+  "serviceName": "EchoService",
+  "serviceMethod": "Echo",
+  "request": {
+    "body": {
+      "message": "Hello World"
+    }
+  },
+  "response": {
+    "body": {
+      "message": "Hello World"
+    }
+  }
+}

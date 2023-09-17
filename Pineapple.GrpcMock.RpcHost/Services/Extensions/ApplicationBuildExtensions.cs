@@ -19,7 +19,7 @@ internal static class EndpointRouteBuilderExtensions
             .GetMethod(nameof(GrpcEndpointRouteBuilderExtensions.MapGrpcService))
             .ThrowIfNull();
 
-        foreach (ProtoMetaDto service in meta.ServicesMeta)
+        foreach (ProtoServiceMetaDto service in meta.ServicesMeta)
             extensionsMethod.MakeGenericMethod(service.ServiceType).Invoke(null, new object[] { builder });
 
         return builder;

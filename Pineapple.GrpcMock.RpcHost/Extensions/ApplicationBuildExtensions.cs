@@ -13,10 +13,10 @@ internal static class ApplicationBuildExtensions
     public static IApplicationBuilder InitializeStubs(this IApplicationBuilder app)
     {
         StubOptions stubOptions = app.ApplicationServices.GetRequiredService<IOptions<StubOptions>>().Value;
-        IEnumerable<StubApiRequest> stubs = ReadStubs(stubOptions.Folder);
+        IEnumerable<AddStubApiRequest> stubs = ReadStubs(stubOptions.Folder);
         var mediator = app.ApplicationServices.GetRequiredService<IMediator>();
 
-        foreach (StubApiRequest stub in stubs)
+        foreach (AddStubApiRequest stub in stubs)
         {
             var result = mediator.Send(new AddStubCommand(
                 ServiceShortName: stub.ServiceShortName,
@@ -31,14 +31,14 @@ internal static class ApplicationBuildExtensions
         return app;
     }
 
-    private static IEnumerable<StubApiRequest> ReadStubs(string path)
+    private static IEnumerable<AddStubApiRequest> ReadStubs(string path)
     {
-        var stubs = new List<StubApiRequest>();
+        var stubs = new List<AddStubApiRequest>();
         string[] jsonFiles = Directory.GetFiles(path, "*.json");
         foreach (string filePath in jsonFiles)
         {
             ReadOnlySpan<byte> jsonContent = File.ReadAllBytes(filePath).AsSpan();
-            stubs.Add(JsonSerializer.Deserialize<StubApiRequest>(jsonContent).ThrowIfNull());
+            stubs.Add(JsonSerializer.Deserialize<AddStubApiRequest>(jsonContent).ThrowIfNull());
         }
 
         return stubs;

@@ -10,10 +10,10 @@ namespace Pineapple.GrpcMock.Infrastructure.Registry.ProtoMeta;
 
 public class ProtoMetaRegistry : IProtoMetaRegistry
 {
-    private static readonly Lazy<IList<ProtoMetaDto>> _services = new(() =>
+    private static readonly Lazy<IList<ProtoServiceMetaDto>> _services = new(() =>
     {
         var services = Assembly.GetAssembly(typeof(IAssemblyMarker))!.GetProtoMeta();
-        return services.Select(s => new ProtoMetaDto(
+        return services.Select(s => new ProtoServiceMetaDto(
             ServiceType: s,
             ShortName: s.Name[..^4],
             Methods: s.GetMethods()
@@ -30,12 +30,12 @@ public class ProtoMetaRegistry : IProtoMetaRegistry
             ).ToImmutableList();
     });
 
-    public ProtoMetaDto? Get(string shortName)
+    public ProtoServiceMetaDto? Get(string shortName)
     {
         return _services.Value.SingleOrDefault(x => x.ShortName == shortName);
     }
 
-    public IReadOnlyList<ProtoMetaDto> List()
+    public IReadOnlyList<ProtoServiceMetaDto> List()
     {
         return _services.Value.ToImmutableList();
     }

@@ -24,6 +24,7 @@ internal static class DependencyInjection
         services.AddGrpcReflection();
 
         services.AddControllers();
+        services.AddEndpointsApiExplorer();
         services.AddMinimalHttpServerLogger();
         ProblemDetailsExtensions.AddProblemDetails(services, o =>
         {
