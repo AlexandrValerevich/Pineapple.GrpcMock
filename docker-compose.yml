@@ -1,0 +1,18 @@
+version: '3.4'
+
+services:
+  pineapple.grpc.mock.rpchost:
+    image: pineapple.grpc.mock.rpchost
+    build:
+      context: .
+      dockerfile: Pineapple.GrpcMock.RpcHost/Dockerfile
+    ports:
+      - 5001:5001
+      - 5002:5002
+    environment:
+      - Serilog__MinimumLevel__Default=Debug
+      - Serilog__WriteTo__0__Name=Console
+      - Serilog__WriteTo__0__Args__outputTemplate={Timestamp:MM-dd HH:mm:ss.fff zzz} [{TraceId}] [{Level:u3}] {SourceContext}. {Message:lj}{NewLine}{Exception}
+    volumes:
+      - ./stub:/stub
+      - ./proto:/proto

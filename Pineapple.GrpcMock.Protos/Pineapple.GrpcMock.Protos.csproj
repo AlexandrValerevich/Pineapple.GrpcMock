@@ -15,12 +15,20 @@
         <PackageReference Include="Grpc.AspNetCore" Version="2.57.0" />
     </ItemGroup>
 
-    <ItemGroup>
-        <Protobuf Include="./proto/*.proto" GrpcServices="Both" CompileOutputs="true" />
-        <Protobuf Include="$(ProtoFiles)" GrpcServices="Both" CompileOutputs="true" />
-        <Content Include="$(ProtoFiles)">
-            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-        </Content>
-    </ItemGroup>
+    <Target Name="DisplayMessages" BeforeTargets="PreBuildEvent">
+        <Message Text="Copy all proto from default path: ./proto/*.proto" Importance="high" />
+        <Message Text="Copy all proto from Proto__Folder variable folder: $(ProtoFiles)" Importance="high" />
+        <ItemGroup>
+            <Protobuf Include="./proto/*.proto" GrpcServices="Both" CompileOutputs="true" />
+            <Content Include="./proto/*.proto">
+                <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+            </Content>
+            <Protobuf Include="$(ProtoFiles)" GrpcServices="Both" CompileOutputs="true" />
+            <Content Include="$(ProtoFiles)">
+                <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+            </Content>
+        </ItemGroup>
+    </Target>
+
 
 </Project>

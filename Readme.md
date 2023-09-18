@@ -59,8 +59,8 @@ During development this rules can be changed.
   - ~~As a user I want to set up stub for grpc service method therefore REST api~~
   - ~~As a user I want to get all current stubs in my application~~
   - ~~As a user I want to set up priority for my stub messages~~
+  - ~~As a user I want to have docker image to run stub like container~~
   - As a user I want to clear all my stubs
-  - As a user I want to have docker image to run stub like container
 
 - Code
   - ~~How to return response?~~
@@ -74,9 +74,9 @@ During development this rules can be changed.
   - ~~Add Validation Behavior~~
   - ~~Add global Exception Handler for Grpc~~
   - ~~Add global Exception Handler for Http~~
+  - ~~Add Docker file~~
+  - ~~Add docker-compose.yaml~~
   - Add validation for AddStubCommand
-  - Add Docker file
-  - Add docker-compose.yaml
   - Add manual for application
 
 ## Environment Variable

@@ -1,0 +1,19 @@
+# Please refer https://aka.ms/HTTPSinContainer on how to setup an https developer certificate for your ASP.NET Core service.
+
+version: '3.4'
+
+services:
+  pineapple.grpc.mock.rpchost:
+    image: pineapple.grpc.mock.rpchost
+    build:
+      context: .
+      dockerfile: Pineapple.GrpcMock.RpcHost/Dockerfile
+      args:
+        - configuration=Debug
+    ports:
+      - 5001:5001
+      - 5002:5002
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+    volumes:
+      - ~/.vsdbg:/remote_debugger:rw
