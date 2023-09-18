@@ -76,7 +76,8 @@ During development this rules can be changed.
   - ~~Add global Exception Handler for Http~~
   - ~~Add Docker file~~
   - ~~Add docker-compose.yaml~~
-  - Add validation for AddStubCommand
+  - Add validation for all commands/query
+  - Add ErrorOr Handling in controllers
   - Add manual for application
 
 ## Environment Variable
