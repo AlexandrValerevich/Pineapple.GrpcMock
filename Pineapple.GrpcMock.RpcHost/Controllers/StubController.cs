@@ -1,9 +1,11 @@
 using System.Collections.Immutable;
 using System.Net.Mime;
+using System.Text.Json;
 using Mediator;
 using Microsoft.AspNetCore.Mvc;
 using Pineapple.GrpcMock.Application.Stubs.Commands.AddStub;
 using Pineapple.GrpcMock.Application.Stubs.Dto;
+using Pineapple.GrpcMock.Application.Stubs.Queries.ReadStubList;
 using Pineapple.GrpcMock.Contracts.Stubs.V1;
 
 namespace Pineapple.GrpcMock.RpcHost.Controllers;
@@ -28,8 +30,8 @@ public sealed class StubController : ControllerBase
            new AddStubCommand(
                 ServiceShortName: request.ServiceShortName,
                 Method: request.ServiceMethod,
-                RequestBody: request.Request.Body.ToString(),
-                ResponseBody: request.Response.Body.ToString(),
+                RequestBody: request.Request.Body,
+                ResponseBody: request.Response.Body,
                 Status: new StubStatusDto(
                     Code: request.Response.Status.Code,
                     Details: request.Response.Status.Details),
@@ -39,5 +41,39 @@ public sealed class StubController : ControllerBase
            cancellationToken);
 
         return Ok();
+    }
+
+
+    [HttpGet]
+    public async Task<ActionResult<ReadStubListApiResponse>> List(CancellationToken cancellationToken)
+    {
+        var result = await _mediator.Send(ReadStubListQuery.Instance, cancellationToken);
+
+        return Ok(new ReadStubListApiResponse
+        {
+            Stubs = result.Stubs.Select(x => new StubItemApiModel
+            {
+                ServiceShortName = x.ServiceShortName,
+                Method = x.Method,
+                Request = new StubRequestApiModel
+                {
+                    Body = x.RequestBody
+                },
+                Response = new StubResponseApiModel
+                {
+                    Body = x.ResponseBody,
+                    Delay = x.Delay,
+                    Metadata = new StubMetadataApiModel
+                    {
+                        Trailer = (x.Metadata.Trailer as IDictionary<string, JsonElement>)!
+                    },
+                    Status = new StubStatusApiModel
+                    {
+                        Code = x.Status.Code,
+                        Details = x.Status.Details
+                    }
+                }
+            }).ToImmutableList()
+        });
     }
 }

@@ -57,7 +57,7 @@ During development this rules can be changed.
   - ~~As a user I want to get all services that can be added~~
   - ~~As a user I want to set up delay for stubbed response~~
   - ~~As a user I want to set up stub for grpc service method therefore REST api~~
-  - As a user I want to get all current stubs in my application
+  - ~~As a user I want to get all current stubs in my application~~
   - As a user I want to set up priority for my stub messages
   - As a user I want to have docker image to run stub like container
 

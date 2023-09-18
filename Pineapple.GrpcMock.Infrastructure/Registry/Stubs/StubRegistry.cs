@@ -22,4 +22,12 @@ public class StubRegistry : IStubRegistry
     {
         return _registry.GetValueOrDefault(key)?.ToArray() ?? Array.Empty<StubRegistryValueDto>();
     }
+
+    public IReadOnlyDictionary<StubRegistryKeyDto, IReadOnlyList<StubRegistryValueDto>> List()
+    {
+        return _registry.ToDictionary(
+            kvp => kvp.Key,
+            kvp => (IReadOnlyList<StubRegistryValueDto>) kvp.Value.AsReadOnly()
+        );
+    }
 }

@@ -18,15 +18,15 @@ internal sealed class ReadProtoMetaListQueryHandlerLoggingBehavior : IPipelineBe
         var timer = ValueStopwatch.StartNew();
         try
         {
-            _logger.LogTrace("Read grpc services list request.");
+            _logger.LogTrace("Read grpc services list query.");
             var response = await next(message, cancellationToken);
-            _logger.LogInformation("Read grpc services list request is completed in {Elapsed:0.0000}ms.", timer.GetElapsedTime().TotalMilliseconds);
+            _logger.LogInformation("Read grpc services list query is completed in {Elapsed:0.0000}ms.", timer.GetElapsedTime().TotalMilliseconds);
 
             return response;
         }
         catch
         {
-            _logger.LogError("Read grpc services list for [{ServiceName}/{Method}] is failed in {Elapsed:0.0000}ms.", timer.GetElapsedTime().TotalMilliseconds);
+            _logger.LogError("Read grpc services list query is failed in {Elapsed:0.0000}ms.", timer.GetElapsedTime().TotalMilliseconds);
             throw;
         }
     }

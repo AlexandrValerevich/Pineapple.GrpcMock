@@ -1,9 +1,10 @@
+using System.Text.Json;
 using Google.Protobuf;
 
 namespace Pineapple.GrpcMock.Application.Common.Converter;
 
 public interface IProtobufConverter
 {
-    IMessage FromJson(Type protoType, string json);
-    string ToJson(IMessage proto);
+    IMessage FromJson(JsonElement json, Type protoType);
+    JsonElement ToJsonElement(IMessage proto);
 }

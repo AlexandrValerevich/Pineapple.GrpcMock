@@ -46,4 +46,20 @@ internal sealed class StubRegistryLoggerDecorator : IStubRegistry
             throw;
         }
     }
+
+    public IReadOnlyDictionary<StubRegistryKeyDto, IReadOnlyList<StubRegistryValueDto>> List()
+    {
+        var timer = ValueStopwatch.StartNew();
+        try
+        {
+            var stubs = _registry.List();
+            _logger.LogTrace("Get all stubs is completed in {Elapsed:0.0000}ms.", timer.GetElapsedTime().TotalMilliseconds);
+            return stubs;
+        }
+        catch
+        {
+            _logger.LogError("Get all stubs is failed in {Elapsed:0.0000}ms.", timer.GetElapsedTime().TotalMilliseconds);
+            throw;
+        }
+    }
 }

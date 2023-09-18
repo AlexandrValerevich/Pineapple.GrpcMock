@@ -6,10 +6,8 @@ namespace Pineapple.GrpcMock.Application.Common.Extensions;
 
 public static class MetadataExtensions
 {
-    public static Metadata Create(IReadOnlyDictionary<string, JsonElement> trailer)
+    public static Metadata Add(this Metadata metadata, IReadOnlyDictionary<string, JsonElement> trailer)
     {
-        var metadata = new Metadata();
-
         foreach (KeyValuePair<string, JsonElement> keyValue in trailer)
         {
             if (keyValue.Key.EndsWith("-bin"))
@@ -21,10 +19,7 @@ public static class MetadataExtensions
             {
                 metadata.TryAdd(keyValue.Key, keyValue.Value.ToString());
             }
-
-
         }
-
 
         return metadata;
     }
@@ -55,5 +50,18 @@ public static class MetadataExtensions
         }
 
         return true;
+    }
+
+    public static IReadOnlyDictionary<string, JsonElement> ToReadOnlyDictionary(this Metadata metadata)
+    {
+        var result = new Dictionary<string, JsonElement>();
+        foreach (Metadata.Entry metadataItem in metadata)
+        {
+            result.Add(
+                metadataItem.Key,
+                JsonSerializer.SerializeToElement(metadataItem.IsBinary ? Encoding.UTF8.GetString(metadataItem.ValueBytes) : metadataItem.Value));
+        }
+
+        return result;
     }
 }

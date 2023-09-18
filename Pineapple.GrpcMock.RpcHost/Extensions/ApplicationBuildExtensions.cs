@@ -23,8 +23,8 @@ internal static class ApplicationBuildExtensions
             var result = mediator.Send(new AddStubCommand(
                 ServiceShortName: stub.ServiceShortName,
                 Method: stub.ServiceMethod,
-                RequestBody: stub.Request.Body.ToString(),
-                ResponseBody: stub.Response.Body.ToString(),
+                RequestBody: stub.Request.Body,
+                ResponseBody: stub.Response.Body,
                 Status: new StubStatusDto(
                     Code: stub.Response.Status.Code,
                     Details: stub.Response.Status.Details),

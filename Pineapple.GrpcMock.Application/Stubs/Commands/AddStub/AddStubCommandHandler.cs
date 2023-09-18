@@ -36,10 +36,10 @@ internal sealed class AddStubCommandHandler : ICommandHandler<AddStubCommand, Er
             Method: command.Method);
 
         var value = new StubRegistryValueDto(
-            Request: _converter.FromJson(method.InputType, command.RequestBody),
-            Response: _converter.FromJson(method.OutputType, command.ResponseBody),
+            Request: _converter.FromJson(command.RequestBody, method.InputType),
+            Response: _converter.FromJson(command.ResponseBody, method.OutputType),
             Status: new Status((StatusCode) command.Status.Code, command.Status.Details),
-            Metadata: MetadataExtensions.Create(command.Metadata.Trailer),
+            Metadata: new Metadata().Add(command.Metadata.Trailer),
             Delay: command.Delay);
 
         _stubs.Add(key, value);

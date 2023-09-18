@@ -1,5 +1,5 @@
 {
-  "serviceName": "EchoService",
+  "serviceShortName": "EchoService",
   "serviceMethod": "Echo",
   "request": {
     "body": {

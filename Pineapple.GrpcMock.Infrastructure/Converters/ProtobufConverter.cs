@@ -15,18 +15,18 @@ internal sealed class ProtobufConverter : IProtobufConverter
         new JsonFormatter.Settings(true).WithPreserveProtoFieldNames(true)));
 
 
-    public IMessage FromJson(Type protoType, string json)
+    public IMessage FromJson(JsonElement json, Type protoType)
     {
-        var proto = JsonSerializer.Deserialize(json, protoType, _jsonOptions.Value) as IMessage;
+        var proto = json.Deserialize(protoType, _jsonOptions.Value) as IMessage;
         return proto ?? throw new Exception("Can't convert json to proto");
 
     }
 
-    public string ToJson(IMessage proto)
+    public JsonElement ToJsonElement(IMessage proto)
     {
-        using var writer = new StringWriter();
-        _jsonFormatter.Value.Format(proto, writer);
-        return writer.ToString();
+        var json = _jsonFormatter.Value.Format(proto);
+        using JsonDocument doc = JsonDocument.Parse(json);
+        return doc.RootElement.Clone();
     }
 
 }
