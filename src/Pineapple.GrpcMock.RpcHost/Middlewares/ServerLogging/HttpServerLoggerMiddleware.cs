@@ -31,7 +31,7 @@ internal sealed class HttpServerLoggerMiddleware
 
     private async Task InvokeInternalAsync(HttpContext context)
     {
-        var logger = Log.Logger;
+        var logger = Log.Logger.ForContext<HttpServerLoggerMiddleware>();
         if (logger.IsEnabled(LogEventLevel.Debug))
         {
             var requestBody = await GetRequestBody(context.Request);

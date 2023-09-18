@@ -27,3 +27,5 @@
 LICENSE
 README.md
 *.jwk
+./stub
+./proto
