@@ -2,7 +2,7 @@ using System.Text;
 using System.Text.Json;
 using Grpc.Core;
 
-namespace Pineapple.GrpcMock.Application.Stubs.Commands.AddStub.Extensions;
+namespace Pineapple.GrpcMock.Application.Common.Extensions;
 
 public static class MetadataExtensions
 {
@@ -12,11 +12,17 @@ public static class MetadataExtensions
 
         foreach (KeyValuePair<string, JsonElement> keyValue in trailer)
         {
-            var _ = keyValue.Value.ValueKind switch
+            if (keyValue.Key.EndsWith("-bin"))
             {
-                JsonValueKind.Number => metadata.TryAdd(keyValue.Key, keyValue.Value.ToString()),
-                _ => metadata.TryAdd(keyValue.Key, Encoding.UTF8.GetBytes(keyValue.Value.ToString())),
-            };
+
+                metadata.TryAdd(keyValue.Key, Encoding.UTF8.GetBytes(keyValue.Value.ToString()));
+            }
+            else
+            {
+                metadata.TryAdd(keyValue.Key, keyValue.Value.ToString());
+            }
+
+
         }
 
 
@@ -41,7 +47,7 @@ public static class MetadataExtensions
     {
         try
         {
-            metadata.Add(key + "-bin", value);
+            metadata.Add(key, value);
         }
         catch
         {

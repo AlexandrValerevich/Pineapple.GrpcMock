@@ -7,6 +7,16 @@
   "response": {
     "body": {
       "message": "Hello World"
-    }
+    },
+    "status": {
+      "code": 0,
+      "details": "Everything is okay just a test!"
+    },
+    "metadata": {
+      "code": 1009,
+      "string": "text",
+      "string-bin": "text"
+    },
+    "delay": "00:00:01.000"
   }
 }

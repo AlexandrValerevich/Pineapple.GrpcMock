@@ -2,8 +2,8 @@ using ErrorOr;
 using Grpc.Core;
 using Mediator;
 using Pineapple.GrpcMock.Application.Common.Converter;
+using Pineapple.GrpcMock.Application.Common.Extensions;
 using Pineapple.GrpcMock.Application.Common.Registry;
-using Pineapple.GrpcMock.Application.Stubs.Commands.AddStub.Extensions;
 using Pineapple.GrpcMock.Application.Stubs.Dto;
 
 namespace Pineapple.GrpcMock.Application.Stubs.Commands.AddStub;

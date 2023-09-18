@@ -16,7 +16,8 @@
     },
     "metadata": {
       "code": 1009,
-      "string": "text"
+      "string": "text",
+      "string-bin": "text"
     },
     "delay": "00:00:05.000"
   }
