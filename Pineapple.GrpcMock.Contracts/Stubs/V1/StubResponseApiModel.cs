@@ -15,4 +15,7 @@ public class StubResponseApiModel
 
     [JsonPropertyName("metadata")]
     public StubMetadataApiModel Metadata { get; set; } = StubMetadataApiModel.Instance;
+
+    [JsonPropertyName("delay")]
+    public TimeSpan Delay { get; set; } = TimeSpan.Zero;
 }

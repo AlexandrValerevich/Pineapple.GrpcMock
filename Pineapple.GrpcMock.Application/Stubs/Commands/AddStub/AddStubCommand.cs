@@ -10,4 +10,5 @@ public record AddStubCommand(
     string RequestBody,
     string ResponseBody,
     StubStatusDto Status,
-    StubMetadataDto Metadata) : ICommand<ErrorOr<Unit>>;
+    StubMetadataDto Metadata,
+    TimeSpan Delay) : ICommand<ErrorOr<Unit>>;

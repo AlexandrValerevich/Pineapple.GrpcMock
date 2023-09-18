@@ -73,7 +73,7 @@ During development this rules can be changed.
   - ~~Add Validation Behavior~~
   - ~~Add global Exception Handler for Grpc~~
   - ~~Add global Exception Handler for Http~~
-  - Add errors for AddStubCommand
+  - Add errors to AddStubCommand
   - Add Docker file
   - Add docker-compose.yaml
   - Add manual for application

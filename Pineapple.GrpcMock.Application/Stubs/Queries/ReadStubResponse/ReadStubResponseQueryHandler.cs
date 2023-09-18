@@ -1,5 +1,6 @@
 using ErrorOr;
 using Mediator;
+using Microsoft.Extensions.Logging;
 using Pineapple.GrpcMock.Application.Common.Registry;
 
 namespace Pineapple.GrpcMock.Application.Stubs.Queries.ReadStubResponse;
@@ -7,13 +8,15 @@ namespace Pineapple.GrpcMock.Application.Stubs.Queries.ReadStubResponse;
 public class ReadStubResponseQueryHandler : IQueryHandler<ReadStubResponseQuery, ErrorOr<ReadStubResponseQueryResult>>
 {
     private readonly IStubRegistry _stubs;
+    private readonly ILogger _logger;
 
-    public ReadStubResponseQueryHandler(IStubRegistry stubs)
+    public ReadStubResponseQueryHandler(IStubRegistry stubs, ILogger<ReadStubResponseQueryHandler> logger)
     {
         _stubs = stubs;
+        _logger = logger;
     }
 
-    public ValueTask<ErrorOr<ReadStubResponseQueryResult>> Handle(ReadStubResponseQuery query, CancellationToken cancellationToken)
+    public async ValueTask<ErrorOr<ReadStubResponseQueryResult>> Handle(ReadStubResponseQuery query, CancellationToken cancellationToken)
     {
         var shortName = query.ServiceFullName.Split(".").Last();
 
@@ -24,12 +27,17 @@ public class ReadStubResponseQueryHandler : IQueryHandler<ReadStubResponseQuery,
         var value = values.FirstOrDefault(x => x.Request.Equals(query.Request));
 
         if (value is null)
-            return ValueTask.FromResult<ErrorOr<ReadStubResponseQueryResult>>(Errors.Stubs.StubNotFound);
+            return Errors.Stubs.StubNotFound;
 
-        return ValueTask.FromResult<ErrorOr<ReadStubResponseQueryResult>>(
-            new ReadStubResponseQueryResult(
+        if (value.Delay != TimeSpan.Zero)
+        {
+            _logger.LogDebug("Response delayed on {Delay:0.00}ms", value.Delay.TotalMilliseconds);
+            await Task.Delay(value.Delay, cancellationToken);
+        }
+
+        return new ReadStubResponseQueryResult(
                 Body: value.Response,
                 Status: value.Status,
-                Metadata: value.Metadata));
+                Metadata: value.Metadata);
     }
 }

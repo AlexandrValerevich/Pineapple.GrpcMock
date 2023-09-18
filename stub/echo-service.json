@@ -11,12 +11,13 @@
       "message": "Hello World"
     },
     "status": {
-      "code": 13,
+      "code": 0,
       "details": "Everything is okay just a test!"
     },
     "metadata": {
       "code": 1009,
       "string": "text"
-    }
+    },
+    "delay": "00:00:05.000"
   }
 }

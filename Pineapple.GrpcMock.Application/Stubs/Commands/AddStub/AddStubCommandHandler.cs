@@ -39,7 +39,8 @@ internal sealed class AddStubCommandHandler : ICommandHandler<AddStubCommand, Er
             Request: _converter.FromJson(method.InputType, command.RequestBody),
             Response: _converter.FromJson(method.OutputType, command.ResponseBody),
             Status: new Status((StatusCode) command.Status.Code, command.Status.Details),
-            Metadata: MetadataExtensions.Create(command.Metadata.Trailer));
+            Metadata: MetadataExtensions.Create(command.Metadata.Trailer),
+            Delay: command.Delay);
 
         _stubs.Add(key, value);
 
