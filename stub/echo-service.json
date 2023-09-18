@@ -1,6 +1,6 @@
 {
   "serviceShortName": "EchoService",
-  "serviceMethod": "Echo",
+  "method": "Echo",
   "request": {
     "body": {
       "message": "Hello World"

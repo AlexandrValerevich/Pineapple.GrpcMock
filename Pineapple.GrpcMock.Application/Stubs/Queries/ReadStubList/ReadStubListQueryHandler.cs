@@ -30,6 +30,7 @@ internal sealed class ReadStubListQueryHandler : IQueryHandler<ReadStubListQuery
                     var item = new StubItemDto(
                         ServiceShortName: kvp.Key.ServiceShortName,
                         Method: kvp.Key.Method,
+                        Priority: value.Priority,
                         RequestBody: _converter.ToJsonElement(value.Request),
                         ResponseBody: _converter.ToJsonElement(value.Response),
                         Status: new StubStatusDto(

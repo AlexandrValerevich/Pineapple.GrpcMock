@@ -8,4 +8,5 @@ public record StubRegistryValueDto(
     IMessage Request,
     Status Status,
     Metadata Metadata,
-    TimeSpan Delay);
+    TimeSpan Delay,
+    int Priority);

@@ -2,6 +2,7 @@ using ErrorOr;
 using Mediator;
 using Microsoft.Extensions.Logging;
 using Pineapple.GrpcMock.Application.Common.Registry;
+using Pineapple.GrpcMock.Application.Stubs.Dto;
 
 namespace Pineapple.GrpcMock.Application.Stubs.Queries.ReadStubResponse;
 
@@ -24,8 +25,7 @@ public class ReadStubResponseQueryHandler : IQueryHandler<ReadStubResponseQuery,
             ServiceShortName: shortName,
             Method: query.Method));
 
-        var value = values.FirstOrDefault(x => x.Request.Equals(query.Request));
-
+        StubRegistryValueDto? value = values.Where(x => x.Request.Equals(query.Request)).MaxBy(x => x.Priority);
         if (value is null)
             return Errors.Stubs.StubNotFound;
 

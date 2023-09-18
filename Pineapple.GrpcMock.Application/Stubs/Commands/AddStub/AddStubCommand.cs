@@ -12,4 +12,5 @@ public record AddStubCommand(
     JsonElement ResponseBody,
     StubStatusDto Status,
     StubMetadataDto Metadata,
-    TimeSpan Delay) : ICommand<ErrorOr<Unit>>;
+    TimeSpan Delay,
+    int Priority = 0) : ICommand<ErrorOr<Unit>>;

@@ -10,6 +10,9 @@ public class StubItemApiModel
     [JsonPropertyName("method")]
     public string Method { get; set; } = string.Empty;
 
+    [JsonPropertyName("priority")]
+    public int Priority { get; set; }
+
     [JsonPropertyName("request")]
     public StubRequestApiModel Request { get; set; } = StubRequestApiModel.Instance;
 

@@ -29,7 +29,8 @@ public sealed class StubController : ControllerBase
         await _mediator.Send(
            new AddStubCommand(
                 ServiceShortName: request.ServiceShortName,
-                Method: request.ServiceMethod,
+                Method: request.Method,
+                Priority: request.Priority,
                 RequestBody: request.Request.Body,
                 ResponseBody: request.Response.Body,
                 Status: new StubStatusDto(
@@ -55,6 +56,7 @@ public sealed class StubController : ControllerBase
             {
                 ServiceShortName = x.ServiceShortName,
                 Method = x.Method,
+                Priority = x.Priority,
                 Request = new StubRequestApiModel
                 {
                     Body = x.RequestBody

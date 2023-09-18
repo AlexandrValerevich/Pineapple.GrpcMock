@@ -8,8 +8,11 @@ public class AddStubApiRequest
     [JsonPropertyName("serviceShortName")]
     public string ServiceShortName { get; set; } = string.Empty;
 
-    [JsonPropertyName("serviceMethod")]
-    public string ServiceMethod { get; set; } = string.Empty;
+    [JsonPropertyName("method")]
+    public string Method { get; set; } = string.Empty;
+
+    [JsonPropertyName("priority")]
+    public int Priority { get; set; } = 0;
 
     [JsonPropertyName("request")]
     public StubRequestApiModel Request { get; set; } = StubRequestApiModel.Instance;
