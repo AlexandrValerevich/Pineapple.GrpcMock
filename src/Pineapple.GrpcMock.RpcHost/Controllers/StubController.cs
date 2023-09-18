@@ -4,6 +4,7 @@ using System.Text.Json;
 using Mediator;
 using Microsoft.AspNetCore.Mvc;
 using Pineapple.GrpcMock.Application.Stubs.Commands.AddStub;
+using Pineapple.GrpcMock.Application.Stubs.Commands.RemoveStubList;
 using Pineapple.GrpcMock.Application.Stubs.Dto;
 using Pineapple.GrpcMock.Application.Stubs.Queries.ReadStubList;
 using Pineapple.GrpcMock.Contracts.Stubs.V1;
@@ -78,4 +79,17 @@ public sealed class StubController : ControllerBase
             }).ToImmutableList()
         });
     }
+
+    [HttpDelete]
+    public async Task<IActionResult> RemoveList([FromBody] RemoveStubListApiRequest request, CancellationToken cancellationToken)
+    {
+        await _mediator.Send(
+           new RemoveStubListCommand(
+                ServiceShortName: request.ServiceShortName,
+                Method: request.Method),
+           cancellationToken);
+
+        return Ok();
+    }
+
 }

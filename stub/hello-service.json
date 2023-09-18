@@ -6,7 +6,9 @@
   },
   "response": {
     "body": {
-      "message": "Hello World"
+      "message": "Hello World",
+      "time": "2023-09-18T12:34:56.7890123Z",
+      "wrapped": 1.5
     },
     "status": {
       "code": 0,

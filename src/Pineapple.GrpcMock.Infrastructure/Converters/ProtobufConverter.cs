@@ -1,14 +1,22 @@
 using System.Text.Json;
 using Google.Protobuf;
 using Pineapple.GrpcMock.Application.Common.Converter;
+using Pineapple.GrpcMock.Infrastructure.Converters.JsonConverters;
 
 namespace Pineapple.GrpcMock.Infrastructure.Converters;
 
 internal sealed class ProtobufConverter : IProtobufConverter
 {
-    private static readonly Lazy<JsonSerializerOptions> _jsonOptions = new(new JsonSerializerOptions()
+    private static readonly Lazy<JsonSerializerOptions> _jsonOptions = new(() =>
     {
-        PropertyNameCaseInsensitive = true
+        var options = new JsonSerializerOptions()
+        {
+            PropertyNameCaseInsensitive = true,
+        };
+
+        options.Converters.Add(new TimestampConverter());
+
+        return options;
     });
 
     private static readonly Lazy<JsonFormatter> _jsonFormatter = new(() => new(

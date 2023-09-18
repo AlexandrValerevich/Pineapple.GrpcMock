@@ -3,6 +3,7 @@ using FluentValidation;
 using Microsoft.Extensions.DependencyInjection;
 using Pineapple.GrpcMock.Application.ProtoMeta.Queries.ReadProtoMetaList.Extensions;
 using Pineapple.GrpcMock.Application.Stubs.Commands.AddStub.Extensions;
+using Pineapple.GrpcMock.Application.Stubs.Commands.RemoveStubList.Extensions;
 using Pineapple.GrpcMock.Application.Stubs.Queries.ReadStubList.Extensions;
 using Pineapple.GrpcMock.Application.Stubs.Queries.ReadStubResponse.Extensions;
 
@@ -18,6 +19,7 @@ public static class DependencyInjection
         services.AddReadProtoMetaListQuery();
 
         services.AddAddStubCommand();
+        services.AddRemoveStubListCommand();
         services.AddReadStubResponseQuery();
         services.AddReadStubListQuery();
 

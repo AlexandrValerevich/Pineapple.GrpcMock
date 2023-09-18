@@ -62,4 +62,19 @@ internal sealed class StubRegistryLoggerDecorator : IStubRegistry
             throw;
         }
     }
+
+    public void Remove(StubRegistryKeyDto key)
+    {
+        var timer = ValueStopwatch.StartNew();
+        try
+        {
+            _registry.Remove(key);
+            _logger.LogTrace("Remove stub list for {@Key} is completed in {Elapsed:0.0000}ms.", key, timer.GetElapsedTime().TotalMilliseconds);
+        }
+        catch
+        {
+            _logger.LogError("Remove stub list for {@Key} is failed in {Elapsed:0.0000}ms.", key, timer.GetElapsedTime().TotalMilliseconds);
+            throw;
+        }
+    }
 }

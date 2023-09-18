@@ -30,4 +30,9 @@ public class StubRegistry : IStubRegistry
             kvp => (IReadOnlyList<StubRegistryValueDto>) kvp.Value.AsReadOnly()
         );
     }
+
+    public void Remove(StubRegistryKeyDto key)
+    {
+        _registry.Remove(key);
+    }
 }

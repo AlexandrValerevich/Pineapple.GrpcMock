@@ -2,6 +2,8 @@ syntax = "proto3";
 
 package grpc.mock;
 
+import "google/protobuf/timestamp.proto";
+
 option csharp_namespace = "GrpcMock.Proto";
 
 service EchoService{
@@ -11,4 +13,5 @@ service EchoService{
 message EchoModel
 {
   string message = 1;
+  google.protobuf.Timestamp time = 2;
 }

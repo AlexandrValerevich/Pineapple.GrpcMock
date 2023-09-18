@@ -1,4 +1,3 @@
-using System.Text.Json;
 using FluentValidation;
 using Pineapple.GrpcMock.Application.Stubs.Dto;
 
@@ -12,5 +11,4 @@ internal sealed class AddStubCommandValidator : AbstractValidator<AddStubCommand
         RuleFor(x => x.ServiceShortName).NotEmpty();
         RuleFor(x => x.Status).SetValidator(new StubStatusDtoValidator());
     }
-
 }
