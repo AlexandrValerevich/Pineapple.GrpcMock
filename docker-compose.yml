@@ -5,7 +5,7 @@ services:
     image: pineapple.grpc.mock.rpchost
     build:
       context: .
-      dockerfile: Pineapple.GrpcMock.RpcHost/Dockerfile
+      dockerfile: ./Dockerfile
     ports:
       - 5001:5001
       - 5002:5002

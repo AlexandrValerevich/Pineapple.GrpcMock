@@ -14,7 +14,7 @@ RUN mkdir /proto
 RUN mkdir /stub
 
 # Set the working directory
-WORKDIR /app/src
+WORKDIR /app
 
 # Copy the source code into the Docker image
 COPY . .
@@ -22,7 +22,7 @@ COPY . .
 RUN dotnet restore
 
 # Make the script executable as root
-RUN chmod +x /app/src/scripts/mock.sh
+RUN chmod +x /app/scripts/mock.sh
 
 # Set the entry point to the script
-ENTRYPOINT ["/app/src/scripts/mock.sh"]
+ENTRYPOINT ["/app/scripts/mock.sh"]
