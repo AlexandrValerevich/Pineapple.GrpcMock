@@ -222,3 +222,6 @@ tempkey.jwk
 
 # vs code
 .vscode/*
+
+proto/*
+stub/*
