@@ -20,19 +20,26 @@ internal static class ApplicationBuildExtensions
 
         foreach (AddStubApiRequest stub in stubs)
         {
-            var result = mediator.Send(new AddStubCommand(
-                ServiceShortName: stub.ServiceShortName,
-                Method: stub.Method,
-                RequestBody: stub.Request.Body,
-                ResponseBody: stub.Response.Body,
-                Status: new StubStatusDto(
-                    Code: stub.Response.Status.Code,
-                    Details: stub.Response.Status.Details),
-                Metadata: new StubMetadataDto(stub.Response.Metadata.Trailer.ToImmutableDictionary()),
-                Delay: stub.Response.Delay,
-                Priority: stub.Priority));
+            try
+            {
+                var result = mediator.Send(new AddStubCommand(
+                    ServiceShortName: stub.ServiceShortName,
+                    Method: stub.Method,
+                    RequestBody: stub.Request.Body,
+                    ResponseBody: stub.Response.Body,
+                    Status: new StubStatusDto(
+                        Code: stub.Response.Status.Code,
+                        Details: stub.Response.Status.Details),
+                    Metadata: new StubMetadataDto(stub.Response.Metadata.Trailer.ToImmutableDictionary()),
+                    Delay: stub.Response.Delay,
+                    Priority: stub.Priority));
 
-            result.AsTask().Wait();
+                result.AsTask().Wait();
+            }
+            catch (Exception ex)
+            {
+                Serilog.Log.Error(ex, "Can't add stub for [{ServiceName}/{Method}]", stub.ServiceShortName, stub.Method);
+            }
         }
 
         return app;
