@@ -1,12 +1,171 @@
 # Pineapple.GrpcMock
 
-## Run
+![Your App Logo](link_to_logo.png)
+
+## Overview
+
+Pineapple.GrpcMock is a  [brief description of your application].
+
+## Table of Contents
+
+- [Pineapple.GrpcMock](#pineapplegrpcmock)
+  - [Overview](#overview)
+  - [Table of Contents](#table-of-contents)
+  - [Getting Started](#getting-started)
+  - [Administration](#administration)
+  - [Environment Variable Description](#environment-variable-description)
+  - [Logging](#logging)
+  - [Ports](#ports)
+  - [Development](#development)
+    - [Run](#run)
+    - [Build](#build)
+  - [Codding convention](#codding-convention)
+  - [Backlog](#backlog)
+
+## Getting Started
+
+Before usage you need to prepare stub files in json format and put it to **/stub** folder in container. Example json:
+
+```json
+{
+  "serviceShortName": "EchoService",
+  "method": "Echo",
+  "priority": 10,
+  "request": {
+    "body": {
+      "message": "Hello World",
+      "startTime": "2023-09-18T12:34:56.7890123Z",
+      // other fields
+    }
+  },
+  "response": {
+    "body": {
+      "message": "Hello World",
+      "time": "2023-09-18T12:34:56.7890123Z",
+       // other fields
+    },
+    "status": {
+      "code": 0,
+      "details": "Everything is okay just a test!"
+    },
+    "metadata": {
+      "code": 1009,
+      "string": "text",
+      "string-bin": "text"
+    },
+    "delay": "00:00:05.000"
+  }
+}
+```
+
+And proto file of mocked service and put it into **/proto** folder in container. Example proto:
+
+```proto
+syntax = "proto3";
+
+package grpc.mock;
+
+import "google/protobuf/timestamp.proto";
+
+option csharp_namespace = "GrpcMock.Proto";
+
+service EchoService{
+  rpc Echo (EchoModel) returns (EchoModel);
+}
+
+message EchoModel
+{
+  string message = 1;
+  google.protobuf.Timestamp time = 2;
+}
+
+```
+
+GrpcMock can be easily deployed using Docker or Docker-Compose. Docker allows for containerization, making it simple to set up and run your application.
+
+To run the application using Docker:
+
+```bash
+docker run -d \
+    -p 5001:5001 \
+    -p 5002:5002 \
+    -v $(pwd)/stub:/stub \
+    -v $(pwd)/proto:/proto \
+    mazaika/pineapple.grpc.mock
+```
+
+Or use docker-compose.yaml:
+
+```yaml
+version: '3.4'
+
+services:
+  pineapple.grpc.mock.rpchost:
+    image: pineapple.grpc.mock.rpchost
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+    ports:
+      - 5001:5001
+      - 5002:5002
+    volumes:
+      - ./stub:/stub
+      - ./proto:/proto
+```
+
+With command:
+
+```bash
+docker-compose up -d
+```
+
+## Administration
+
+This application includes Swagger for API documentation. You can access the Swagger UI at:
+
+```txt
+http://127.0.0.1:5001/swagger
+```
+
+## Environment Variable Description
+
+- **Proto__Folder**: Absolute path to folder with proto files. Default: /proto
+- **Stub__Folder**: Absolute path to folder with stubs. Default: /stub
+
+## Logging
+
+All logs can be configured with help of Serilog env variables. Example:
+
+```txt
+- Serilog__MinimumLevel__Default=Information
+- Serilog__WriteTo__0__Name=Console
+- Serilog__WriteTo__0__Args__outputTemplate={Timestamp:MM-dd HH:mm:ss.fff zzz} [{TraceId}] [{Level:u3}] {SourceContext}. {Message:lj}{NewLine}{Exception}
+```
+
+To write logs in json format:
+
+```txt
+- Serilog__MinimumLevel__Default=Verbose
+- Serilog__WriteTo__0__Name=Console
+- Serilog__WriteTo__0__Args__formatter=Serilog.Formatting.Json.JsonFormatter
+```
+
+## Ports
+
+App runs on the following ports:
+
+- The REST API is available on port 5001 (HTTP 1.1).
+- The gRPC service is available on port 5002 (HTTP 2.0).
+
+## Development
+
+### Run
 
 ```bash
 dotnet run -p:ProtoFiles=./proto/*.proto -p:StubFiles=./stub/*.json
 ```
 
-## Build
+### Build
 
 ```bash
 dotnet build -p:ProtoFiles=./proto/*.proto -p:StubFiles=./stub/*.json
@@ -79,8 +238,3 @@ During development this rules can be changed.
   - Add validation for all commands/query
   - Add ErrorOr Handling in controllers
   - Add manual for application
-
-## Environment Variable
-
-- **Proto__Folder** - absolute path to folder with protobuf. It affect on project build. Have no default value.
-- **Stub__Folder** - absolute path to folder with stubs. It affect on project build. Have no default value.

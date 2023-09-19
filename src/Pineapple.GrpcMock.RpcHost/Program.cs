@@ -13,6 +13,7 @@ using Pineapple.GrpcMock.RpcHost.Services.Extensions;
 var builder = WebApplication.CreateBuilder(args);
 {
     builder.Host.UseConfigurableSerilog();
+    builder.WebHost.UseContentRoot(Directory.GetCurrentDirectory());
     builder.WebHost.ConfigureKestrel();
 
     builder.Services.AddPresentation(

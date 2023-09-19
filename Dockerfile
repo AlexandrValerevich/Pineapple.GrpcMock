@@ -8,6 +8,7 @@ EXPOSE 5002
 # Define environment variables
 ENV Proto__Folder=/proto
 ENV Stub__Folder=/stub
+ENV ASPNETCORE_ENVIRONMENT=Production
 
 # Create necessary folders
 RUN mkdir /proto

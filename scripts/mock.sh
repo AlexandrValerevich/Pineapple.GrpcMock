@@ -1,10 +1,8 @@
 #!/bin/bash
 
-# Build the application in Release configuration
-dotnet build -c Release -o /app/build
-
 # Publish the application in Release configuration
-dotnet publish -c Release -o /app/publish /p:UseAppHost=false
+dotnet publish "/app/src/Pineapple.GrpcMock.RpcHost/Pineapple.GrpcMock.RpcHost.csproj" -c Release -o /app/publish /p:UseAppHost=false
 
+cd /app/publish
 # Set your application entry point and run it
-dotnet /app/publish/Pineapple.GrpcMock.RpcHost.dll
+dotnet Pineapple.GrpcMock.RpcHost.dll

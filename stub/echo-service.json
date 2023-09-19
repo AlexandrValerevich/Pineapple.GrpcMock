@@ -1,6 +1,7 @@
 {
   "serviceShortName": "EchoService",
   "method": "Echo",
+  "priority": 10,
   "request": {
     "body": {
       "message": "Hello World",

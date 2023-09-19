@@ -1,6 +1,7 @@
 {
   "serviceShortName": "HelloService",
   "method": "Hello",
+  "priority": 10,
   "request": {
     "body": {}
   },
