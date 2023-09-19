@@ -217,6 +217,7 @@ During development this rules can be changed.
   - ~~As a user I want to set up priority for my stub messages~~
   - ~~As a user I want to have docker image to run stub like container~~
   - ~~As a user I want to clear all my stubs~~
+  - As a user I want to get possible input/output properties and their type name for method
 
 - Code
   - ~~How to return response?~~
