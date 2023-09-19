@@ -4,7 +4,7 @@
 
 ## Overview
 
-Pineapple.GrpcMock is a  [brief description of your application].
+Pineapple.GrpcMock is a application that help to mock grpc services in integration tests.
 
 ## Table of Contents
 
@@ -101,10 +101,7 @@ version: '3.4'
 
 services:
   pineapple.grpc.mock.rpchost:
-    image: pineapple.grpc.mock.rpchost
-    build:
-      context: .
-      dockerfile: ./Dockerfile
+    image: pineappleslice/grpc.mock:0.0.1
     ports:
       - 5001:5001
       - 5002:5002

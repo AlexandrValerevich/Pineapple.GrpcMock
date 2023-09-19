@@ -2,10 +2,7 @@ version: '3.4'
 
 services:
   pineapple.grpc.mock.rpchost:
-    image: pineapple.grpc.mock.rpchost
-    build:
-      context: .
-      dockerfile: ./Dockerfile
+    image: pineappleslice/grpc.mock:0.0.1
     ports:
       - 5001:5001
       - 5002:5002
