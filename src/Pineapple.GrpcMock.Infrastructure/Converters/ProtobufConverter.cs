@@ -1,33 +1,21 @@
 using System.Text.Json;
 using Google.Protobuf;
 using Pineapple.GrpcMock.Application.Common.Converter;
-using Pineapple.GrpcMock.Infrastructure.Converters.JsonConverters;
 
 namespace Pineapple.GrpcMock.Infrastructure.Converters;
 
 internal sealed class ProtobufConverter : IProtobufConverter
 {
-    private static readonly Lazy<JsonSerializerOptions> _jsonOptions = new(() =>
-    {
-        var options = new JsonSerializerOptions()
-        {
-            PropertyNameCaseInsensitive = true,
-        };
-
-        options.Converters.Add(new TimestampConverter());
-
-        return options;
-    });
-
     private static readonly Lazy<JsonFormatter> _jsonFormatter = new(() => new(
         new JsonFormatter.Settings(true).WithPreserveProtoFieldNames(true)));
 
-
     public IMessage FromJson(JsonElement json, Type protoType)
     {
-        var proto = json.Deserialize(protoType, _jsonOptions.Value) as IMessage;
-        return proto ?? throw new Exception("Can't convert json to proto");
+        if (Activator.CreateInstance(protoType) is not IMessage proto)
+            throw new Exception("Can't create instance of Google.Protobuf.IMessage interface");
 
+        IMessage result = JsonParser.Default.Parse(json.ToString(), proto.Descriptor);
+        return result;
     }
 
     public JsonElement ToJsonElement(IMessage proto)
