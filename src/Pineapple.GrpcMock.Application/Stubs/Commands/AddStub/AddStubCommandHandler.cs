@@ -4,7 +4,9 @@ using Mediator;
 using Pineapple.GrpcMock.Application.Common.Converter;
 using Pineapple.GrpcMock.Application.Common.Extensions;
 using Pineapple.GrpcMock.Application.Common.Registry;
+using Pineapple.GrpcMock.Application.ProtoMeta.Dto;
 using Pineapple.GrpcMock.Application.Stubs.Dto;
+using Throw;
 
 namespace Pineapple.GrpcMock.Application.Stubs.Commands.AddStub;
 
@@ -23,13 +25,8 @@ internal sealed class AddStubCommandHandler : ICommandHandler<AddStubCommand, Er
 
     public ValueTask<ErrorOr<Unit>> Handle(AddStubCommand command, CancellationToken cancellationToken)
     {
-        var service = _protoMeta.Get(command.ServiceShortName);
-        if (service is null)
-            return ValueTask.FromResult(ErrorOrFactory.From(Unit.Value));
-
-        var method = service.Methods.SingleOrDefault(x => x.Name == command.Method);
-        if (method is null)
-            return ValueTask.FromResult(ErrorOrFactory.From(Unit.Value));
+        ProtoServiceMetaDto service = _protoMeta.Get(command.ServiceShortName).ThrowIfNull("The existence of the service is not validated.");
+        ProtoMethodMetaDto method = service.Methods.Single(x => x.Name == command.Method);
 
         var key = new StubRegistryKeyDto(
             ServiceShortName: command.ServiceShortName,

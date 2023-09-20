@@ -1,6 +1,7 @@
 using System.Collections.Immutable;
 using System.Net.Mime;
 using System.Text.Json;
+using ErrorOr;
 using Mediator;
 using Microsoft.AspNetCore.Mvc;
 using Pineapple.GrpcMock.Application.Stubs.Commands.AddStub;
@@ -15,7 +16,7 @@ namespace Pineapple.GrpcMock.RpcHost.Controllers;
 [Produces(MediaTypeNames.Application.Json)]
 [Consumes(MediaTypeNames.Application.Json)]
 [Route("api/v1/__admin/stubs")]
-public sealed class StubController : ControllerBase
+public sealed class StubController : ApiController
 {
     private readonly IMediator _mediator;
 
@@ -27,7 +28,7 @@ public sealed class StubController : ControllerBase
     [HttpPost]
     public async Task<IActionResult> Add([FromBody] AddStubApiRequest request, CancellationToken cancellationToken)
     {
-        await _mediator.Send(
+        var result = await _mediator.Send(
            new AddStubCommand(
                 ServiceShortName: request.ServiceShortName,
                 Method: request.Method,
@@ -42,7 +43,11 @@ public sealed class StubController : ControllerBase
                 Delay: request.Response.Delay),
            cancellationToken);
 
-        return Ok();
+        return result.Match(
+            success => Ok(),
+            Problem
+        );
+
     }
 
 
@@ -83,13 +88,16 @@ public sealed class StubController : ControllerBase
     [HttpDelete]
     public async Task<IActionResult> RemoveList([FromBody] RemoveStubListApiRequest request, CancellationToken cancellationToken)
     {
-        await _mediator.Send(
+        ErrorOr<Unit> result = await _mediator.Send(
            new RemoveStubListCommand(
                 ServiceShortName: request.ServiceShortName,
                 Method: request.Method),
            cancellationToken);
 
-        return Ok();
+        return result.Match(
+            success => Ok(),
+            Problem
+        );
     }
 
 }

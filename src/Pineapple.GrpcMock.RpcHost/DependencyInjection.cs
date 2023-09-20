@@ -26,10 +26,7 @@ internal static class DependencyInjection
         services.AddControllers();
         services.AddEndpointsApiExplorer();
         services.AddMinimalHttpServerLogger();
-        ProblemDetailsExtensions.AddProblemDetails(services, o =>
-        {
-            o.IncludeExceptionDetails = (ctx, ex) => false;
-        });
+        ProblemDetailsExtensions.AddProblemDetails(services);
         services.AddSwaggerGen(c =>
         {
             c.SwaggerDoc("v1", new() { Title = "GrpcMock Api", Version = "v1" });

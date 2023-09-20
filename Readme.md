@@ -218,6 +218,7 @@ During development this rules can be changed.
   - ~~As a user I want to have docker image to run stub like container~~
   - ~~As a user I want to clear all my stubs~~
   - As a user I want to get possible input/output properties and their type name for method
+  - As a user I wand to set up default stub for Service/Method
 
 - Code
   - ~~How to return response?~~
@@ -233,6 +234,6 @@ During development this rules can be changed.
   - ~~Add global Exception Handler for Http~~
   - ~~Add Docker file~~
   - ~~Add docker-compose.yaml~~
-  - Add validation for all commands/query
-  - Add ErrorOr Handling in controllers
-  - Add manual for application
+  - ~~Add validation for all commands/query~~
+  - ~~Add ErrorOr Handling in controllers~~
+  - Add documentation for application

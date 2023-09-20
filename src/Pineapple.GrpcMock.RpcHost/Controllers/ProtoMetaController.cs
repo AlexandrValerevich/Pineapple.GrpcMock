@@ -10,7 +10,7 @@ namespace Pineapple.GrpcMock.RpcHost.Controllers;
 [ApiController]
 [Produces(MediaTypeNames.Application.Json)]
 [Route("api/v1/__admin/proto")]
-public sealed class ProtoMetaController : ControllerBase
+public sealed class ProtoMetaController : ApiController
 {
     private readonly IMediator _mediator;
 
