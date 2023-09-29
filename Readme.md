@@ -237,3 +237,5 @@ During development this rules can be changed.
   - ~~Add validation for all commands/query~~
   - ~~Add ErrorOr Handling in controllers~~
   - Add documentation for application
+  - Make proto assembly like a plugin and build only in time of project start instead of whole project
+  - Find out anther features from wiremock.
