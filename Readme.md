@@ -240,7 +240,8 @@ During development this rules can be changed.
   - ~~Add docker-compose.yaml~~
   - ~~Add validation for all commands/query~~
   - ~~Add ErrorOr Handling in controllers~~
+  - ~~Initialize stubs with help of IWorkerHost. It allow configure service onStart instep of onBuild.~~
   - Add documentation for application
   - Make proto assembly like a plugin and build only in time of project start instead of whole project
-  - Find out anther features from wiremock.
-  - Initialize stubs with help of IWorkerHost. It allow configure service onStart instep of onBuild.
+  - Find out another features from wiremock.
+  - Setting Up CI/CD.
