@@ -218,7 +218,8 @@ During development this rules can be changed.
   - ~~As a user I want to have docker image to run stub like container~~
   - ~~As a user I want to clear all my stubs~~
   - As a user I want to get possible input/output properties and their type name for method
-  - As a user I wand to set up default stub for Service/Method
+  - As a user I want to set up default stub for Service/Method
+  - As a user I want to proxy request to actual server if there no stub
 
 - Code
   - ~~How to return response?~~
