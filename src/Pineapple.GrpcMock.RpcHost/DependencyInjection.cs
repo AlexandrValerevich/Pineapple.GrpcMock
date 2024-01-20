@@ -2,6 +2,7 @@ using Hellang.Middleware.ProblemDetails;
 using Pineapple.GrpcMock.RpcHost.Configurations;
 using Pineapple.GrpcMock.RpcHost.Middlewares.ServerLogging.Extensions;
 using Pineapple.GrpcMock.RpcHost.Rpc.Interceptors;
+using Pineapple.GrpcMock.RpcHost.Workers;
 
 namespace Pineapple.GrpcMock.RpcHost;
 
@@ -31,6 +32,8 @@ internal static class DependencyInjection
         {
             c.SwaggerDoc("v1", new() { Title = "GrpcMock Api", Version = "v1" });
         });
+
+        services.AddHostedService<StubInitializationWorker>();
 
         return services;
     }

@@ -8,6 +8,9 @@ namespace Pineapple.GrpcMock.RpcHost.Rpc.Extensions;
 
 internal static class EndpointRouteBuilderExtensions
 {
+    /// <summary>
+    /// This method register all grpc services that exist in Assembly.
+    /// </summary>
     public static IEndpointRouteBuilder MapGrpcStubServices(this IEndpointRouteBuilder builder)
     {
         var mediator = builder.ServiceProvider.GetRequiredService<IMediator>();

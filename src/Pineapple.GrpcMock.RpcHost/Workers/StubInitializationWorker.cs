@@ -1,5 +1,6 @@
 using System.Collections.Immutable;
 using System.Text.Json;
+using ErrorOr;
 using Mediator;
 using Microsoft.Extensions.Options;
 using Pineapple.GrpcMock.Application.Stubs.Commands.AddStub;
@@ -8,21 +9,31 @@ using Pineapple.GrpcMock.Contracts.Stubs.V1;
 using Pineapple.GrpcMock.RpcHost.Configurations;
 using Throw;
 
-namespace Pineapple.GrpcMock.RpcHost.Extensions;
+namespace Pineapple.GrpcMock.RpcHost.Workers;
 
-internal static class ApplicationBuildExtensions
+internal sealed class StubInitializationWorker : IHostedService
 {
-    public static IApplicationBuilder InitializeStubs(this IApplicationBuilder app)
-    {
-        StubOptions stubOptions = app.ApplicationServices.GetRequiredService<IOptions<StubOptions>>().Value;
-        IEnumerable<AddStubApiRequest> stubs = ReadStubs(stubOptions.Folder);
-        var mediator = app.ApplicationServices.GetRequiredService<IMediator>();
+    private readonly IMediator _mediator;
+    private readonly StubOptions _stubOptions;
+    private readonly ILogger _logger;
 
+    public StubInitializationWorker(IOptions<StubOptions> stubOptions,
+        IMediator mediator,
+        ILogger<StubInitializationWorker> logger)
+    {
+        _mediator = mediator;
+        _stubOptions = stubOptions.Value;
+        _logger = logger;
+    }
+
+    public async Task StartAsync(CancellationToken cancellationToken)
+    {
+        IEnumerable<AddStubApiRequest> stubs = ReadStubs(_stubOptions.Folder);
         foreach (AddStubApiRequest stub in stubs)
         {
             try
             {
-                var result = mediator.Send(new AddStubCommand(
+                ErrorOr<Unit> result = await _mediator.Send(new AddStubCommand(
                     ServiceShortName: stub.ServiceShortName,
                     Method: stub.Method,
                     RequestBody: stub.Request.Body,
@@ -32,17 +43,24 @@ internal static class ApplicationBuildExtensions
                         Details: stub.Response.Status.Details),
                     Metadata: new StubMetadataDto(stub.Response.Metadata.Trailer.ToImmutableDictionary()),
                     Delay: stub.Response.Delay,
-                    Priority: stub.Priority));
+                    Priority: stub.Priority), cancellationToken);
 
-                result.AsTask().Wait();
+                if (result.IsError)
+                {
+                    _logger.LogError("Can't add stub for [{ServiceName}/{Method}] during initialization. Errors: {Errors}", stub.ServiceShortName, stub.Method, result.Errors);
+                }
             }
             catch (Exception ex)
             {
-                Serilog.Log.Error(ex, "Can't add stub for [{ServiceName}/{Method}]", stub.ServiceShortName, stub.Method);
+                _logger.LogError(ex, "Can't add stub for [{ServiceName}/{Method}] during initialization", stub.ServiceShortName, stub.Method);
             }
         }
 
-        return app;
+    }
+
+    public Task StopAsync(CancellationToken cancellationToken)
+    {
+        return Task.CompletedTask;
     }
 
     private static IEnumerable<AddStubApiRequest> ReadStubs(string path)

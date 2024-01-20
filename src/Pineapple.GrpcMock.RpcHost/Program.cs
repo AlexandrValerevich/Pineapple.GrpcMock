@@ -2,7 +2,6 @@ using Hellang.Middleware.ProblemDetails;
 using Pineapple.GrpcMock.Application;
 using Pineapple.GrpcMock.Infrastructure;
 using Pineapple.GrpcMock.RpcHost;
-using Pineapple.GrpcMock.RpcHost.Extensions;
 using Pineapple.GrpcMock.RpcHost.Host.Extensions;
 using Pineapple.GrpcMock.RpcHost.Middlewares.ServerLogging.Extensions;
 using Pineapple.GrpcMock.RpcHost.Middlewares.TraceId.Extensions;
@@ -25,7 +24,6 @@ var builder = WebApplication.CreateBuilder(args);
 
 var app = builder.Build();
 {
-    app.InitializeStubs();
     app.UseSwagger();
     app.UseSwaggerUI();
 
