@@ -4,7 +4,7 @@ using Pineapple.GrpcMock.Application.ProtoMeta.Dto;
 using Pineapple.GrpcMock.Application.ProtoMeta.Queries.ReadProtoMetaList;
 using Throw;
 
-namespace Pineapple.GrpcMock.RpcHost.Services.Extensions;
+namespace Pineapple.GrpcMock.RpcHost.Rpc.Extensions;
 
 internal static class EndpointRouteBuilderExtensions
 {

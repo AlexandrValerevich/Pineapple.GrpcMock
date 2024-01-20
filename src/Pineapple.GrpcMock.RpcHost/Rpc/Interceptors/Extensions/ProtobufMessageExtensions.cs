@@ -1,6 +1,6 @@
 using Google.Protobuf;
 
-namespace Pineapple.GrpcMock.RpcHost.Services.Interceptors.Extensions;
+namespace Pineapple.GrpcMock.RpcHost.Rpc.Interceptors.Extensions;
 
 public static class ProtobufMessageExtensions
 {

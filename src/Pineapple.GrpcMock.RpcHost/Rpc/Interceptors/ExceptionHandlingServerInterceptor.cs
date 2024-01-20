@@ -1,7 +1,7 @@
 using Grpc.Core;
 using Grpc.Core.Interceptors;
 
-namespace Pineapple.GrpcMock.RpcHost.Services.Interceptors;
+namespace Pineapple.GrpcMock.RpcHost.Rpc.Interceptors;
 
 internal sealed class ExceptionHandlingServerInterceptor : Interceptor
 {

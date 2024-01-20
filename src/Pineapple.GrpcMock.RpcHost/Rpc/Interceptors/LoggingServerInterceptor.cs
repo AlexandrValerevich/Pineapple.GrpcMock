@@ -1,11 +1,11 @@
 using Google.Protobuf;
 using Grpc.Core;
 using Grpc.Core.Interceptors;
-using Pineapple.GrpcMock.RpcHost.Services.Interceptors.Extensions;
+using Pineapple.GrpcMock.RpcHost.Rpc.Interceptors.Extensions;
 using Pineapple.GrpcMock.RpcHost.Shared.Helpers;
 using Serilog.Context;
 
-namespace Pineapple.GrpcMock.RpcHost.Services.Interceptors;
+namespace Pineapple.GrpcMock.RpcHost.Rpc.Interceptors;
 
 internal sealed class LoggingServerInterceptor : Interceptor
 {

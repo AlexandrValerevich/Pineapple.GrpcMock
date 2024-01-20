@@ -1,7 +1,7 @@
 using Hellang.Middleware.ProblemDetails;
 using Pineapple.GrpcMock.RpcHost.Configurations;
 using Pineapple.GrpcMock.RpcHost.Middlewares.ServerLogging.Extensions;
-using Pineapple.GrpcMock.RpcHost.Services.Interceptors;
+using Pineapple.GrpcMock.RpcHost.Rpc.Interceptors;
 
 namespace Pineapple.GrpcMock.RpcHost;
 

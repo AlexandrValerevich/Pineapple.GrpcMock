@@ -1,7 +1,7 @@
 using ErrorOr;
 using Grpc.Core;
 
-namespace Pineapple.GrpcMock.RpcHost.Services.Interceptors.Extensions;
+namespace Pineapple.GrpcMock.RpcHost.Rpc.Interceptors.Extensions;
 
 internal static class ErrorExtensions
 {

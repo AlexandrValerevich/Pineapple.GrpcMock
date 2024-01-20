@@ -219,7 +219,10 @@ During development this rules can be changed.
   - ~~As a user I want to clear all my stubs~~
   - As a user I want to get possible input/output properties and their type name for method
   - As a user I want to set up default stub for Service/Method
-  - As a user I want to proxy request to actual server if there no stub
+  - As a user I want to set up default proxy server for all requests with low priority
+  - As a user I want to set up default proxy server for certain service all requests with middle priority
+  - As a user I want to set up default proxy server for certain method with middle priority
+  - As a user I want to save local all added stubs
 
 - Code
   - ~~How to return response?~~
@@ -240,3 +243,4 @@ During development this rules can be changed.
   - Add documentation for application
   - Make proto assembly like a plugin and build only in time of project start instead of whole project
   - Find out anther features from wiremock.
+  - Initialize stubs with help of IWorkerHost. It allow configure service onStart instep of onBuild.

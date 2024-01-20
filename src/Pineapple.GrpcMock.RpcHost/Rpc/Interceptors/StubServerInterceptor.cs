@@ -3,9 +3,9 @@ using Grpc.Core;
 using Grpc.Core.Interceptors;
 using Mediator;
 using Pineapple.GrpcMock.Application.Stubs.Queries.ReadStubResponse;
-using Pineapple.GrpcMock.RpcHost.Services.Interceptors.Extensions;
+using Pineapple.GrpcMock.RpcHost.Rpc.Interceptors.Extensions;
 
-namespace Pineapple.GrpcMock.RpcHost.Services.Interceptors;
+namespace Pineapple.GrpcMock.RpcHost.Rpc.Interceptors;
 
 internal sealed class StubServerInterceptor : Interceptor
 {
