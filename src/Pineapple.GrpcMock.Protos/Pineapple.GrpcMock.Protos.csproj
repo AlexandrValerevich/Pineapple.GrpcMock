@@ -15,7 +15,6 @@
         <PackageReference Include="Grpc.AspNetCore" Version="2.57.0" />
     </ItemGroup>
 
-
     <Target Name="DisplayMessages" BeforeTargets="PreBuildEvent">
         <Message Text="Copy all proto from default path: ./proto/*.proto" Importance="high" />
         <ItemGroup>
@@ -35,6 +34,5 @@
             </Content>
         </ItemGroup>
     </Target>
-
 
 </Project>
