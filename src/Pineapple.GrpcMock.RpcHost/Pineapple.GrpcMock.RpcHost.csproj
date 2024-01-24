@@ -12,6 +12,7 @@
     </PropertyGroup>
 
     <ItemGroup>
+        <PackageReference Include="AspNetCore.Proxy" Version="4.4.0" />
         <PackageReference Include="Hellang.Middleware.ProblemDetails" Version="6.5.1" />
     </ItemGroup>
 

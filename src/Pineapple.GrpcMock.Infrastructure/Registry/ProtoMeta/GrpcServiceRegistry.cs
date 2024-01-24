@@ -12,10 +12,12 @@ public class ProtoMetaRegistry : IProtoMetaRegistry
 {
     private static readonly Lazy<IList<ProtoServiceMetaDto>> _services = new(() =>
     {
-        var services = Assembly.GetAssembly(typeof(IAssemblyMarker))!.GetProtoMeta();
+        IReadOnlyList<Type> services = Assembly.GetAssembly(typeof(IAssemblyMarker))!.GetProtoServices();
+        IReadOnlyList<Type> clients = Assembly.GetAssembly(typeof(IAssemblyMarker))!.GetProtoServicesClients();
         return services.Select(s => new ProtoServiceMetaDto(
             ServiceType: s,
-            ShortName: s.Name[..^4],
+            ClientType: clients.First(client => client.Name[..^"Client".Length] == s.Name[..^"Base".Length]),
+            ShortName: s.Name[..^"Base".Length],
             Methods: s.GetMethods()
                 .Where(x => x.GetParameters().Any(
                     x => x.Position == 1 && x.ParameterType.Equals(typeof(ServerCallContext))))
