@@ -27,7 +27,7 @@ RUN chmod +x /app/scripts/mock.sh
 
 # replace those CR characters with nothing, which will leave these lines with
 # LF (\n) as the ending, and Bash will be able to read and execute the file by running
-RUN [sed, -i, -e, 's/\r$//', "/app/scripts/mock.sh"]
+RUN sed -i -e 's/\r$//' "/app/scripts/mock.sh"
 
 # Set the entry point to the script
 ENTRYPOINT ["/app/scripts/mock.sh"]
