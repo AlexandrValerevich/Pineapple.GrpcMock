@@ -54,7 +54,7 @@ public sealed class StubController : ApiController
     [HttpGet]
     public async Task<ActionResult<ReadStubListApiResponse>> List(CancellationToken cancellationToken)
     {
-        var result = await _mediator.Send(ReadStubListQuery.Instance, cancellationToken);
+        ReadStubListQueryResult result = await _mediator.Send(ReadStubListQuery.Instance, cancellationToken);
 
         return Ok(new ReadStubListApiResponse
         {

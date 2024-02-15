@@ -9,3 +9,5 @@ services:
     volumes:
       - ./stub:/stub
       - ./proto:/proto
+    environment:
+      - Serilog__MinimumLevel__Default=Verbose
