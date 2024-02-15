@@ -67,11 +67,14 @@ internal sealed class StubInitializationWorker : IHostedService
     {
         var stubs = new List<AddStubApiRequest>();
         string[] stubFiles = Directory.GetFiles(path, "*.json", SearchOption.AllDirectories);
+        _logger.LogTrace("Total amount of *.json files: {StubFilesAmount}", stubFiles.Length);
+        int count = 1;
         foreach (string stubFile in stubFiles)
         {
-            _logger.LogTrace("Read stub from file: {StubFile}", stubFile);
+            _logger.LogTrace("Read stub number {Number} from file: {StubFile}", count, stubFile);
             ReadOnlySpan<byte> jsonContent = File.ReadAllBytes(stubFile).AsSpan();
             stubs.Add(JsonSerializer.Deserialize<AddStubApiRequest>(jsonContent).ThrowIfNull());
+            count++;
         }
 
         return stubs;

@@ -227,4 +227,4 @@ proto/*
 stub/*
 
 .txt
-*/launchSettings.json
+src/Pineapple.GrpcMock.RpcHost/Properties/launchSettings.json
