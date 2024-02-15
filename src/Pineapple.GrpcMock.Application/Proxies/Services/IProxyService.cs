@@ -1,19 +1,16 @@
-using ErrorOr;
+using Grpc.Core;
+using OneOf;
+using OneOf.Types;
+using Pineapple.GrpcMock.Application.Proxies.Services.Dto;
 
 namespace Pineapple.GrpcMock.Application.Proxies;
 
 public interface IProxyService
 {
     /// <summary>
-    /// Check if request should be proxy
+    /// Proxy grpc request if there url and proto for service
     /// </summary>
-    /// <param name="request">Request information</param>
-    /// <returns>Return true if request should be proxy</returns>
-    bool Can(CanProxyQueryDto query);
-
-    /// <summary>
-    /// Return host url to proxy
-    /// </summary>
-    /// <returns>Url or error</returns>
-    string GetUrl(GetProxyUrlQueryDto query);
+    /// <param name="query"> Proxy information </param>
+    /// <returns> Response, status and meta </returns>
+    OneOf<ProxyGrpcRequestResultDto, RpcException, NotFound> Proxy(ProxyGrpcRequestQueryDto query);
 }

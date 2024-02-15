@@ -1,7 +1,8 @@
+using Microsoft.Extensions.Logging;
 using Pineapple.GrpcMock.RpcHost.Shared.Helpers;
 using Serilog.Context;
 
-namespace Pineapple.GrpcMock.RpcHost.Proxies.Delegating;
+namespace Pineapple.GrpcMock.Shared.Delegating;
 
 internal sealed class HttpClientLoggerDelegatingHandler : DelegatingHandler
 {
@@ -18,7 +19,7 @@ internal sealed class HttpClientLoggerDelegatingHandler : DelegatingHandler
         if (request is null)
             throw new ArgumentNullException(nameof(request));
 
-        ValueStopwatch timer = ValueStopwatch.StartNew();
+        var timer = ValueStopwatch.StartNew();
 
         string? requestBody = null;
         if (_logger.IsEnabled(LogLevel.Debug))
@@ -51,9 +52,7 @@ internal sealed class HttpClientLoggerDelegatingHandler : DelegatingHandler
         using var responseBodyLogContext = LogContext.PushProperty("ResponseBody", responseBody);
 
         if (response.IsSuccessStatusCode)
-        {
             _logger.LogInformation("End processing Http/{HttpVersion} {Method} {Uri} - {StatusCode} {StatusCodeLiteral} in {Elapsed:0.0000} ms. Process result: [Successful]", request.Version, request.Method, requestUri, (int) response.StatusCode, response.StatusCode, timer.GetElapsedTime().TotalMilliseconds);
-        }
         else
         {
             _logger.LogInformation("End processing Http/{HttpVersion} {Method} {Uri} - {StatusCode} {StatusCodeLiteral} in {Elapsed:0.0000} ms. Process result: [Failed]", request.Version, request.Method, requestUri, (int) response.StatusCode, response.StatusCode, timer.GetElapsedTime().TotalMilliseconds);

@@ -1,9 +1,10 @@
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Http;
 
-namespace Pineapple.GrpcMock.RpcHost.Proxies.Delegating.Extensions;
+namespace Pineapple.GrpcMock.Shared.Delegating.Extensions;
 
-public static class ServiceCollectionExtensions
+internal static class ServiceCollectionExtensions
 {
     public static IServiceCollection ReplaceHttpClientLogger(this IServiceCollection services)
     {

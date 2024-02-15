@@ -2,9 +2,9 @@ using AspNetCore.Proxy;
 using Hellang.Middleware.ProblemDetails;
 using Pineapple.GrpcMock.RpcHost.Configurations;
 using Pineapple.GrpcMock.RpcHost.Middlewares.ServerLogging.Extensions;
-using Pineapple.GrpcMock.RpcHost.Proxies.Delegating.Extensions;
 using Pineapple.GrpcMock.RpcHost.Rpc.Interceptors;
 using Pineapple.GrpcMock.RpcHost.Workers;
+using Pineapple.GrpcMock.Shared.Delegating.Extensions;
 
 namespace Pineapple.GrpcMock.RpcHost;
 

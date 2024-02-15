@@ -39,6 +39,7 @@
 
     <ItemGroup>
         <Compile Include="..\Pineapple.GrpcMock.Shared\Helpers\ValueStopwatch.cs" Link="Helpers\ValueStopwatch.cs" />
+        <Compile Include="..\Pineapple.GrpcMock.Shared\Delegating\**\*.cs" Link="Delegating\**\*.cs" />
         <ProjectReference Include="..\Pineapple.GrpcMock.Application\Pineapple.GrpcMock.Application.csproj" />
         <ProjectReference Include="..\Pineapple.GrpcMock.Infrastructure\Pineapple.GrpcMock.Infrastructure.csproj" />
         <ProjectReference Include="..\Pineapple.GrpcMock.Contracts\Pineapple.GrpcMock.Contracts.csproj" />
