@@ -33,10 +33,10 @@ public class ReadStubResponseQueryHandler : IQueryHandler<ReadStubResponseQuery,
         StubRegistryValueDto? value = values.Where(x => x.Request.Equals(query.Request)).MaxBy(x => x.Priority);
         if (value is null)
         {
-            var proxyResult = _proxyService.Proxy(new ProxyGrpcRequestQueryDto(
+            var proxyResult = await _proxyService.Proxy(new ProxyGrpcRequestQueryDto(
                 ServiceShortName: shortName,
                 MethodName: query.Method,
-                Request: query.Request));
+                Request: query.Request), cancellationToken);
 
             return proxyResult.Match<OneOf<ReadStubResponseQueryResult, RpcException, NotFound>>(
                 result => new ReadStubResponseQueryResult(

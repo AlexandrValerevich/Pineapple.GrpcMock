@@ -26,7 +26,7 @@ internal sealed class ProxyService : IProxyService
         _loggerFactory = loggerFactory;
     }
 
-    public OneOf<ProxyGrpcRequestResultDto, RpcException, NotFound> Proxy(ProxyGrpcRequestQueryDto query)
+    public async Task<OneOf<ProxyGrpcRequestResultDto, RpcException, NotFound>> Proxy(ProxyGrpcRequestQueryDto query, CancellationToken cancellationToken = default)
     {
         var canProxy = _proxyRegistry.TryGet(new ProxyRegistryKeyDto(ServiceShortName: query.ServiceShortName), out ProxyRegistryUrlDto? url);
         if (!canProxy)
@@ -40,23 +40,36 @@ internal sealed class ProxyService : IProxyService
         using var channel = CreateChannel(url!.Value);
         try
         {
-            var serviceClient = Activator.CreateInstance(serviceMeta.ClientType, channel);
+            object? serviceClient = Activator.CreateInstance(serviceMeta.ClientType, channel);
 
             // Find the gRPC method
-            MethodInfo? grpcMethod = FindGrpcMethod(serviceMeta.ClientType, query.MethodName, query.Request);
+            MethodInfo? grpcMethod = FindGrpcMethod(serviceMeta.ClientType, query.MethodName + "Async", query.Request);
             if (grpcMethod is null)
                 return new NotFound();
 
             // Invoke the gRPC method dynamically
-            var response = (IMessage) grpcMethod.Invoke(serviceClient, new object[] { query.Request, default(Metadata?)!, default(DateTime?)!, default(CancellationToken) })!;
+            var asyncUnaryCall = grpcMethod.Invoke(serviceClient, new object[] { query.Request, default(Metadata?)!, default(DateTime?)!, default(CancellationToken) })!;
 
-            // Get the result property from the completed task
-            // Extract gRPC status and metadata
-            var status = Status.DefaultSuccess;
-            var metadata = new Metadata();
+            // Get the ResponseAsync property using reflection
+            var responseAsyncProperty = asyncUnaryCall.GetType().GetProperty("ResponseAsync");
+            var responseTask = (Task) responseAsyncProperty?.GetValue(asyncUnaryCall)!;
+
+            // Await the response task and access metadata and status
+            await responseTask.ConfigureAwait(false);
+
+            // Get the Result property from the completed task
+            var resultProperty = responseTask.GetType().GetProperty("Result");
+            var response = resultProperty?.GetValue(responseTask);
+
+            // Get the status and metadata
+            var getStatusMethod = asyncUnaryCall.GetType().GetMethod("GetStatus");
+            var getTrailersMethod = asyncUnaryCall.GetType().GetMethod("GetTrailers");
+
+            var status = (Status?) getStatusMethod?.Invoke(asyncUnaryCall, null) ?? Status.DefaultSuccess;
+            var metadata = (Metadata?) getTrailersMethod?.Invoke(asyncUnaryCall, null) ?? new Metadata();
 
             return new ProxyGrpcRequestResultDto(
-                Response: response,
+                Response: (IMessage) response!,
                 Status: status,
                 Metadata: metadata
             );

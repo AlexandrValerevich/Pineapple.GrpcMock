@@ -12,5 +12,5 @@ public interface IProxyService
     /// </summary>
     /// <param name="query"> Proxy information </param>
     /// <returns> Response, status and meta </returns>
-    OneOf<ProxyGrpcRequestResultDto, RpcException, NotFound> Proxy(ProxyGrpcRequestQueryDto query);
+    Task<OneOf<ProxyGrpcRequestResultDto, RpcException, NotFound>> Proxy(ProxyGrpcRequestQueryDto query, CancellationToken cancellationToken = default);
 }
