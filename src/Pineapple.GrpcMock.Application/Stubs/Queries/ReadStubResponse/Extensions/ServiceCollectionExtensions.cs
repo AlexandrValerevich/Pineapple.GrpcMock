@@ -10,7 +10,7 @@ internal static class ServiceCollectionExtensions
     public static IServiceCollection AddReadStubResponseQuery(this IServiceCollection services)
     {
         services.AddPipelineBehavior<ReadStubResponseQuery, ErrorOr<ReadStubResponseQueryResult>, ReadStubResponseQueryHandlerLoggingBehavior>();
-        services.AddValidationBehavior<ReadStubResponseQuery, ReadStubResponseQueryResult>();
+        services.AddErrorOrValidationBehavior<ReadStubResponseQuery, ReadStubResponseQueryResult>();
         services.TryAddProxyService();
         return services;
     }

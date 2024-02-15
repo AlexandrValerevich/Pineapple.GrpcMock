@@ -14,10 +14,10 @@ internal static class ServiceCollectionExtensions
         return services;
     }
 
-    public static IServiceCollection AddValidationBehavior<TRequest, TResponse>(this IServiceCollection services)
+    public static IServiceCollection AddErrorOrValidationBehavior<TRequest, TResponse>(this IServiceCollection services)
         where TRequest : notnull, IMessage
     {
-        services.AddPipelineBehavior<TRequest, ErrorOr<TResponse>, ValidationBehavior<TRequest, ErrorOr<TResponse>>>();
+        services.AddPipelineBehavior<TRequest, ErrorOr<TResponse>, ErrorOrValidationBehavior<TRequest, ErrorOr<TResponse>>>();
         return services;
     }
 }

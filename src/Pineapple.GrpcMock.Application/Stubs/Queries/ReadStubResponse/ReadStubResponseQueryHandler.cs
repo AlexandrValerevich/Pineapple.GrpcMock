@@ -1,6 +1,8 @@
-using ErrorOr;
+using Grpc.Core;
 using Mediator;
 using Microsoft.Extensions.Logging;
+using OneOf;
+using OneOf.Types;
 using Pineapple.GrpcMock.Application.Common.Registry;
 using Pineapple.GrpcMock.Application.Proxies;
 using Pineapple.GrpcMock.Application.Proxies.Services.Dto;
@@ -8,7 +10,7 @@ using Pineapple.GrpcMock.Application.Stubs.Dto;
 
 namespace Pineapple.GrpcMock.Application.Stubs.Queries.ReadStubResponse;
 
-public class ReadStubResponseQueryHandler : IQueryHandler<ReadStubResponseQuery, ErrorOr<ReadStubResponseQueryResult>>
+public class ReadStubResponseQueryHandler : IQueryHandler<ReadStubResponseQuery, OneOf<ReadStubResponseQueryResult, RpcException, NotFound>>
 {
     private readonly IStubRegistry _stubs;
     private readonly IProxyService _proxyService;
@@ -21,7 +23,7 @@ public class ReadStubResponseQueryHandler : IQueryHandler<ReadStubResponseQuery,
         _proxyService = proxyService;
     }
 
-    public async ValueTask<ErrorOr<ReadStubResponseQueryResult>> Handle(ReadStubResponseQuery query, CancellationToken cancellationToken)
+    public async ValueTask<OneOf<ReadStubResponseQueryResult, RpcException, NotFound>> Handle(ReadStubResponseQuery query, CancellationToken cancellationToken)
     {
         var shortName = query.ServiceFullName.Split(".").Last();
         var values = _stubs.Get(new(
@@ -36,13 +38,13 @@ public class ReadStubResponseQueryHandler : IQueryHandler<ReadStubResponseQuery,
                 MethodName: query.Method,
                 Request: query.Request));
 
-            return proxyResult.Match<ErrorOr<ReadStubResponseQueryResult>>(
+            return proxyResult.Match<OneOf<ReadStubResponseQueryResult, RpcException, NotFound>>(
                 result => new ReadStubResponseQueryResult(
                     Body: result.Response,
                     Status: result.Status,
                     Metadata: result.Metadata),
-                rpcException => throw rpcException,
-                notFount => Errors.Stubs.StubNotFound
+                rpcException => rpcException,
+                notFound => notFound
             );
         }
 
@@ -53,8 +55,8 @@ public class ReadStubResponseQueryHandler : IQueryHandler<ReadStubResponseQuery,
         }
 
         return new ReadStubResponseQueryResult(
-                Body: value.Response,
-                Status: value.Status,
-                Metadata: value.Metadata);
+            Body: value.Response,
+            Status: value.Status,
+            Metadata: value.Metadata);
     }
 }

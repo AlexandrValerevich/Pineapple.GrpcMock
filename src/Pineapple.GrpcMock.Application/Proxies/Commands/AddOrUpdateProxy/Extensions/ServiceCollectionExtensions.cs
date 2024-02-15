@@ -10,7 +10,7 @@ internal static class ServiceCollectionExtensions
     public static IServiceCollection AddAddOrUpdateProxyCommand(this IServiceCollection services)
     {
         services.AddPipelineBehavior<AddOrUpdateProxyCommand, ErrorOr<Unit>, AddOrUpdateProxyCommandHandlerLoggingBehavior>();
-        services.AddValidationBehavior<AddOrUpdateProxyCommand, Unit>();
+        services.AddErrorOrValidationBehavior<AddOrUpdateProxyCommand, Unit>();
 
         return services;
     }
