@@ -117,7 +117,9 @@ internal sealed class HttpServerLoggerMiddleware
 
         memoryStream.Position = 0;
         if (memoryStream.Length > _settings.ResponseBodyLogLimit)
-            return BodyOutOfLimit;
+        {
+            responseBody = BodyOutOfLimit;
+        }
         else if (memoryStream.Length > 0)
         {
             responseBody = new StreamReader(memoryStream).ReadToEnd();
