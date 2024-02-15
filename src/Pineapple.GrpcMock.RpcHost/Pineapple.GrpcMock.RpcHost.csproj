@@ -8,7 +8,7 @@
     </PropertyGroup>
 
     <PropertyGroup>
-        <StubFiles>$(Stub__Folder)/*.json</StubFiles>
+        <StubFiles>$(Stub__Folder)/**/*.json</StubFiles>
     </PropertyGroup>
 
     <ItemGroup>

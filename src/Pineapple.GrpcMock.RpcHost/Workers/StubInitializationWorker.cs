@@ -63,13 +63,14 @@ internal sealed class StubInitializationWorker : IHostedService
         return Task.CompletedTask;
     }
 
-    private static IEnumerable<AddStubApiRequest> ReadStubs(string path)
+    private IEnumerable<AddStubApiRequest> ReadStubs(string path)
     {
         var stubs = new List<AddStubApiRequest>();
-        string[] jsonFiles = Directory.GetFiles(path, "*.json");
-        foreach (string filePath in jsonFiles)
+        string[] stubFiles = Directory.GetFiles(path, "*.json", SearchOption.AllDirectories);
+        foreach (string stubFile in stubFiles)
         {
-            ReadOnlySpan<byte> jsonContent = File.ReadAllBytes(filePath).AsSpan();
+            _logger.LogTrace("Read stub from file: {StubFile}", stubFile);
+            ReadOnlySpan<byte> jsonContent = File.ReadAllBytes(stubFile).AsSpan();
             stubs.Add(JsonSerializer.Deserialize<AddStubApiRequest>(jsonContent).ThrowIfNull());
         }
 
