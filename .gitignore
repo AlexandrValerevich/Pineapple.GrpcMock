@@ -227,3 +227,4 @@ proto/*
 stub/*
 
 .txt
+*/launchSettings.json
