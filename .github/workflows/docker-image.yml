@@ -1,8 +1,14 @@
-name: Docker Image CI
+name: Docker Image CI [Tag in master]
 
 on:
   push:
-    tags: "v*"
+    branches: [ "master" ]
+    tags: [ 'v*.*.*' ]
+
+env:
+  REGISTRY: pineappleslice
+  # github.repository as <account>/<repo>
+  IMAGE_NAME: grpc.mock
 
 jobs:
   push_to_registry:
@@ -11,24 +17,24 @@ jobs:
     steps:
       - name: Check out the repo
         uses: actions/checkout@v4
-      
-      - name: Log in to Docker Hub
+
+      - name: Log in to Docker Hub ${{ env.REGISTRY }}
         uses: docker/login-action@f4ef78c080cd8ba55a85445d5b36e214a81df20a
         with:
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
-      
+
       - name: Extract metadata (tags, labels) for Docker
         id: meta
         uses: docker/metadata-action@9ec57ed1fcdbf14dcef7dfbe97b2010124a938b7
         with:
-          images: pineappleslice/grpc.mock
+          images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
           tags: |
             type=ref,event=branch
             type=ref,event=pr
             type=semver,pattern={{version}}
             type=semver,pattern={{major}}.{{minor}}
-          
+
       - name: Build and push Docker image
         uses: docker/build-push-action@3b5e8027fcad23fda98b2e3ac259d8d67585f671
         with:
