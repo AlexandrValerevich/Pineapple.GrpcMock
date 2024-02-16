@@ -21,12 +21,18 @@ jobs:
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
 
-      - name: Set up Git for fetching tags from master
-        run: git fetch origin master --tags --prune
-
-      - name: Get latest tag name
-        id: tag
-        run: echo ::set-output name=TAG_NAME::$(git describe --tags --abbrev=0 --always --exclude "*-dev-*")
+      - name: Get Previous Tag
+        id: previoustag
+        uses: WyriHaximus/github-action-get-previous-tag@v1
+        with:
+          fallback: 0.0.0
+          prefix: v
+      
+      - name: 'Get next minor version'
+        id: semvers
+        uses: "WyriHaximus/github-action-next-semvers@v1"
+        with:
+          version: ${{ steps.previoustag.outputs.tag }}
 
       - name: Extract metadata (tags, labels) for Docker
         id: meta
@@ -43,5 +49,5 @@ jobs:
           context: .
           file: ./Dockerfile
           push: true
-          tags: ${{ steps.tag.outputs.TAG_NAME }}-dev-${{ github.run_number }}
+          tags: ${{ steps.semvers.outputs.patch }}-dev-${{ github.run_number }}
           labels: ${{ steps.meta.outputs.labels }}
