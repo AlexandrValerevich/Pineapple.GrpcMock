@@ -5,7 +5,6 @@ on:
 
 env:
   REGISTRY: pineappleslice
-  # github.repository as <account>/<repo>
   IMAGE_NAME: grpc.mock
 
 jobs:
@@ -27,7 +26,8 @@ jobs:
 
       - name: Get latest tag name
         id: tag
-        run: echo ::set-output name=TAG_NAME::$(git describe --tags --abbrev=0)
+        run: echo ::set-output name=TAG_NAME::$(git describe --tags --abbrev=0 --always --exclude "*-dev-*")
+
 
       - name: Extract metadata (tags, labels) for Docker
         id: meta
