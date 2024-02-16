@@ -7,9 +7,7 @@
         <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
     </PropertyGroup>
 
-    <ItemGroup>
-        <PackageReference Include="Scrutor" Version="4.2.2" />
-    </ItemGroup>
+
 
     <ItemGroup>
         <Compile Include="..\Pineapple.GrpcMock.Shared\Helpers\ValueStopwatch.cs" Link="Helpers\ValueStopwatch.cs" />
