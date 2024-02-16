@@ -6,13 +6,13 @@ using Mediator;
 
 namespace Pineapple.GrpcMock.Application.Common.Behaviors;
 
-public class ValidationBehavior<TRequest, TResponse> : IPipelineBehavior<TRequest, TResponse>
+internal sealed class ErrorOrValidationBehavior<TRequest, TResponse> : IPipelineBehavior<TRequest, TResponse>
     where TRequest : IMessage
     where TResponse : IErrorOr
 {
     private readonly IValidator<TRequest>? _validator;
 
-    public ValidationBehavior(IValidator<TRequest>? validator = null)
+    public ErrorOrValidationBehavior(IValidator<TRequest>? validator = null)
     {
         _validator = validator;
     }

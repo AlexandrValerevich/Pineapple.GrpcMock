@@ -5,7 +5,6 @@ using Pineapple.GrpcMock.RpcHost;
 using Pineapple.GrpcMock.RpcHost.Host.Extensions;
 using Pineapple.GrpcMock.RpcHost.Middlewares.ServerLogging.Extensions;
 using Pineapple.GrpcMock.RpcHost.Middlewares.TraceId.Extensions;
-using Pineapple.GrpcMock.RpcHost.Proxies;
 using Pineapple.GrpcMock.RpcHost.Rpc.Extensions;
 
 #pragma warning disable
@@ -38,7 +37,6 @@ var app = builder.Build();
         });
     });
 
-    app.MapRequiredProxy();
     app.MapGrpcStubServices();
     app.MapGrpcReflectionService();
 

@@ -10,7 +10,7 @@ internal static class ServiceCollectionExtensions
     public static IServiceCollection AddRemoveStubListCommand(this IServiceCollection services)
     {
         services.AddPipelineBehavior<RemoveStubListCommand, ErrorOr<Unit>, RemoveStubListCommandHandlerLoggingBehavior>();
-        services.AddValidationBehavior<RemoveStubListCommand, Unit>();
+        services.AddErrorOrValidationBehavior<RemoveStubListCommand, Unit>();
 
         return services;
     }

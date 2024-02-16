@@ -20,12 +20,12 @@ internal sealed class StubServerInterceptor : Interceptor
         TRequest request, ServerCallContext context, UnaryServerMethod<TRequest, TResponse> continuation)
     {
         string[] splitMethod = context.Method[1..].Split('/');
-        ErrorOr<ReadStubResponseQueryResult> result = await _mediator.Send(new ReadStubResponseQuery(
+        var result = await _mediator.Send(new ReadStubResponseQuery(
             ServiceFullName: splitMethod[0],
             Method: splitMethod[1],
             Request: (Google.Protobuf.IMessage) request));
 
-        return result.MatchFirst(
+        return result.Match(
             value =>
             {
                 foreach (Metadata.Entry trailer in value.Metadata)
@@ -33,7 +33,8 @@ internal sealed class StubServerInterceptor : Interceptor
                 context.Status = value.Status;
                 return (TResponse) value.Body;
             },
-            error => throw new RpcException(new Status(error.ToStatusCode(), error.Description))
+            ex => throw ex,
+            notFound => throw new RpcException(new Status(StatusCode.NotFound, "Stub not found"))
         );
     }
 }
