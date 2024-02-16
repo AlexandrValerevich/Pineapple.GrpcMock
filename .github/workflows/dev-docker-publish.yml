@@ -22,7 +22,7 @@ jobs:
           password: ${{ secrets.DOCKER_PASSWORD }}
 
       - name: Set up Git for fetching tags from master
-        run: git fetch origin master --tags --prune "+refs/heads/*:refs/remotes/origin/*"
+        run: git fetch origin master --tags --prune
 
       - name: Get latest tag name
         id: tag
