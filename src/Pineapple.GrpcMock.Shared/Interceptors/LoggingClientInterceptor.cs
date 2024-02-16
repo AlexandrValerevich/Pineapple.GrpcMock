@@ -6,6 +6,7 @@ using Pineapple.GrpcMock.RpcHost.Shared.Helpers;
 using Serilog.Context;
 
 namespace Pineapple.GrpcMock.Shared.Interceptors;
+
 internal sealed class LoggingClientInterceptor : Interceptor
 {
     private readonly ILogger _logger;

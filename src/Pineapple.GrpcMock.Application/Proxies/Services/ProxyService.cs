@@ -3,7 +3,6 @@ using Google.Protobuf;
 using Grpc.Core;
 using Grpc.Core.Interceptors;
 using Grpc.Net.Client;
-using Microsoft.Extensions.Logging;
 using OneOf;
 using OneOf.Types;
 using Pineapple.GrpcMock.Application.Common.Registry;
@@ -17,13 +16,13 @@ internal sealed class ProxyService : IProxyService
 {
     private readonly IProxyRegistry _proxyRegistry;
     private readonly IProtoMetaRegistry _protoMetaRegistry;
-    private readonly ILoggerFactory _loggerFactory;
+    private readonly ILoggingClientInterceptorFactory _loggerInterceptorFactory;
 
-    public ProxyService(IProxyRegistry proxyRegistry, IProtoMetaRegistry protoMetaRegistry, ILoggerFactory loggerFactory)
+    public ProxyService(IProxyRegistry proxyRegistry, IProtoMetaRegistry protoMetaRegistry, ILoggingClientInterceptorFactory loggerInterceptorFactory)
     {
         _proxyRegistry = proxyRegistry;
         _protoMetaRegistry = protoMetaRegistry;
-        _loggerFactory = loggerFactory;
+        _loggerInterceptorFactory = loggerInterceptorFactory;
     }
 
     public async Task<OneOf<ProxyGrpcRequestResultDto, RpcException, NotFound>> Proxy(ProxyGrpcRequestQueryDto query, CancellationToken cancellationToken = default)
@@ -83,7 +82,7 @@ internal sealed class ProxyService : IProxyService
     private GrpcChannel CreateChannel(string url)
     {
         var channel = GrpcChannel.ForAddress(url);
-        channel.Intercept(new LoggingClientInterceptor(_loggerFactory.CreateLogger<LoggingClientInterceptor>()));
+        channel.Intercept(_loggerInterceptorFactory.Create());
         return channel;
     }
 

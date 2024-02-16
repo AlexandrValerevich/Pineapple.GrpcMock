@@ -7,6 +7,7 @@ using Pineapple.GrpcMock.Application.Stubs.Commands.AddStub;
 using Pineapple.GrpcMock.Application.Stubs.Dto;
 using Pineapple.GrpcMock.Contracts.Stubs.V1;
 using Pineapple.GrpcMock.RpcHost.Configurations;
+using Pineapple.GrpcMock.RpcHost.Shared.Helpers;
 using Throw;
 
 namespace Pineapple.GrpcMock.RpcHost.Workers;
@@ -28,6 +29,9 @@ internal sealed class StubInitializationWorker : IHostedService
 
     public async Task StartAsync(CancellationToken cancellationToken)
     {
+        var timer = ValueStopwatch.StartNew();
+        _logger.LogTrace("Start stubs initialization");
+
         IEnumerable<AddStubApiRequest> stubs = ReadStubs(_stubOptions.Folder);
         foreach (AddStubApiRequest stub in stubs)
         {
@@ -56,6 +60,7 @@ internal sealed class StubInitializationWorker : IHostedService
             }
         }
 
+        _logger.LogInformation("End stubs initialization in {Elapsed:0.0000} ms", timer.GetElapsedTime().TotalMilliseconds);
     }
 
     public Task StopAsync(CancellationToken cancellationToken)
