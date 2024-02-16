@@ -18,6 +18,7 @@
     <ItemGroup>
         <PackageReference Include="Throw" Version="1.4.0" />
         <PackageReference Include="ErrorOr" Version="1.2.1" />
+        <PackageReference Include="Scrutor" Version="4.2.2" />
         <PackageReference Include="FluentValidation.AspNetCore" Version="11.3.0" />
     </ItemGroup>
 
@@ -33,6 +34,7 @@
         <ProjectReference Include="..\Pineapple.GrpcMock.Protos\Pineapple.GrpcMock.Protos.csproj" />
         <Compile Include="..\Pineapple.GrpcMock.Shared\Helpers\ValueStopwatch.cs" Link="Helpers\ValueStopwatch.cs" />
         <Compile Include="..\Pineapple.GrpcMock.Shared\Interceptors\**\*.cs" Link="Interceptors\**\*.cs" />
+        <Compile Include="..\Pineapple.GrpcMock.Shared\ServiceCollection\**\*.cs" Link="ServiceCollection\**\*.cs" />
     </ItemGroup>
 
 </Project>
