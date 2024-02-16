@@ -3,12 +3,7 @@ name: Docker Image CI [Tag in master]
 on:
   push:
     tags: [ 'v*.*.*' ]
-
-env:
-  REGISTRY: pineappleslice
-  # github.repository as <account>/<repo>
-  IMAGE_NAME: grpc.mock
-
+    
 jobs:
   push_to_registry:
     name: Push Docker image to Docker Hub
@@ -27,7 +22,7 @@ jobs:
         id: meta
         uses: docker/metadata-action@9ec57ed1fcdbf14dcef7dfbe97b2010124a938b7
         with:
-          images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
+          images: pineappleslice/grpc.mock
           tags: |
             type=ref,event=branch
             type=ref,event=pr
