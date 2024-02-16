@@ -21,13 +21,12 @@ jobs:
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
 
-      - name: Set up Git for fetching tags
-        run: git fetch --tags
+      - name: Set up Git for fetching tags from master
+        run: git fetch origin master --tags --prune "+refs/heads/*:refs/remotes/origin/*"
 
       - name: Get latest tag name
         id: tag
         run: echo ::set-output name=TAG_NAME::$(git describe --tags --abbrev=0 --always --exclude "*-dev-*")
-
 
       - name: Extract metadata (tags, labels) for Docker
         id: meta
