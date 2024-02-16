@@ -27,12 +27,6 @@ jobs:
         with:
           fallback: 0.0.0
           prefix: v
-      
-      - name: 'Get next minor version'
-        id: semvers
-        uses: "WyriHaximus/github-action-next-semvers@v1"
-        with:
-          version: ${{ steps.previoustag.outputs.tag }}
 
       - name: Extract metadata (tags, labels) for Docker
         id: meta
@@ -49,5 +43,5 @@ jobs:
           context: .
           file: ./Dockerfile
           push: true
-          tags: ${{ steps.semvers.outputs.patch }}-dev-${{ github.run_number }}
+          tags: ${{ steps.previoustag.outputs.tag }}-dev-${{ github.run_number }}
           labels: ${{ steps.meta.outputs.labels }}
