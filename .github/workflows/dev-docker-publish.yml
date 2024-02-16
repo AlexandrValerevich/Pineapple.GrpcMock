@@ -2,11 +2,7 @@ name: Docker Image CI [Manual]
 
 on:
   workflow_dispatch:
-
-env:
-  REGISTRY_NAME: pineappleslice
-  IMAGE_NAME: grpc.mock
-
+  
 jobs:
   build_and_push_dev_image:
     name: Build and Push Docker image (dev)
@@ -32,7 +28,7 @@ jobs:
         id: meta
         uses: docker/metadata-action@9ec57ed1fcdbf14dcef7dfbe97b2010124a938b7
         with:
-          images: ${{ env.REGISTRY_NAME }}/${{ env.IMAGE_NAME }}
+          images: pineappleslice/grpc.mock
           tags: |
             type=semver,pattern={{version}}
             type=semver,pattern={{major}}.{{minor}}
