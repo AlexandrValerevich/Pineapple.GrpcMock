@@ -36,10 +36,11 @@ internal sealed class ProxyService : IProxyService
             return new NotFound();
 
         // Create an instance of the gRPC service client
-        using var channel = CreateChannel(url!.Value);
+        using var channel = GrpcChannel.ForAddress(url!.Value);
+        var callInvoker = channel.Intercept(_loggerInterceptorFactory.Create());
         try
         {
-            object? serviceClient = Activator.CreateInstance(serviceMeta.ClientType, channel);
+            object? serviceClient = Activator.CreateInstance(serviceMeta.ClientType, callInvoker);
 
             // Find the gRPC method
             MethodInfo? grpcMethod = FindGrpcMethod(serviceMeta.ClientType, query.MethodName + "Async", query.Request);
@@ -64,26 +65,19 @@ internal sealed class ProxyService : IProxyService
             var getStatusMethod = asyncUnaryCall.GetType().GetMethod("GetStatus");
             var getTrailersMethod = asyncUnaryCall.GetType().GetMethod("GetTrailers");
 
-            var status = (Status?) getStatusMethod?.Invoke(asyncUnaryCall, null) ?? Status.DefaultSuccess;
-            var metadata = (Metadata?) getTrailersMethod?.Invoke(asyncUnaryCall, null) ?? new Metadata();
+            var status = (Status?) getStatusMethod?.Invoke(asyncUnaryCall, null);
+            var metadata = (Metadata?) getTrailersMethod?.Invoke(asyncUnaryCall, null);
 
             return new ProxyGrpcRequestResultDto(
                 Response: (IMessage) response!,
-                Status: status,
-                Metadata: metadata
+                Status: status ?? Status.DefaultSuccess,
+                Metadata: metadata ?? new Metadata()
             );
         }
         catch (TargetInvocationException ex) when (ex.InnerException is RpcException exception)
         {
             return exception;
         }
-    }
-
-    private GrpcChannel CreateChannel(string url)
-    {
-        var channel = GrpcChannel.ForAddress(url);
-        channel.Intercept(_loggerInterceptorFactory.Create());
-        return channel;
     }
 
     private static MethodInfo? FindGrpcMethod(Type clientType, string methodName, object request)
